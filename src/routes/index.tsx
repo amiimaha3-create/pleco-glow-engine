@@ -2302,7 +2302,7 @@ function IntegrationsDemo() {
       ))}
 
       {/* Status bar */}
-      <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/[0.05] bg-black/20 px-2 py-1 text-[8.5px] text-white/60 backdrop-blur-sm">
+      <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/[0.05] bg-black/35 px-2 py-1 text-[8.5px] text-white/60">
         <div className="flex items-center gap-1">
           <span className="live-dot h-1 w-1 rounded-full bg-emerald-400" />
           <span>5 systems synced</span>
