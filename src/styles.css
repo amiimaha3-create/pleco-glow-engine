@@ -718,5 +718,79 @@
     100% { transform: scale(2.2); opacity: 0; }
   }
   .hub-ring { animation: hub-ring 2.6s ease-out infinite; }
+
+  /* ---------- Industries mini-demo animations ---------- */
+
+  @keyframes ind-spark {
+    0%   { stroke-dashoffset: 320; opacity: 0; }
+    15%  { opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  .ind-spark {
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320;
+    animation: ind-spark 4.5s ease-out infinite alternate;
+  }
+
+  @keyframes ind-bar {
+    0%   { transform: scaleY(0.15); }
+    100% { transform: scaleY(var(--h, 1)); }
+  }
+  .ind-bar {
+    transform-origin: bottom;
+    animation: ind-bar 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+  }
+
+  @keyframes ind-status {
+    0%, 25%   { background-color: rgba(250,204,21,0.18); color: rgb(253,224,71); }
+    35%, 65%  { background-color: rgba(99,102,241,0.18); color: rgb(165,180,252); }
+    75%, 100% { background-color: rgba(52,211,153,0.18); color: rgb(110,231,183); }
+  }
+  .ind-status { animation: ind-status 5s ease-in-out infinite; }
+
+  @keyframes ind-fill {
+    0%   { width: 0%; }
+    100% { width: var(--w, 70%); }
+  }
+  .ind-fill { animation: ind-fill 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+  @keyframes ind-truck {
+    0%   { offset-distance: 0%; }
+    100% { offset-distance: 100%; }
+  }
+  .ind-truck {
+    offset-path: path("M 8 38 C 60 38, 90 12, 150 22 S 240 50, 290 18");
+    offset-rotate: auto;
+    animation: ind-truck 6s linear infinite;
+  }
+  @keyframes ind-route {
+    0%   { stroke-dashoffset: 240; }
+    100% { stroke-dashoffset: 0; }
+  }
+  .ind-route {
+    stroke-dasharray: 5 6;
+    animation: ind-route 4s linear infinite;
+  }
+
+  @keyframes ind-card-slide {
+    0%, 8%    { transform: translateY(0); opacity: 0; }
+    16%, 32%  { transform: translateY(0); opacity: 1; }
+    48%, 64%  { transform: translateY(-100%); opacity: 1; }
+    80%, 96%  { transform: translateY(-200%); opacity: 1; }
+    100%      { transform: translateY(-200%); opacity: 0; }
+  }
+  .ind-card-slide { animation: ind-card-slide 7s ease-in-out infinite both; }
+
+  @keyframes ind-ring {
+    0%   { stroke-dashoffset: var(--circ, 220); }
+    100% { stroke-dashoffset: calc(var(--circ, 220) - var(--len, 160)); }
+  }
+  .ind-ring { animation: ind-ring 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+  @keyframes ind-step {
+    0%, 20%   { opacity: 0.35; }
+    30%, 100% { opacity: 1; }
+  }
+  .ind-step { animation: ind-step 4s ease-in-out infinite; }
 }
 
