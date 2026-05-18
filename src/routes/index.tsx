@@ -44,7 +44,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import heroDeveloper from "@/assets/hero-developer.jpg";
+
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
 
@@ -424,11 +424,12 @@ function Hero() {
     prefix?: string;
     decimals?: number;
     l: string;
+    i: typeof LayoutDashboard;
   }> = [
-    { value: 250, suffix: "+", l: "Businesses served" },
-    { value: 15, suffix: "+", l: "Countries" },
-    { value: 98, suffix: "%", l: "Client satisfaction" },
-    { value: 24, suffix: "/7", l: "Support" },
+    { value: 250, suffix: "+", l: "Systems delivered", i: LayoutDashboard },
+    { value: 15, suffix: "+", l: "Markets served", i: Globe },
+    { value: 98, suffix: "%", l: "Client retention", i: ShieldCheck },
+    { value: 24, suffix: "/7", l: "Operational support", i: Headphones },
   ];
 
   return (
@@ -441,7 +442,7 @@ function Hero() {
           className="absolute left-1/2 top-[-120px] h-[520px] w-[1100px] -translate-x-1/2 opacity-80"
           style={{
             background:
-              "radial-gradient(ellipse at center, rgba(99,102,241,0.28) 0%, rgba(124,58,237,0.18) 35%, transparent 70%)",
+              "radial-gradient(ellipse at center, rgba(99,102,241,0.30) 0%, rgba(124,58,237,0.20) 35%, transparent 70%)",
             filter: "blur(20px)",
           }}
         />
@@ -460,7 +461,7 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid items-start gap-8 md:gap-10 md:grid-cols-[1.05fr_1fr]">
+        <div className="grid items-center gap-10 md:gap-12 md:grid-cols-[1.02fr_1.1fr]">
           {/* Left */}
           <div className="relative">
             <div
@@ -471,28 +472,29 @@ function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
               </span>
-              Now onboarding clients across India, Africa & Asia
+              Premium product engineering · Onboarding select clients
             </div>
 
             <h1
-              className="hero-fade-up text-[36px] font-semibold leading-[1.02] tracking-[-0.035em] text-white sm:text-[56px] lg:text-[68px]"
+              className="hero-fade-up text-[36px] font-semibold leading-[1.02] tracking-[-0.035em] text-white sm:text-[56px] lg:text-[64px]"
               style={{
                 fontFamily: "Space Grotesk, Inter, sans-serif",
                 animationDelay: "120ms",
               }}
             >
-              Technology that helps
+              Build the systems
               <br />
-              businesses <span className="text-gradient-brand">scale.</span>
+              behind your{" "}
+              <span className="text-gradient-brand">growth.</span>
             </h1>
 
             <p
               className="hero-fade-up mt-4 max-w-xl text-[15px] leading-[1.65] text-white/70 sm:mt-5 sm:text-[16px]"
               style={{ animationDelay: "260ms" }}
             >
-              Pleco Lab builds custom websites, CRM systems, AI agents,
-              WhatsApp automation, and internal software for growth-focused
-              SMEs and enterprises.
+              Pleco Lab designs and engineers growth infrastructure — custom CRM
+              platforms, automation systems, AI workflows, high-converting
+              websites, and internal business software.
             </p>
 
             <div
@@ -500,7 +502,7 @@ function Hero() {
               style={{ animationDelay: "380ms" }}
             >
               <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
-                Book free consultation
+                Book strategy call
                 <ArrowRight className="btn-arrow h-4 w-4" />
               </PrimaryButton>
               <GhostButton size="lg" className="w-full justify-center sm:w-auto">
@@ -508,15 +510,24 @@ function Hero() {
               </GhostButton>
             </div>
 
-            {/* Trust stats */}
+            {/* Trust metrics — premium glass modules */}
             <div
-              className="hero-fade-up mt-7 grid max-w-xl grid-cols-2 gap-x-6 gap-y-4 sm:mt-8 sm:grid-cols-4 sm:gap-x-8"
+              className="hero-fade-up mt-7 grid max-w-xl grid-cols-2 gap-3 sm:mt-8 sm:grid-cols-4"
               style={{ animationDelay: "520ms" }}
             >
               {stats.map((s) => (
-                <div key={s.l}>
+                <div
+                  key={s.l}
+                  className="group relative overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.025] p-3 backdrop-blur-sm transition hover:border-white/15 hover:bg-white/[0.04]"
+                >
+                  <div className="flex items-center gap-1.5">
+                    <s.i className="h-3 w-3 text-indigo-300/80" />
+                    <span className="text-[9.5px] uppercase tracking-[0.12em] text-white/45">
+                      {s.l.split(" ")[0]}
+                    </span>
+                  </div>
                   <div
-                    className="text-[22px] font-semibold tracking-[-0.03em] text-white sm:text-[26px]"
+                    className="stable-metric mt-1 text-[22px] font-semibold tracking-[-0.03em] text-white sm:text-[24px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     <CountStat
@@ -526,13 +537,15 @@ function Hero() {
                       decimals={s.decimals}
                     />
                   </div>
-                  <div className="eyebrow mt-1.5">{s.l}</div>
+                  <div className="mt-0.5 text-[10.5px] text-white/55">
+                    {s.l.split(" ").slice(1).join(" ")}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right — hero visual (all viewports) */}
+          {/* Right — premium product command center */}
           <div
             className="hero-fade-up relative"
             style={{ animationDelay: "300ms" }}
@@ -548,167 +561,469 @@ function Hero() {
 /* ------------------------------ Hero Visual ------------------------------ */
 
 function HeroVisual() {
-  const floatCards: Array<{
-    i: any;
-    title: string;
-    sub: string;
+  // Static, pre-computed series — no state, no intervals, no layout shifts
+  const revenue = [22, 30, 27, 38, 34, 47, 53, 49, 62, 68, 64, 78, 74, 88, 83, 96].map(
+    (y, x) => ({ x, y })
+  );
+  const bars = [12, 18, 14, 22, 19, 28, 24, 31, 27, 35, 30, 40];
+  const pipeline = [
+    { stage: "New", count: 48, color: "#60a5fa", pct: 100 },
+    { stage: "Qualified", count: 32, color: "#818cf8", pct: 72 },
+    { stage: "Proposal", count: 19, color: "#a78bfa", pct: 48 },
+    { stage: "Won", count: 11, color: "#34d399", pct: 28 },
+  ];
+  const workflowNodes = [
+    { i: Globe, l: "Site form", active: true },
+    { i: Bot, l: "AI qualify", active: true },
+    { i: MessageCircle, l: "WhatsApp", active: true },
+    { i: CheckCircle2, l: "CRM sync", active: false },
+  ];
+
+  // Floating capability callouts (glass capsules), absolutely positioned,
+  // transform-only motion via .float-y
+  const capsules: Array<{
+    i: typeof LayoutDashboard;
+    t: string;
     pos: string;
-    color: string;
     delay: string;
+    tint: string;
   }> = [
     {
-      i: Globe,
-      title: "Website",
-      sub: "Next.js",
-      pos: "top-[6%] left-[18%]",
-      color: "from-indigo-500/25 to-indigo-500/5 border-indigo-400/30 text-indigo-200",
+      i: LayoutDashboard,
+      t: "CRM Systems",
+      pos: "top-[2%] -left-3 sm:-left-6",
       delay: "0s",
+      tint: "from-indigo-500/25 to-indigo-500/0 text-indigo-200 border-indigo-400/30",
     },
     {
-      i: Users,
-      title: "CRM",
-      sub: "Leads & Pipeline",
-      pos: "top-[14%] right-[6%]",
-      color: "from-violet-500/25 to-violet-500/5 border-violet-400/30 text-violet-200",
+      i: Workflow,
+      t: "Lead Automation",
+      pos: "top-[18%] -right-3 sm:-right-5",
       delay: "0.8s",
+      tint: "from-violet-500/25 to-violet-500/0 text-violet-200 border-violet-400/30",
     },
     {
       i: MessageCircle,
-      title: "WhatsApp",
-      sub: "Automation",
-      pos: "top-[28%] left-[4%]",
-      color: "from-emerald-500/25 to-emerald-500/5 border-emerald-400/30 text-emerald-200",
+      t: "WhatsApp Flows",
+      pos: "top-[44%] -left-4 sm:-left-8",
       delay: "1.4s",
+      tint: "from-emerald-500/25 to-emerald-500/0 text-emerald-200 border-emerald-400/30",
     },
     {
-      i: Sparkles,
-      title: "AI Agent",
-      sub: "Powering Growth",
-      pos: "top-[44%] right-[2%]",
-      color: "from-fuchsia-500/25 to-fuchsia-500/5 border-fuchsia-400/30 text-fuchsia-200",
+      i: Bot,
+      t: "AI Agents",
+      pos: "top-[60%] -right-3 sm:-right-6",
       delay: "0.4s",
+      tint: "from-fuchsia-500/25 to-fuchsia-500/0 text-fuchsia-200 border-fuchsia-400/30",
     },
     {
       i: Activity,
-      title: "Analytics",
-      sub: "Real-time Insights",
-      pos: "top-[60%] right-[10%]",
-      color: "from-cyan-500/25 to-cyan-500/5 border-cyan-400/30 text-cyan-200",
+      t: "Analytics Engine",
+      pos: "bottom-[6%] left-[8%]",
       delay: "1.1s",
+      tint: "from-cyan-500/25 to-cyan-500/0 text-cyan-200 border-cyan-400/30",
     },
-  ];
-
-  const trusted = [
-    { i: Plane, t: "FlyWorld", s: "Travels" },
-    { i: Stamp, t: "Global Visa", s: "Consultants" },
-    { i: GraduationCap, t: "EduConnect", s: "Consultants" },
-    { i: HeartPulse, t: "MediCare", s: "Healthcare" },
-    { i: Truck, t: "TradeX", s: "Import / Export" },
+    {
+      i: Globe2,
+      t: "Web Infrastructure",
+      pos: "bottom-[2%] right-[6%]",
+      delay: "1.8s",
+      tint: "from-sky-500/25 to-sky-500/0 text-sky-200 border-sky-400/30",
+    },
   ];
 
   return (
     <div className="relative">
-      {/* Ambient halos — atmospheric, behind everything */}
+      {/* Ambient halo */}
       <div
-        className="pointer-events-none absolute -inset-20 -z-10"
+        className="pointer-events-none absolute -inset-16 -z-10"
         style={{
           background:
-            "radial-gradient(50% 45% at 60% 38%, rgba(99,102,241,0.55), transparent 70%), radial-gradient(38% 38% at 20% 78%, rgba(168,85,247,0.38), transparent 72%), radial-gradient(35% 35% at 85% 75%, rgba(34,211,238,0.22), transparent 72%)",
+            "radial-gradient(55% 45% at 55% 40%, rgba(99,102,241,0.50), transparent 70%), radial-gradient(38% 38% at 18% 80%, rgba(168,85,247,0.32), transparent 72%), radial-gradient(35% 35% at 88% 78%, rgba(34,211,238,0.22), transparent 72%)",
           filter: "blur(28px)",
         }}
       />
 
-      {/* Free-flow visual stage — no frame, no border */}
-      <div className="relative aspect-square w-full overflow-visible">
-        {/* Photo bleeds into background via radial mask + vignette */}
+      {/* Outer stage — fixed height to prevent any layout shift */}
+      <div className="relative mx-auto h-[560px] w-full max-w-[600px] sm:h-[620px]">
+        {/* Glass sweep highlight (purely transform-based, behind product) */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
+          <div className="glass-sweep" aria-hidden />
+        </div>
+
+        {/* Premium product surface — fixed dimensions, no auto-resize */}
         <div
-          className="absolute inset-0"
+          className="glass-strong ring-glow float-y layout-locked absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[18px] p-3"
           style={{
-            WebkitMaskImage:
-              "radial-gradient(70% 70% at 55% 45%, #000 35%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 80%, transparent 100%)",
-            maskImage:
-              "radial-gradient(70% 70% at 55% 45%, #000 35%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 80%, transparent 100%)",
+            width: "min(100%, 520px)",
+            height: "500px",
+            background:
+              "linear-gradient(180deg, rgba(20,22,48,0.88) 0%, rgba(12,14,32,0.94) 100%)",
+            boxShadow:
+              "0 40px 80px -30px rgba(99,102,241,0.45), 0 12px 40px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
         >
-          <img
-            src={heroDeveloper}
-            alt="Developer working on Pleco Lab dashboard"
-            className="h-full w-full object-cover"
-            width={1280}
-            height={1280}
-          />
-          {/* Brand color wash + depth vignette */}
+          {/* Top edge reflection */}
           <div
-            className="absolute inset-0"
+            className="pointer-events-none absolute inset-x-0 top-0 h-px"
             style={{
               background:
-                "linear-gradient(180deg, rgba(6,11,26,0.10) 0%, rgba(6,11,26,0.45) 70%, rgba(6,11,26,1) 100%), radial-gradient(60% 60% at 70% 30%, rgba(99,102,241,0.28), transparent 70%)",
+                "linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)",
             }}
           />
-          {/* Subtle film grain via scanline */}
-          <div className="pointer-events-none absolute inset-0">
-            <div className="scanline" aria-hidden />
+
+          {/* Tech grid + scanline + corner brackets */}
+          <div className="tech-grid" aria-hidden />
+          <div className="scanline" aria-hidden />
+          <span className="pointer-events-none absolute left-2 top-2 h-3 w-3 border-l border-t border-indigo-300/60" aria-hidden />
+          <span className="pointer-events-none absolute right-2 top-2 h-3 w-3 border-r border-t border-violet-300/60" aria-hidden />
+          <span className="pointer-events-none absolute bottom-2 left-2 h-3 w-3 border-b border-l border-indigo-300/60" aria-hidden />
+          <span className="pointer-events-none absolute bottom-2 right-2 h-3 w-3 border-b border-r border-violet-300/60" aria-hidden />
+
+          {/* Data flow line under chrome */}
+          <div
+            className="dataflow pointer-events-none absolute left-0 right-0 top-[40px] h-px opacity-70"
+            aria-hidden
+          />
+
+          {/* Window chrome */}
+          <div className="relative flex items-center justify-between border-b border-white/[0.06] px-2 pb-2.5">
+            <div className="flex items-center gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-400/70" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-300/70" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
+            </div>
+            <div className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10.5px] text-white/55">
+              <ShieldCheck className="h-3 w-3 text-emerald-300/80" />
+              app.plecolab.io / workspace
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Search className="h-3 w-3 text-white/35" />
+              <Bell className="h-3 w-3 text-white/35" />
+              <div className="h-5 w-5 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 ring-1 ring-white/20" />
+            </div>
+          </div>
+
+          {/* Body */}
+          <div className="relative grid grid-cols-[108px,1fr] gap-2.5 pt-2.5">
+            {/* Sidebar */}
+            <div className="space-y-0.5 px-0.5">
+              {[
+                { i: LayoutDashboard, l: "Overview", a: true },
+                { i: Users, l: "CRM" },
+                { i: Workflow, l: "Automations" },
+                { i: Bot, l: "AI Agents" },
+                { i: MessageCircle, l: "Inbox", badge: 4 },
+                { i: Globe, l: "Websites" },
+              ].map((it) => (
+                <div
+                  key={it.l}
+                  className={`flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-[10.5px] ${
+                    it.a
+                      ? "bg-gradient-to-r from-indigo-500/20 to-violet-500/10 text-white ring-1 ring-inset ring-indigo-400/25"
+                      : "text-white/55"
+                  }`}
+                >
+                  <it.i className="h-3 w-3" />
+                  <span className="flex-1">{it.l}</span>
+                  {it.badge ? (
+                    <span className="rounded-full bg-indigo-500/90 px-1.5 text-[9px] font-medium text-white">
+                      {it.badge}
+                    </span>
+                  ) : null}
+                </div>
+              ))}
+              <div className="mt-2 rounded-lg border border-white/10 bg-gradient-to-br from-indigo-500/15 to-violet-500/10 p-2">
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="h-3 w-3 text-indigo-300" />
+                  <div className="text-[10px] font-medium text-white/95">Pleco AI</div>
+                </div>
+                <div className="mt-0.5 text-[9px] leading-snug text-white/55">
+                  14 deals auto-closed
+                </div>
+              </div>
+            </div>
+
+            {/* Main */}
+            <div className="space-y-2 pr-0.5">
+              {/* Header */}
+              <div className="flex items-center justify-between px-0.5">
+                <div>
+                  <div className="text-[9px] uppercase tracking-wider text-white/40">
+                    Workspace
+                  </div>
+                  <div className="text-[12px] font-semibold text-white">
+                    Growth overview
+                  </div>
+                </div>
+                <div className="inline-flex items-center gap-1 rounded-md border border-emerald-400/25 bg-emerald-400/10 px-1.5 py-0.5 text-[9px] font-medium text-emerald-300">
+                  <span className="relative inline-flex h-1.5 w-1.5">
+                    <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/70" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  </span>
+                  Live
+                </div>
+              </div>
+
+              {/* KPI row */}
+              <div className="grid grid-cols-3 gap-1.5">
+                {[
+                  { l: "Revenue", v: "$148K", d: "+24.6%", c: "#818cf8", ic: TrendingUp },
+                  { l: "Leads", v: "1,284", d: "+18.2%", c: "#a78bfa", ic: Users },
+                  { l: "Conv.", v: "9.4%", d: "+3.1%", c: "#67e8f9", ic: Activity },
+                ].map((k) => (
+                  <div
+                    key={k.l}
+                    className="relative h-[64px] overflow-hidden rounded-lg border border-white/[0.07] bg-white/[0.025] p-2"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="text-[9px] text-white/50">{k.l}</div>
+                      <k.ic className="h-2.5 w-2.5 text-white/30" />
+                    </div>
+                    <div
+                      className="stable-metric mt-0.5 text-[13px] font-semibold tracking-tight text-white"
+                      style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+                    >
+                      {k.v}
+                    </div>
+                    <div
+                      className="inline-flex items-center gap-0.5 text-[9px] font-medium"
+                      style={{ color: k.c }}
+                    >
+                      <TrendingUp className="h-2.5 w-2.5" /> {k.d}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Revenue chart */}
+              <div className="h-[120px] overflow-hidden rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
+                <div className="mb-1 flex items-center justify-between">
+                  <div className="text-[10px] font-medium text-white/90">
+                    Revenue growth
+                  </div>
+                  <div className="text-[9px] text-white/40">Live · streaming</div>
+                </div>
+                <div className="stable-chart h-[80px] w-full">
+                  {(() => {
+                    const pts = getChartPoints(revenue, 360, 80, 4);
+                    return (
+                      <svg
+                        viewBox="0 0 360 80"
+                        className="h-full w-full"
+                        preserveAspectRatio="none"
+                        aria-hidden
+                      >
+                        <defs>
+                          <linearGradient id="hv-g1" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                            <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                          </linearGradient>
+                          <linearGradient id="hv-gs" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stopColor="#a5b4fc" />
+                            <stop offset="100%" stopColor="#c084fc" />
+                          </linearGradient>
+                        </defs>
+                        <path d={areaPath(pts, 80, 4)} fill="url(#hv-g1)" />
+                        <path
+                          d={linePath(pts)}
+                          fill="none"
+                          stroke="url(#hv-gs)"
+                          strokeWidth="2"
+                          vectorEffect="non-scaling-stroke"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* Workflow strip */}
+              <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2">
+                <div className="mb-1.5 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <Workflow className="h-3 w-3 text-indigo-300" />
+                    <div className="text-[10px] font-medium text-white/90">
+                      Automation flow
+                    </div>
+                  </div>
+                  <div className="text-[9px] text-emerald-300/90">3 of 4 active</div>
+                </div>
+                <div className="flex items-center gap-1">
+                  {workflowNodes.map((n, i) => (
+                    <div key={n.l} className="flex flex-1 items-center gap-0.5">
+                      <div
+                        className={`flex flex-1 items-center gap-1 rounded-md border px-1.5 py-1 ${
+                          n.active
+                            ? "border-indigo-400/30 bg-indigo-500/10"
+                            : "border-white/10 bg-white/[0.02]"
+                        }`}
+                      >
+                        <div className="relative">
+                          <n.i
+                            className={`h-2.5 w-2.5 ${
+                              n.active ? "text-indigo-200" : "text-white/40"
+                            }`}
+                          />
+                          {n.active && (
+                            <span className="absolute -right-0.5 -top-0.5 h-1 w-1 rounded-full bg-emerald-400 shadow-[0_0_5px_#34d399]" />
+                          )}
+                        </div>
+                        <span
+                          className={`text-[9px] ${
+                            n.active ? "text-white/90" : "text-white/45"
+                          }`}
+                        >
+                          {n.l}
+                        </span>
+                      </div>
+                      {i < workflowNodes.length - 1 && (
+                        <ChevronRight className="h-2.5 w-2.5 shrink-0 text-white/25" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pipeline + Website bars */}
+              <div className="grid grid-cols-[1.15fr,1fr] gap-1.5">
+                <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2">
+                  <div className="mb-1 flex items-center justify-between">
+                    <div className="text-[10px] font-medium text-white/90">
+                      CRM pipeline
+                    </div>
+                    <div className="text-[9px] text-white/40">110</div>
+                  </div>
+                  <div className="space-y-1">
+                    {pipeline.map((p) => (
+                      <div key={p.stage} className="flex items-center gap-1.5">
+                        <span
+                          className="h-1.5 w-1.5 rounded-full"
+                          style={{ background: p.color, boxShadow: `0 0 6px ${p.color}` }}
+                        />
+                        <div className="w-12 text-[9px] text-white/65">{p.stage}</div>
+                        <div className="relative h-1 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
+                          <div
+                            className="absolute inset-y-0 left-0 rounded-full"
+                            style={{
+                              width: `${p.pct}%`,
+                              background: `linear-gradient(90deg, ${p.color}, ${p.color}99)`,
+                              boxShadow: `0 0 8px ${p.color}55`,
+                            }}
+                          />
+                        </div>
+                        <div className="w-5 text-right text-[9px] font-medium text-white/80">
+                          {p.count}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2">
+                  <div className="mb-1 flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Globe className="h-2.5 w-2.5 text-cyan-300" />
+                      <div className="text-[10px] font-medium text-white/90">
+                        Website
+                      </div>
+                    </div>
+                    <div className="text-[9px] text-emerald-300">+12</div>
+                  </div>
+                  <div className="stable-chart h-[34px] w-full">
+                    <svg
+                      viewBox="0 0 160 34"
+                      className="h-full w-full"
+                      preserveAspectRatio="none"
+                      aria-hidden
+                    >
+                      <defs>
+                        <linearGradient id="hv-bg1" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#a78bfa" />
+                          <stop offset="100%" stopColor="#6366f1" />
+                        </linearGradient>
+                      </defs>
+                      {bars.map((y, i) => {
+                        const barW = 8;
+                        const gap = 5;
+                        const max = 40;
+                        const h = Math.max(4, (y / max) * 30);
+                        return (
+                          <rect
+                            key={i}
+                            x={4 + i * (barW + gap)}
+                            y={32 - h}
+                            width={barW}
+                            height={h}
+                            rx="2"
+                            fill="url(#hv-bg1)"
+                          />
+                        );
+                      })}
+                    </svg>
+                  </div>
+                  <div className="mt-0.5 flex items-center justify-between text-[8.5px] text-white/45">
+                    <span>plecolab.io</span>
+                    <span className="text-white/70">82/wk</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Light bloom — top-right */}
-        <div
-          className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(165,180,252,0.45), transparent 65%)",
-            filter: "blur(30px)",
-          }}
-        />
-
-        {/* Ambient drifting particles */}
+        {/* Connection paths from capsules to dashboard (decorative) */}
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full"
-          viewBox="0 0 400 400"
+          viewBox="0 0 600 620"
+          fill="none"
           aria-hidden
         >
-          {Array.from({ length: 14 }).map((_, i) => {
-            const cx = 30 + ((i * 53) % 340);
-            const cy = 40 + ((i * 89) % 320);
-            const r = 0.8 + (i % 3) * 0.4;
-            const delay = `${(i * 0.45) % 5}s`;
-            return (
-              <circle
-                key={i}
-                cx={cx}
-                cy={cy}
-                r={r}
-                fill={i % 2 === 0 ? "#c7d2fe" : "#a78bfa"}
-                opacity="0.55"
-                className="float-particle"
-                style={{ animationDelay: delay }}
-              />
-            );
-          })}
+          <defs>
+            <linearGradient id="hv-cl-1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#a5b4fc" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="hv-cl-2" x1="1" y1="0" x2="0" y2="0">
+              <stop offset="0%" stopColor="#c084fc" stopOpacity="0.65" />
+              <stop offset="100%" stopColor="#c084fc" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="hv-cl-3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#67e8f9" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#67e8f9" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path d="M50 40 C 140 80, 200 110, 300 130" stroke="url(#hv-cl-1)" strokeWidth="1" strokeDasharray="3 5" className="flow-line" />
+          <path d="M560 130 C 460 160, 400 170, 300 180" stroke="url(#hv-cl-2)" strokeWidth="1" strokeDasharray="3 5" className="flow-line" />
+          <path d="M40 290 C 130 290, 200 290, 300 290" stroke="url(#hv-cl-3)" strokeWidth="1" strokeDasharray="3 5" className="flow-line" />
+          <path d="M570 380 C 470 380, 400 380, 300 370" stroke="url(#hv-cl-1)" strokeWidth="1" strokeDasharray="3 5" className="flow-line" />
+          <path d="M70 560 C 180 530, 240 500, 300 470" stroke="url(#hv-cl-2)" strokeWidth="1" strokeDasharray="3 5" className="flow-line" />
+          <path d="M540 580 C 440 540, 380 510, 300 480" stroke="url(#hv-cl-3)" strokeWidth="1" strokeDasharray="3 5" className="flow-line" />
         </svg>
 
-        {/* Floating feature nodes — glass, soft glow, free-floating */}
-        {floatCards.map((c) => (
+        {/* Floating capability capsules */}
+        {capsules.map((c) => (
           <div
-            key={c.title}
-            className={`absolute ${c.pos} float-y`}
+            key={c.t}
+            className={`absolute ${c.pos} float-y z-10`}
             style={{ animationDelay: c.delay }}
           >
             <div
-              className="group/node relative flex items-center gap-2 rounded-2xl border border-white/10 px-3 py-2 backdrop-blur-xl"
+              className="relative flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 backdrop-blur-xl"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(15,18,40,0.78) 0%, rgba(10,12,28,0.72) 100%)",
+                  "linear-gradient(180deg, rgba(15,18,40,0.82) 0%, rgba(10,12,28,0.75) 100%)",
                 boxShadow:
                   "0 14px 40px -14px rgba(99,102,241,0.55), inset 0 1px 0 rgba(255,255,255,0.08)",
               }}
             >
-              {/* node glow ring */}
               <span
-                className="pointer-events-none absolute -inset-px rounded-2xl opacity-60"
+                className="pointer-events-none absolute -inset-px rounded-full opacity-70"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(165,180,252,0.35), transparent 60%)",
+                    "linear-gradient(135deg, rgba(165,180,252,0.4), transparent 60%)",
                   WebkitMask:
                     "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
                   WebkitMaskComposite: "xor",
@@ -716,69 +1031,45 @@ function HeroVisual() {
                   padding: "1px",
                 }}
               />
-              <div
-                className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-gradient-to-br ${c.color}`}
+              <span
+                className={`flex h-5 w-5 items-center justify-center rounded-full border bg-gradient-to-br ${c.tint}`}
               >
-                <c.i className="h-3.5 w-3.5" />
-              </div>
-              <div className="leading-tight">
-                <div className="text-[12px] font-semibold tracking-tight text-white">
-                  {c.title}
-                </div>
-                <div className="text-[10px] text-white/55">{c.sub}</div>
-              </div>
-              {/* pulse indicator */}
-              <span className="ml-1 h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
+                <c.i className="h-2.5 w-2.5" />
+              </span>
+              <span className="text-[11px] font-semibold tracking-tight text-white">
+                {c.t}
+              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399] animate-pulse" />
             </div>
           </div>
         ))}
 
-        {/* Animated connection paths between nodes */}
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          viewBox="0 0 400 500"
-          fill="none"
+        {/* Orbiting tech particles around stage */}
+        <span
+          className="orbit"
+          style={{
+            ['--r' as never]: '230px',
+            animationDuration: '18s',
+            background: '#a5b4fc',
+            boxShadow: '0 0 12px #818cf8, 0 0 24px #818cf8',
+          }}
           aria-hidden
-        >
-          <defs>
-            <linearGradient id="hv-stroke" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.75" />
-              <stop offset="100%" stopColor="#c084fc" stopOpacity="0.0" />
-            </linearGradient>
-            <linearGradient id="hv-stroke-2" x1="1" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#67e8f9" stopOpacity="0.65" />
-              <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.0" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M120 70 C 170 110, 220 110, 320 100"
-            stroke="url(#hv-stroke)"
-            strokeWidth="1.1"
-            strokeDasharray="3 5"
-            className="flow-line"
-          />
-          <path
-            d="M60 180 C 130 200, 200 220, 360 240"
-            stroke="url(#hv-stroke-2)"
-            strokeWidth="1.1"
-            strokeDasharray="3 5"
-            className="flow-line"
-          />
-          <path
-            d="M340 240 C 300 290, 280 320, 260 360"
-            stroke="url(#hv-stroke)"
-            strokeWidth="1.1"
-            strokeDasharray="3 5"
-            className="flow-line"
-          />
-          <path
-            d="M70 320 C 140 320, 200 360, 280 380"
-            stroke="url(#hv-stroke-2)"
-            strokeWidth="1.1"
-            strokeDasharray="3 5"
-            className="flow-line"
-          />
-        </svg>
+        />
+        <span
+          className="orbit"
+          style={{
+            ['--r' as never]: '280px',
+            animationDuration: '26s',
+            animationDirection: 'reverse',
+            background: '#c084fc',
+            boxShadow: '0 0 10px #a78bfa, 0 0 20px #a78bfa',
+            width: 6,
+            height: 6,
+            marginTop: -3,
+            marginLeft: -3,
+          }}
+          aria-hidden
+        />
       </div>
     </div>
   );
@@ -1481,12 +1772,32 @@ function BrandWordmark({ name }: { name: string }) {
 
 function TrustStrip() {
   const brands = ["FlyWorld", "GlobalVisa", "EduConnect", "MediCare", "TradeX", "Northwind", "Lumen"];
+  const sectors = [
+    { i: Stamp, t: "Immigration" },
+    { i: Plane, t: "Travel" },
+    { i: GraduationCap, t: "Education" },
+    { i: HeartPulse, t: "Healthcare" },
+    { i: ShoppingBag, t: "Retail" },
+  ];
   return (
     <section className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="text-center eyebrow">Trusted by growth-focused teams worldwide</div>
-        <div className="hairline mx-auto mt-5 max-w-3xl" />
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10 md:gap-x-12">
+        <div className="text-center eyebrow">
+          Trusted by growth-focused businesses across
+        </div>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+          {sectors.map((s) => (
+            <div
+              key={s.t}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/75 backdrop-blur"
+            >
+              <s.i className="h-3 w-3 text-indigo-300/80" />
+              {s.t}
+            </div>
+          ))}
+        </div>
+        <div className="hairline mx-auto mt-8 max-w-3xl" />
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10 md:gap-x-12">
           {brands.map((b) => (
             <BrandWordmark key={b} name={b} />
           ))}
