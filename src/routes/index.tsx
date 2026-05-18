@@ -2686,75 +2686,400 @@ function Industries() {
 /* -------------------------------- Why Pleco ------------------------------- */
 
 function WhyPleco() {
-  const items = [
-    {
-      i: Zap,
-      t: "Ship in weeks, not quarters",
-      d: "Fixed-scope sprints, weekly demos, no theatrical kickoffs. You see working software inside 14 days.",
-      points: ["Fixed-scope sprints", "Weekly working demos", "Production in 6–8 weeks"],
-    },
-    {
-      i: Layers,
-      t: "One team, full stack",
-      d: "Design, engineering, automation, and systems — under one roof. No agency handoffs, no integration tax.",
-      points: ["Senior product engineers", "In-house design + AI", "Single point of contact"],
-    },
-    {
-      i: ShieldCheck,
-      t: "Built to scale with you",
-      d: "Architecture reviewed for 10× growth from day one. No throwaway rewrites at the first inflection point.",
-      points: ["Cloud-native by default", "Role-based access + audit", "Cost-modelled at every layer"],
-    },
-    {
-      i: TrendingUp,
-      t: "Outcomes, not deliverables",
-      d: "Every engagement is tied to a measurable revenue or efficiency KPI. We report on outcomes — not tickets closed.",
-      points: ["Revenue & efficiency KPIs", "Monthly business reviews", "Continuous iteration"],
-    },
-  ];
   return (
     <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Why Pleco Lab"
           title={<>The unfair advantage of a <span className="text-gradient-brand">product team</span>.</>}
-          subtitle="A partner that combines product thinking, engineering, and operational depth — under one roof."
+          subtitle="A strategic product engineering partner that moves faster, builds smarter, and stays accountable for outcomes."
         />
 
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {items.map((it) => (
-            <div key={it.t} className="card-premium relative overflow-hidden p-6 sm:p-7">
-              <div className="flex items-start gap-4">
-                <div className="icon-tile icon-tile-lg shrink-0">
-                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
-                </div>
-                <div>
-                  <h3
-                    className="text-[18px] font-semibold tracking-[-0.02em] text-white sm:text-[20px]"
-                    style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-                  >
-                    {it.t}
-                  </h3>
-                  <p className="mt-2 text-[14px] leading-[1.65] text-white/65">{it.d}</p>
-                  <ul className="mt-4 space-y-1.5">
-                    {it.points.map((p) => (
-                      <li key={p} className="flex items-center gap-2 text-[13px] text-white/75">
-                        <div className="flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500/15 ring-1 ring-indigo-400/30">
-                          <Check className="h-2.5 w-2.5 text-indigo-200" strokeWidth={2} />
-                        </div>
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6">
+          <WhySpeedCard />
+          <WhyStackCard />
+          <WhyScaleCard />
+          <WhyOutcomesCard />
         </div>
       </div>
     </section>
   );
 }
+
+/* ---- Why Pleco — individual differentiator cards ---- */
+
+function WhyCardShell({
+  icon: Icon,
+  eyebrow,
+  title,
+  blurb,
+  accent,
+  children,
+}: {
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  eyebrow: string;
+  title: string;
+  blurb: string;
+  accent: "blue" | "red";
+  children: React.ReactNode;
+}) {
+  const ring =
+    accent === "blue"
+      ? "ring-1 ring-sky-400/30 bg-sky-400/10 text-sky-200"
+      : "ring-1 ring-rose-400/30 bg-rose-400/10 text-rose-200";
+  return (
+    <div className="wp-card wp-card-lock anim-isolate flex flex-col p-5 sm:p-6">
+      <div className="flex items-start gap-3">
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${ring}`}>
+          <Icon className="h-[18px] w-[18px]" strokeWidth={1.6} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-white/45">
+            {eyebrow}
+          </div>
+          <h3
+            className="mt-1 text-[19px] font-semibold leading-tight tracking-[-0.02em] text-white sm:text-[20px]"
+            style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+          >
+            {title}
+          </h3>
+        </div>
+      </div>
+      <p className="mt-3 text-[13.5px] leading-[1.6] text-white/60">{blurb}</p>
+      <div className="wp-demo-slot mt-4 rounded-xl border border-white/[0.06] bg-[#070914]/60">
+        <div className="wp-shimmer" />
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function WhySpeedCard() {
+  const steps = [
+    { w: "Week 1",   label: "Discovery",        pct: 1.0,  state: "done" as const },
+    { w: "Week 2",   label: "Product architecture", pct: 1.0, state: "done" as const },
+    { w: "Week 3",   label: "Working prototype", pct: 0.72, state: "live" as const },
+    { w: "Week 4–6", label: "Production deploy", pct: 0.18, state: "next" as const },
+  ];
+  return (
+    <WhyCardShell
+      icon={Zap}
+      eyebrow="Velocity"
+      title="Ship in weeks, not quarters."
+      blurb="Fixed-scope sprints, weekly demos, working software inside 14 days."
+      accent="blue"
+    >
+      <div className="absolute inset-0 flex flex-col gap-2.5 px-4 py-4">
+        <div className="flex items-center justify-between">
+          <span className="wp-chip wp-chip-blue">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inset-0 rounded-full bg-sky-400 wp-pulse-soft" />
+              <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-sky-300" />
+            </span>
+            Sprint 03 · live
+          </span>
+          <span className="text-[10.5px] text-white/45 stable-metric">DAY 17 / 42</span>
+        </div>
+        {steps.map((s, i) => (
+          <div key={s.w} className="wp-step-pop" style={{ animationDelay: `${i * 120}ms` }}>
+            <div className="flex items-center justify-between text-[11.5px]">
+              <div className="flex items-center gap-2">
+                <span className="w-[58px] text-white/45 stable-metric">{s.w}</span>
+                <span className="text-white/85">{s.label}</span>
+              </div>
+              <span
+                className={
+                  s.state === "done"
+                    ? "text-emerald-300/90"
+                    : s.state === "live"
+                      ? "text-sky-300"
+                      : "text-white/35"
+                }
+              >
+                {s.state === "done" ? "✓ done" : s.state === "live" ? "in progress" : "queued"}
+              </span>
+            </div>
+            <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/[0.05]">
+              <div
+                className="wp-progress h-full rounded-full"
+                style={{
+                  width: "100%",
+                  ["--p" as any]: s.pct,
+                  background:
+                    s.state === "done"
+                      ? "linear-gradient(90deg,#34d399,#22d3ee)"
+                      : s.state === "live"
+                        ? "linear-gradient(90deg,#38bdf8,#818cf8)"
+                        : "linear-gradient(90deg,#475569,#334155)",
+                  animationDelay: `${i * 120 + 200}ms`,
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </WhyCardShell>
+  );
+}
+
+function WhyStackCard() {
+  // Architecture nodes laid out on a 320x180 viewBox
+  const nodes = [
+    { x: 30,  y: 30,  label: "Design",      tone: "#a5f3fc" },
+    { x: 30,  y: 150, label: "Frontend",    tone: "#bae6fd" },
+    { x: 160, y: 30,  label: "Backend",     tone: "#c7d2fe" },
+    { x: 160, y: 150, label: "CRM",         tone: "#fecaca" },
+    { x: 290, y: 30,  label: "Automation",  tone: "#fde68a" },
+    { x: 290, y: 150, label: "AI",          tone: "#ddd6fe" },
+  ];
+  const paths = [
+    "M 30 30  C 90 30, 100 90, 160 90",
+    "M 30 150 C 90 150, 100 90, 160 90",
+    "M 160 30  L 160 150",
+    "M 160 90 C 220 90, 230 30, 290 30",
+    "M 160 90 C 220 90, 230 150, 290 150",
+    "M 290 30  L 290 150",
+  ];
+  return (
+    <WhyCardShell
+      icon={Layers}
+      eyebrow="Full stack"
+      title="One team, full stack."
+      blurb="Design, engineering, automation and AI under one roof — no integration tax."
+      accent="red"
+    >
+      <div className="absolute inset-0 px-4 py-4">
+        <div className="flex items-center justify-between">
+          <span className="wp-chip wp-chip-red">
+            <Activity className="h-2.5 w-2.5" strokeWidth={2.2} />
+            6 layers · orchestrated
+          </span>
+          <span className="text-[10.5px] text-white/45 stable-metric">100% in-house</span>
+        </div>
+        <svg viewBox="0 0 320 180" className="mt-2 h-[156px] w-full" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="wp-edge" x1="0" x2="1">
+              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#ef4444" stopOpacity="0.55" />
+            </linearGradient>
+            <linearGradient id="wp-packet-grad" x1="0" x2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+              <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {paths.map((d, i) => (
+            <g key={i}>
+              <path d={d} fill="none" stroke="url(#wp-edge)" strokeWidth="1" opacity="0.45" />
+              <path
+                d={d}
+                fill="none"
+                stroke="#e0f2fe"
+                strokeWidth="1.5"
+                className="wp-packet"
+                style={{ animationDelay: `${i * 0.45}s` }}
+              />
+            </g>
+          ))}
+          {nodes.map((n, i) => (
+            <g key={n.label} transform={`translate(${n.x} ${n.y})`}>
+              <circle r="14" fill="#0b0f1f" stroke="rgba(255,255,255,0.14)" />
+              <circle
+                r="14"
+                fill="none"
+                stroke={n.tone}
+                strokeOpacity="0.6"
+                className="wp-node-glow"
+                style={{ animationDelay: `${i * 0.3}s` }}
+              />
+              <circle r="3" fill={n.tone} />
+              <text
+                x="0"
+                y="30"
+                textAnchor="middle"
+                fill="rgba(255,255,255,0.78)"
+                fontSize="9.5"
+                fontFamily="Inter, sans-serif"
+              >
+                {n.label}
+              </text>
+            </g>
+          ))}
+        </svg>
+      </div>
+    </WhyCardShell>
+  );
+}
+
+function WhyScaleCard() {
+  const bars = [0.35, 0.5, 0.42, 0.68, 0.58, 0.78, 0.7, 0.88, 0.82, 0.95];
+  return (
+    <WhyCardShell
+      icon={ShieldCheck}
+      eyebrow="Scale"
+      title="Built to scale with you."
+      blurb="Cloud-native, cost-modelled, audited — engineered for 10× growth from day one."
+      accent="blue"
+    >
+      <div className="absolute inset-0 flex flex-col px-4 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="wp-chip wp-chip-green">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              99.98% uptime
+            </span>
+            <span className="wp-chip">p95 · 142ms</span>
+          </div>
+          <span className="text-[10.5px] text-white/45 stable-metric wp-uptime-tick">us-east · live</span>
+        </div>
+
+        {/* Bars */}
+        <div className="relative mt-3 h-[88px] w-full">
+          <div className="absolute inset-x-0 top-1/2 h-px bg-white/[0.05]" />
+          <div className="absolute inset-0 flex items-end justify-between gap-1.5">
+            {bars.map((h, i) => (
+              <div key={i} className="relative flex-1">
+                <div
+                  className="wp-bar w-full rounded-sm"
+                  style={{
+                    height: "88px",
+                    ["--h" as any]: h,
+                    background:
+                      i === bars.length - 1
+                        ? "linear-gradient(180deg,#f87171,#fca5a5)"
+                        : "linear-gradient(180deg,#38bdf8,#0ea5e9)",
+                    animationDelay: `${i * 80}ms`,
+                    opacity: 0.85,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Layer cards */}
+        <div className="mt-3 grid grid-cols-3 gap-1.5">
+          {[
+            { l: "Edge", v: "12 PoP" },
+            { l: "API",  v: "8 / 8" },
+            { l: "DB",   v: "rw + 2ro" },
+          ].map((x) => (
+            <div
+              key={x.l}
+              className="flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-1.5"
+            >
+              <span className="text-[10.5px] text-white/50">{x.l}</span>
+              <span className="text-[10.5px] font-medium text-white/85 stable-metric">{x.v}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </WhyCardShell>
+  );
+}
+
+function WhyOutcomesCard() {
+  // 12-point area
+  const pts = [12, 18, 16, 24, 30, 28, 38, 44, 42, 56, 64, 78];
+  const W = 320, H = 96, PAD = 4;
+  const max = 80;
+  const step = (W - PAD * 2) / (pts.length - 1);
+  const coords = pts.map((v, i) => [PAD + i * step, H - PAD - (v / max) * (H - PAD * 2)] as const);
+  const line = coords.map(([x, y], i) => `${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
+  const area =
+    `M ${coords[0][0].toFixed(1)} ${H - PAD} ` +
+    coords.map(([x, y]) => `L ${x.toFixed(1)} ${y.toFixed(1)}`).join(" ") +
+    ` L ${coords[coords.length - 1][0].toFixed(1)} ${H - PAD} Z`;
+
+  return (
+    <WhyCardShell
+      icon={TrendingUp}
+      eyebrow="Outcomes"
+      title="Outcomes, not deliverables."
+      blurb="Every engagement tied to a measurable revenue or efficiency KPI — reviewed monthly."
+      accent="red"
+    >
+      <div className="absolute inset-0 flex flex-col px-4 py-4">
+        <div className="flex items-end justify-between">
+          <div className="wp-kpi-rise">
+            <div className="text-[10.5px] uppercase tracking-[0.14em] text-white/45">Revenue impact</div>
+            <div className="mt-0.5 flex items-baseline gap-2">
+              <span
+                className="stable-metric text-[28px] font-semibold tracking-[-0.03em] text-white"
+                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              >
+                +42.8%
+              </span>
+              <span className="wp-chip wp-chip-green">
+                <TrendingUp className="h-2.5 w-2.5" strokeWidth={2.2} />
+                QoQ
+              </span>
+            </div>
+          </div>
+          <span className="text-[10.5px] text-white/45 stable-metric">vs. baseline</span>
+        </div>
+
+        <div className="relative mt-2 h-[96px] w-full">
+          <svg viewBox={`0 0 ${W} ${H}`} className="h-full w-full" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="wp-out-area" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#f87171" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#f87171" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="wp-out-line" x1="0" x2="1">
+                <stop offset="0%" stopColor="#38bdf8" />
+                <stop offset="100%" stopColor="#f87171" />
+              </linearGradient>
+            </defs>
+            <path d={area} fill="url(#wp-out-area)" opacity="0.85" />
+            <path
+              d={line}
+              fill="none"
+              stroke="url(#wp-out-line)"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="wp-area-draw"
+            />
+            <circle
+              cx={coords[coords.length - 1][0]}
+              cy={coords[coords.length - 1][1]}
+              r="3"
+              fill="#fca5a5"
+            />
+            <circle
+              cx={coords[coords.length - 1][0]}
+              cy={coords[coords.length - 1][1]}
+              r="6"
+              fill="none"
+              stroke="#fca5a5"
+              strokeOpacity="0.5"
+              className="wp-pulse-soft"
+            />
+          </svg>
+        </div>
+
+        <div className="mt-2 grid grid-cols-3 gap-1.5">
+          {[
+            { l: "Automation saved", v: "1,840h" },
+            { l: "Conversion",       v: "+31%" },
+            { l: "Ops efficiency",   v: "92" },
+          ].map((x, i) => (
+            <div
+              key={x.l}
+              className="wp-kpi-rise rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-1.5"
+              style={{ animationDelay: `${200 + i * 120}ms` }}
+            >
+              <div className="text-[9.5px] uppercase tracking-[0.1em] text-white/40">{x.l}</div>
+              <div className="mt-0.5 text-[12.5px] font-medium text-white stable-metric">{x.v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </WhyCardShell>
+  );
+}
+
 
 /* ------------------------------- Case Studies ----------------------------- */
 

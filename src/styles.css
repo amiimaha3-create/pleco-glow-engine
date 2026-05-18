@@ -893,5 +893,156 @@
     30%, 100% { opacity: 1; }
   }
   .ind-step { animation: ind-step 4s ease-in-out infinite; }
+
+  /* ---------- Why Pleco — premium differentiator demos ---------- */
+
+  .wp-card-lock {
+    height: 440px;
+    min-height: 440px;
+    max-height: 440px;
+  }
+  .wp-demo-slot {
+    height: 230px;
+    min-height: 230px;
+    max-height: 230px;
+    overflow: hidden;
+    contain: layout paint style;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  @keyframes wp-progress {
+    0%   { transform: scaleX(0); }
+    100% { transform: scaleX(var(--p, 1)); }
+  }
+  .wp-progress {
+    transform-origin: left center;
+    animation: wp-progress 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes wp-pulse-soft {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50%      { transform: scale(1.45); opacity: 0.25; }
+  }
+  .wp-pulse-soft { animation: wp-pulse-soft 2.2s ease-in-out infinite; }
+
+  @keyframes wp-step-pop {
+    0%   { opacity: 0; transform: translateY(4px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .wp-step-pop { animation: wp-step-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  @keyframes wp-packet {
+    0%   { stroke-dashoffset: 600; opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 0; }
+  }
+  .wp-packet {
+    stroke-dasharray: 14 600;
+    animation: wp-packet 3.6s linear infinite;
+  }
+
+  @keyframes wp-node-glow {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+  }
+  .wp-node-glow { animation: wp-node-glow 2.4s ease-in-out infinite; }
+
+  @keyframes wp-bar {
+    0%   { transform: scaleY(0.18); }
+    100% { transform: scaleY(var(--h, 0.8)); }
+  }
+  .wp-bar {
+    transform-origin: bottom center;
+    animation: wp-bar 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes wp-traffic {
+    0%   { stroke-dashoffset: 480; }
+    100% { stroke-dashoffset: 0; }
+  }
+  .wp-traffic {
+    stroke-dasharray: 480;
+    animation: wp-traffic 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes wp-uptime-tick {
+    0%, 92%  { opacity: 1; }
+    96%      { opacity: 0.35; }
+    100%     { opacity: 1; }
+  }
+  .wp-uptime-tick { animation: wp-uptime-tick 3.2s ease-in-out infinite; }
+
+  @keyframes wp-area-draw {
+    0%   { stroke-dashoffset: 520; }
+    100% { stroke-dashoffset: 0; }
+  }
+  .wp-area-draw {
+    stroke-dasharray: 520;
+    animation: wp-area-draw 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes wp-kpi-rise {
+    0%   { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .wp-kpi-rise { animation: wp-kpi-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  @keyframes wp-shimmer {
+    0%   { transform: translateX(-120%); }
+    100% { transform: translateX(220%); }
+  }
+  .wp-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.06) 50%, transparent 65%);
+    animation: wp-shimmer 6s linear infinite;
+    pointer-events: none;
+  }
+
+  .wp-card {
+    position: relative;
+    background:
+      radial-gradient(120% 80% at 0% 0%, rgba(56,189,248,0.07), transparent 60%),
+      radial-gradient(120% 80% at 100% 100%, rgba(239,68,68,0.06), transparent 60%),
+      linear-gradient(180deg, rgba(14,17,32,0.82) 0%, rgba(10,12,24,0.76) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.05),
+      0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .wp-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgba(56,189,248,0.20), rgba(255,255,255,0.04) 45%, rgba(239,68,68,0.16));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .wp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(255,255,255,0.78);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    white-space: nowrap;
+  }
+  .wp-chip-blue  { color: #bae6fd; background: rgba(56,189,248,0.08);  border-color: rgba(56,189,248,0.24); }
+  .wp-chip-red   { color: #fecaca; background: rgba(239,68,68,0.08);   border-color: rgba(239,68,68,0.24); }
+  .wp-chip-green { color: #bbf7d0; background: rgba(34,197,94,0.08);   border-color: rgba(34,197,94,0.24); }
 }
 
