@@ -334,7 +334,7 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid items-start gap-12 md:grid-cols-[1.05fr,1fr]">
+        <div className="grid items-start gap-10 md:gap-12 md:grid-cols-[1.05fr,1fr]">
           {/* Left */}
           <div className="relative">
             <div
