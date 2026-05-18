@@ -335,11 +335,11 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid items-start gap-10 md:gap-12 md:grid-cols-[1.05fr_1fr]">
+        <div className="grid items-start gap-8 md:gap-10 md:grid-cols-[1.05fr_1fr]">
           {/* Left */}
           <div className="relative">
             <div
-              className="hero-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-white/80 backdrop-blur"
+              className="hero-fade-up mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12px] text-white/80 backdrop-blur"
               style={{ animationDelay: "0ms" }}
             >
               <span className="relative flex h-1.5 w-1.5">
@@ -350,7 +350,7 @@ function Hero() {
             </div>
 
             <h1
-              className="hero-fade-up text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
+              className="hero-fade-up text-[36px] font-semibold leading-[1.02] tracking-[-0.035em] text-white sm:text-[56px] lg:text-[68px]"
               style={{
                 fontFamily: "Space Grotesk, Inter, sans-serif",
                 animationDelay: "120ms",
@@ -362,7 +362,7 @@ function Hero() {
             </h1>
 
             <p
-              className="hero-fade-up mt-5 max-w-xl text-[15px] leading-relaxed text-white/65 sm:mt-6 sm:text-[16.5px]"
+              className="hero-fade-up mt-4 max-w-xl text-[15px] leading-[1.65] text-white/70 sm:mt-5 sm:text-[16px]"
               style={{ animationDelay: "260ms" }}
             >
               Pleco Lab builds custom websites, CRM systems, AI agents,
@@ -371,7 +371,7 @@ function Hero() {
             </p>
 
             <div
-              className="hero-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center"
+              className="hero-fade-up mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
               style={{ animationDelay: "380ms" }}
             >
               <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
@@ -385,13 +385,13 @@ function Hero() {
 
             {/* Trust stats */}
             <div
-              className="hero-fade-up mt-10 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 sm:mt-12 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-6"
+              className="hero-fade-up mt-7 grid max-w-xl grid-cols-2 gap-x-6 gap-y-4 sm:mt-8 sm:grid-cols-4 sm:gap-x-8"
               style={{ animationDelay: "520ms" }}
             >
               {stats.map((s) => (
                 <div key={s.l}>
                   <div
-                    className="text-[22px] font-semibold tracking-tight text-white sm:text-[26px]"
+                    className="text-[22px] font-semibold tracking-[-0.03em] text-white sm:text-[26px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     <CountStat
@@ -401,9 +401,7 @@ function Hero() {
                       decimals={s.decimals}
                     />
                   </div>
-                  <div className="mt-1 text-[11px] uppercase tracking-wider text-white/45 sm:text-[12px]">
-                    {s.l}
-                  </div>
+                  <div className="eyebrow mt-1.5">{s.l}</div>
                 </div>
               ))}
             </div>
