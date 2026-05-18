@@ -1769,36 +1769,53 @@ function BrandWordmark({ name }: { name: string }) {
 }
 
 function TrustStrip() {
-  const brands = ["FlyWorld", "GlobalVisa", "EduConnect", "MediCare", "TradeX", "Northwind", "Lumen"];
-  const sectors = [
-    { i: Stamp, t: "Immigration" },
-    { i: Plane, t: "Travel" },
-    { i: GraduationCap, t: "Education" },
-    { i: HeartPulse, t: "Healthcare" },
-    { i: ShoppingBag, t: "Retail" },
+  const brands: Array<{ i: typeof Plane; name: string; cat: string }> = [
+    { i: Plane, name: "FlyWorld", cat: "TRAVELS" },
+    { i: Stamp, name: "Global Visa", cat: "CONSULTANTS" },
+    { i: GraduationCap, name: "EduConnect", cat: "CONSULTANTS" },
+    { i: HeartPulse, name: "MediCare", cat: "HEALTHCARE" },
+    { i: Truck, name: "TradeX", cat: "IMPORT / EXPORT" },
   ];
   return (
-    <section className="relative py-12 sm:py-16">
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="text-center eyebrow">
-          Trusted by growth-focused businesses across
-        </div>
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-          {sectors.map((s) => (
-            <div
-              key={s.t}
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/75 backdrop-blur"
-            >
-              <s.i className="h-3 w-3 text-indigo-300/80" />
-              {s.t}
+    <section className="relative pt-2 pb-14 sm:pb-20">
+      <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+        <div
+          className="rounded-2xl border border-white/[0.08] bg-white/[0.025] px-5 py-4 backdrop-blur-md sm:px-7 sm:py-5"
+          style={{
+            boxShadow:
+              "inset 0 1px 0 rgba(255,255,255,0.05), 0 24px 60px -30px rgba(99,102,241,0.4)",
+          }}
+        >
+          <div className="flex flex-col items-start gap-5 md:flex-row md:items-center md:gap-8">
+            <div className="max-w-[180px] text-[10.5px] font-semibold uppercase leading-tight tracking-[0.16em] text-white/55">
+              Trusted by growth-focused businesses
             </div>
-          ))}
-        </div>
-        <div className="hairline mx-auto mt-8 max-w-3xl" />
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10 md:gap-x-12">
-          {brands.map((b) => (
-            <BrandWordmark key={b} name={b} />
-          ))}
+            <div className="flex flex-1 flex-wrap items-center gap-x-7 gap-y-4 md:gap-x-10 md:justify-between">
+              {brands.map((b, i) => (
+                <div key={b.name} className="flex items-center gap-2.5">
+                  <span
+                    className="flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-white/70"
+                  >
+                    <b.i className="h-3.5 w-3.5" />
+                  </span>
+                  <div className="leading-tight">
+                    <div
+                      className="text-[14px] font-semibold tracking-tight text-white"
+                      style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+                    >
+                      {b.name}
+                    </div>
+                    <div className="text-[8.5px] font-semibold uppercase tracking-[0.18em] text-white/40">
+                      {b.cat}
+                    </div>
+                  </div>
+                  {i < brands.length - 1 && (
+                    <span className="ml-4 hidden h-6 w-px bg-white/[0.06] md:inline-block" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
