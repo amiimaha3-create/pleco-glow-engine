@@ -91,6 +91,11 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11", "cv02", "ss03";
+  }
+
+  h1, h2, h3, .display {
+    font-feature-settings: "ss01", "cv11", "cv02", "ss03";
   }
 
   ::selection {
