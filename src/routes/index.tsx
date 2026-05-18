@@ -2086,12 +2086,12 @@ function Footer() {
               </div>
             </div>
 
-            <div className="mt-5 flex gap-2">
+            <div className="mt-6 flex gap-2.5">
               {[Twitter, Linkedin, Github].map((I, i) => (
                 <a
                   key={i}
                   href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-white/20 hover:text-white"
+                  className="social-tile flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/65"
                 >
                   <I className="h-4 w-4" strokeWidth={1.6} />
                 </a>
