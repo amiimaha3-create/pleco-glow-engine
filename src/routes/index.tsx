@@ -897,27 +897,12 @@ function MobileHeroPreview() {
 function DashboardMockup() {
   // Live-updating revenue series
   const baseRevenue = [22, 28, 26, 34, 31, 42, 48, 44, 56, 61, 58, 72, 68, 81, 76, 92];
-  const [revenue, setRevenue] = useState(
-    baseRevenue.map((y, x) => ({ x, y })),
-  );
-  const [revKpi, setRevKpi] = useState(148.2);
-  const [leadsKpi, setLeadsKpi] = useState(1284);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setRevenue((prev) => {
-        const last = prev[prev.length - 1].y;
-        const delta = (Math.random() - 0.4) * 10;
-        const next = Math.max(30, Math.min(120, last + delta));
-        const shifted = prev.slice(1).map((p, i) => ({ x: i, y: p.y }));
-        shifted.push({ x: shifted.length, y: next });
-        return shifted;
-      });
-      setRevKpi((r) => +(r + (Math.random() * 0.4 - 0.05)).toFixed(1));
-      setLeadsKpi((l) => l + Math.floor(Math.random() * 3));
-    }, 1100);
-    return () => clearInterval(id);
-  }, []);
+  const [revenue] = useState(baseRevenue.map((y, x) => ({ x, y })));
+  const [revKpi] = useState(148.2);
+  const [leadsKpi] = useState(1284);
+  // NOTE: live setInterval updates removed — they re-rendered Recharts every
+  // 1.1s causing constant SVG re-layout and KPI text width drift, which the
+  // browser perceived as continuous vertical jitter. Data stays static.
 
   const bars = [12, 18, 14, 22, 19, 28, 24, 31, 27, 35, 30, 40].map((y, i) => ({ x: i, y }));
 
@@ -1197,7 +1182,7 @@ function DashboardMockup() {
                       stroke="url(#gs)"
                       strokeWidth={2}
                       fill="url(#g1)"
-                      isAnimationActive
+                      isAnimationActive={false}
                       animationDuration={800}
                     />
                   </AreaChart>
@@ -1653,26 +1638,14 @@ function Services() {
 
 
 function useLiveSeries(length = 22, seed = 0) {
-  const [data, setData] = useState(() =>
+  // Static series — interval-driven updates caused Recharts to re-run its
+  // enter animation on each tick, producing visible idle vertical jitter.
+  const [data] = useState(() =>
     Array.from({ length }, (_, i) => ({
       x: i,
       y: 28 + Math.sin((i + seed) / 2.2) * 8 + i * 1.6,
     })),
   );
-  useEffect(() => {
-    let i = length + seed;
-    const id = setInterval(() => {
-      setData((prev) => {
-        const next = prev.slice(1);
-        const last = prev[prev.length - 1].y;
-        const drift = (Math.random() - 0.45) * 4;
-        const y = Math.max(8, Math.min(72, last + drift));
-        next.push({ x: i++, y });
-        return next;
-      });
-    }, 1400);
-    return () => clearInterval(id);
-  }, [length, seed]);
   return data;
 }
 
@@ -1754,7 +1727,7 @@ function FeaturedPreview() {
                   stroke="#a5b4fc"
                   strokeWidth={2}
                   fill="url(#fp-area)"
-                  isAnimationActive
+                  isAnimationActive={false}
                   animationDuration={1200}
                   animationEasing="ease-out"
                 />
@@ -1803,25 +1776,9 @@ function FeaturedPreview() {
 
 /* ----- Website Development preview ----- */
 function WebsiteShowcase() {
-  const [url, setUrl] = useState("");
-  const full = "acme.com/launch";
-  useEffect(() => {
-    let i = 0;
-    let dir: 1 | -1 = 1;
-    const id = setInterval(() => {
-      const next = full.slice(0, i);
-      setUrl((prev) => (prev === next ? prev : next));
-      i += dir;
-      if (i > full.length) {
-        dir = -1;
-        i = full.length;
-      } else if (i < 0) {
-        dir = 1;
-        i = 0;
-      }
-    }, 260);
-    return () => clearInterval(id);
-  }, []);
+  // Static URL — the typing setInterval reshaped the URL bar text width
+  // every 260ms which propagated layout changes through the flex parent.
+  const url = "acme.com/launch";
 
   return (
     <div className="relative grid grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
@@ -2920,7 +2877,7 @@ function CaseStudies() {
                         stroke={s.color}
                         strokeWidth={2}
                         fill={`url(#cs-${s.tag})`}
-                        isAnimationActive
+                        isAnimationActive={false}
                         animationDuration={1200}
                       />
                     </AreaChart>
