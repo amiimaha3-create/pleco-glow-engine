@@ -498,6 +498,57 @@ function DashboardMockup() {
           }}
         />
 
+        {/* Tech grid + scanline + corner brackets (animated) */}
+        <div className="tech-grid" aria-hidden />
+        <div className="scanline" aria-hidden />
+        <svg
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          aria-hidden
+        >
+          <defs>
+            <linearGradient id="corner-g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#c084fc" stopOpacity="0.2" />
+            </linearGradient>
+          </defs>
+          {/* Corner brackets */}
+          <path d="M10 24 L10 10 L24 10" stroke="url(#corner-g)" strokeWidth="1" fill="none" />
+          <path d="M calc(100% - 24px) 10 L calc(100% - 10px) 10 L calc(100% - 10px) 24" stroke="url(#corner-g)" strokeWidth="1" fill="none" />
+        </svg>
+
+        {/* Orbiting tech particles */}
+        <span
+          className="orbit"
+          style={{
+            ['--r' as never]: '180px',
+            animationDuration: '14s',
+            background: '#a5b4fc',
+            boxShadow: '0 0 12px #818cf8, 0 0 24px #818cf8',
+          }}
+          aria-hidden
+        />
+        <span
+          className="orbit"
+          style={{
+            ['--r' as never]: '220px',
+            animationDuration: '22s',
+            animationDirection: 'reverse',
+            background: '#c084fc',
+            boxShadow: '0 0 10px #a78bfa, 0 0 20px #a78bfa',
+            width: 6,
+            height: 6,
+            marginTop: -3,
+            marginLeft: -3,
+          }}
+          aria-hidden
+        />
+
+        {/* Floating data flow line (top edge under chrome) */}
+        <div
+          className="dataflow pointer-events-none absolute left-0 right-0 top-[40px] h-px opacity-70"
+          aria-hidden
+        />
+
         {/* Window chrome */}
         <div className="flex items-center justify-between border-b border-white/[0.06] px-2 pb-2.5">
           <div className="flex items-center gap-1.5">
