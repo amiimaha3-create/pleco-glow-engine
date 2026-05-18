@@ -1534,20 +1534,61 @@ function Services() {
     t: "Custom CRM Development",
     d: "Tailor-made CRM platforms built around your sales, ops, and customer workflows — with live pipeline, automation, and AI baked in.",
   };
-  const supporting: {
+  type SupportItem = {
     i: typeof LayoutDashboard;
     t: string;
     d: string;
-    preview?: "website" | "automation";
-  }[] = [
+    preview?: "website" | "automation" | "ai" | "leads" | "whatsapp" | "code" | "integrations";
+    span?: string;
+  };
+  const topRow: SupportItem[] = [
     { i: Globe2, t: "Website Development", d: "Conversion-tuned websites that look premium and load fast.", preview: "website" },
     { i: Workflow, t: "Business Automation", d: "Eliminate repetitive ops with workflows that just work.", preview: "automation" },
-    { i: Bot, t: "AI Agents", d: "Production AI agents that handle real customer work." },
-    { i: Users, t: "Lead Management", d: "Capture, score, route, and convert leads end-to-end." },
-    { i: MessageCircle, t: "WhatsApp Automation", d: "Native WhatsApp flows that scale support and sales." },
-    { i: Code2, t: "Custom Software", d: "Internal tools and bespoke software for your stack." },
-    { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable." },
   ];
+  const bentoRow: SupportItem[] = [
+    { i: Bot, t: "AI Agents", d: "Production AI agents that handle real customer work — search, draft, decide, act.", preview: "ai", span: "lg:col-span-3" },
+    { i: Users, t: "Lead Management", d: "Capture, score, route, and convert leads end-to-end.", preview: "leads", span: "lg:col-span-3" },
+    { i: MessageCircle, t: "WhatsApp Automation", d: "Native WhatsApp flows that scale support and sales.", preview: "whatsapp", span: "lg:col-span-2" },
+    { i: Code2, t: "Custom Software", d: "Internal tools and bespoke software for your stack.", preview: "code", span: "lg:col-span-2" },
+    { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable.", preview: "integrations", span: "lg:col-span-2" },
+  ];
+
+  const renderPreview = (p?: SupportItem["preview"]) => {
+    switch (p) {
+      case "website": return <WebsiteShowcase />;
+      case "automation": return <AutomationFlow />;
+      case "ai": return <AIAgentDemo />;
+      case "leads": return <LeadDemo />;
+      case "whatsapp": return <WhatsAppDemo />;
+      case "code": return <CodeDemo />;
+      case "integrations": return <IntegrationsDemo />;
+      default: return null;
+    }
+  };
+
+  const renderCard = (it: SupportItem) => (
+    <a
+      key={it.t}
+      href="#"
+      className={`card-premium group relative overflow-hidden p-5 ${it.span ?? "lg:col-span-2"}`}
+    >
+      <div className="flex items-start justify-between">
+        <div className="icon-tile">
+          <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
+        </div>
+        <ArrowUpRight className="h-4 w-4 text-white/25 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white/80" strokeWidth={1.6} />
+      </div>
+      <h3
+        className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
+        style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+      >
+        {it.t}
+      </h3>
+      <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
+      {it.preview && <div className="mt-4">{renderPreview(it.preview)}</div>}
+    </a>
+  );
+
   return (
     <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
@@ -1583,38 +1624,12 @@ function Services() {
             </div>
           </div>
 
-          {/* Supporting cards */}
-          {supporting.map((it) => (
-            <a
-              key={it.t}
-              href="#"
-              className={`card-premium group relative overflow-hidden p-5 lg:col-span-2 ${it.preview ? "lg:row-span-1" : ""}`}
-            >
-              <div className="flex items-start justify-between">
-                <div className="icon-tile">
-                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
-                </div>
-                <ArrowUpRight className="h-4 w-4 text-white/25 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white/80" strokeWidth={1.6} />
-              </div>
-              <h3
-                className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
-                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-              >
-                {it.t}
-              </h3>
-              <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
-              {it.preview === "website" && (
-                <div className="mt-4">
-                  <WebsiteShowcase />
-                </div>
-              )}
-              {it.preview === "automation" && (
-                <div className="mt-4">
-                  <AutomationFlow />
-                </div>
-              )}
-            </a>
-          ))}
+          {topRow.map(renderCard)}
+        </div>
+
+        {/* Bento row — asymmetric premium product showcase */}
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-6">
+          {bentoRow.map(renderCard)}
         </div>
       </div>
     </section>
