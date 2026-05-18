@@ -1621,11 +1621,53 @@ function Services() {
   );
 }
 
+/* --------- shared hooks for live demos --------- */
+function useCountUp(target: number, duration = 1400, decimals = 0) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    let raf = 0;
+    const start = performance.now();
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      setVal(target * ease(t));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duration]);
+  return decimals ? val.toFixed(decimals) : Math.round(val).toString();
+}
+
+function useLiveSeries(length = 22, seed = 0) {
+  const [data, setData] = useState(() =>
+    Array.from({ length }, (_, i) => ({
+      x: i,
+      y: 28 + Math.sin((i + seed) / 2.2) * 8 + i * 1.6,
+    })),
+  );
+  useEffect(() => {
+    let i = length + seed;
+    const id = setInterval(() => {
+      setData((prev) => {
+        const next = prev.slice(1);
+        const last = prev[prev.length - 1].y;
+        const drift = (Math.random() - 0.45) * 4;
+        const y = Math.max(8, Math.min(72, last + drift));
+        next.push({ x: i++, y });
+        return next;
+      });
+    }, 1400);
+    return () => clearInterval(id);
+  }, [length, seed]);
+  return data;
+}
+
 function FeaturedPreview() {
-  const data = Array.from({ length: 22 }, (_, i) => ({
-    x: i,
-    y: 28 + Math.sin(i / 2.2) * 8 + i * 1.6,
-  }));
+  const data = useLiveSeries(22);
+  const rev = useCountUp(148);
+  const deals = useCountUp(110);
+  const win = useCountUp(34);
   const stages = [
     { l: "New", c: 48, color: "#60a5fa", pct: 100 },
     { l: "Qualified", c: 32, color: "#818cf8", pct: 72 },
@@ -1633,9 +1675,9 @@ function FeaturedPreview() {
     { l: "Won", c: 11, color: "#34d399", pct: 28 },
   ];
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.005] p-3.5">
+    <div className="glass-sweep relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.005] p-3.5 transition-transform duration-500 ease-out will-change-transform hover:-translate-y-0.5">
       {/* Window chrome */}
-      <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
+      <div className="relative flex items-center justify-between border-b border-white/[0.06] pb-2">
         <div className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-rose-400/70" />
           <span className="h-2 w-2 rounded-full bg-amber-300/70" />
@@ -1644,19 +1686,26 @@ function FeaturedPreview() {
         <div className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[10px] text-white/55">
           app.plecolab.io / pipeline
         </div>
-        <div className="h-5 w-5 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 ring-1 ring-white/20" />
+        <div className="flex items-center gap-1.5">
+          <span className="live-dot h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          <span className="text-[9.5px] font-medium text-emerald-300/90">LIVE</span>
+        </div>
       </div>
 
-      <div className="mt-2.5 grid grid-cols-3 gap-2">
+      <div className="relative mt-2.5 grid grid-cols-3 gap-2">
         {[
-          { l: "Revenue", v: "$148K", d: "+24%" },
-          { l: "Deals", v: "110", d: "+12%" },
-          { l: "Win rate", v: "34%", d: "+6pt" },
-        ].map((k) => (
-          <div key={k.l} className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2">
+          { l: "Revenue", v: `$${rev}K`, d: "+24%" },
+          { l: "Deals", v: deals, d: "+12%" },
+          { l: "Win rate", v: `${win}%`, d: "+6pt" },
+        ].map((k, i) => (
+          <div
+            key={k.l}
+            className="widget-pulse rounded-lg border border-white/[0.07] bg-white/[0.025] p-2"
+            style={{ animationDelay: `${i * 0.6}s` }}
+          >
             <div className="text-[10px] text-white/45">{k.l}</div>
             <div
-              className="mt-0.5 text-[14.5px] font-semibold tracking-[-0.02em] text-white"
+              className="mt-0.5 text-[14.5px] font-semibold tabular-nums tracking-[-0.02em] text-white"
               style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
             >
               {k.v}
@@ -1668,11 +1717,14 @@ function FeaturedPreview() {
         ))}
       </div>
 
-      <div className="mt-2.5 grid grid-cols-[1.2fr,1fr] gap-2">
+      <div className="relative mt-2.5 grid grid-cols-[1.2fr,1fr] gap-2">
         <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
           <div className="mb-1 flex items-center justify-between">
             <div className="text-[11px] font-medium text-white/85">Revenue growth</div>
-            <div className="text-[9.5px] text-emerald-300/90">Live</div>
+            <div className="flex items-center gap-1">
+              <span className="live-dot h-1 w-1 rounded-full bg-emerald-400" />
+              <span className="text-[9.5px] text-emerald-300/90">Live</span>
+            </div>
           </div>
           <div className="h-[68px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -1683,7 +1735,16 @@ function FeaturedPreview() {
                     <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <Area type="monotone" dataKey="y" stroke="#a5b4fc" strokeWidth={2} fill="url(#fp-area)" />
+                <Area
+                  type="monotone"
+                  dataKey="y"
+                  stroke="#a5b4fc"
+                  strokeWidth={2}
+                  fill="url(#fp-area)"
+                  isAnimationActive
+                  animationDuration={1200}
+                  animationEasing="ease-out"
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -1691,18 +1752,37 @@ function FeaturedPreview() {
         <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
           <div className="mb-1.5 text-[11px] font-medium text-white/85">Pipeline</div>
           <div className="space-y-1.5">
-            {stages.map((s) => (
+            {stages.map((s, i) => (
               <div key={s.l} className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color, boxShadow: `0 0 8px ${s.color}` }} />
+                <span
+                  className="h-1.5 w-1.5 rounded-full"
+                  style={{ background: s.color, boxShadow: `0 0 8px ${s.color}` }}
+                />
                 <div className="w-14 text-[10px] text-white/65">{s.l}</div>
                 <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
-                  <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${s.pct}%`, background: `linear-gradient(90deg, ${s.color}, ${s.color}99)` }} />
+                  <div
+                    className="bar-grow absolute inset-y-0 left-0 rounded-full"
+                    style={{
+                      width: `${s.pct}%`,
+                      background: `linear-gradient(90deg, ${s.color}, ${s.color}99)`,
+                      animationDelay: `${0.3 + i * 0.18}s`,
+                    }}
+                  />
                 </div>
-                <div className="w-5 text-right text-[10px] font-medium text-white/80">{s.c}</div>
+                <div className="w-5 text-right text-[10px] font-medium tabular-nums text-white/80">
+                  {s.c}
+                </div>
               </div>
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Ghost cursor */}
+      <div className="ghost-cursor pointer-events-none absolute left-0 top-0 z-20 h-3 w-3 text-white/85">
+        <svg viewBox="0 0 16 16" className="h-full w-full drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+          <path d="M2 1.5 L13 7.5 L8 9 L6.5 14 Z" fill="currentColor" stroke="rgba(0,0,0,0.5)" strokeWidth="0.6" />
+        </svg>
       </div>
     </div>
   );
@@ -1710,64 +1790,124 @@ function FeaturedPreview() {
 
 /* ----- Website Development preview ----- */
 function WebsiteShowcase() {
+  const [url, setUrl] = useState("");
+  const full = "acme.com/launch";
+  useEffect(() => {
+    let i = 0;
+    let dir: 1 | -1 = 1;
+    const id = setInterval(() => {
+      setUrl(full.slice(0, i));
+      i += dir;
+      if (i > full.length) {
+        dir = -1;
+        i = full.length;
+      } else if (i < 0) {
+        dir = 1;
+        i = 0;
+      }
+    }, 180);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <div className="relative grid grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute -inset-10 -z-10 opacity-50" style={{ background: "radial-gradient(60% 60% at 30% 30%, rgba(129,140,248,0.18), transparent 70%)" }} />
+
       {/* Desktop browser */}
-      <div className="rounded-lg border border-white/10 bg-[#0a1024]/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+      <div className="relative rounded-lg border border-white/10 bg-[#0a1024]/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
         <div className="flex items-center gap-1.5 border-b border-white/[0.06] px-2 py-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-rose-400/70" />
           <span className="h-1.5 w-1.5 rounded-full bg-amber-300/70" />
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/70" />
-          <span className="ml-2 truncate rounded-sm bg-white/[0.04] px-1.5 py-[1px] text-[8.5px] text-white/55">acme.com</span>
+          <span className="ml-2 flex min-w-0 flex-1 items-center gap-0.5 truncate rounded-sm bg-white/[0.04] px-1.5 py-[1px] font-mono text-[8.5px] text-white/65">
+            <span className="truncate">{url}</span>
+            <span className="caret inline-block h-[7px] w-[1px] bg-white/70" />
+          </span>
         </div>
-        <div className="p-2.5">
-          {/* mini hero */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1">
-              <div className="h-1.5 w-1.5 rounded-sm bg-gradient-to-br from-indigo-400 to-violet-500" />
-              <div className="h-1 w-6 rounded-full bg-white/30" />
+        {/* loading bar */}
+        <div className="relative h-[1px] w-full overflow-hidden bg-white/[0.03]">
+          <div className="loadbar absolute inset-y-0 left-0 bg-gradient-to-r from-indigo-400 to-violet-400" />
+        </div>
+        <div className="relative p-2.5">
+          {/* skeleton overlay */}
+          <div className="skeleton-fade pointer-events-none absolute inset-2.5 space-y-1.5">
+            <div className="h-1.5 w-3/4 animate-pulse rounded-full bg-white/10" />
+            <div className="h-1.5 w-2/3 animate-pulse rounded-full bg-white/10" />
+            <div className="h-1.5 w-1/2 animate-pulse rounded-full bg-white/10" />
+            <div className="mt-1.5 grid grid-cols-3 gap-1">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="h-6 animate-pulse rounded-md bg-white/[0.06]" />
+              ))}
             </div>
-            <div className="flex gap-1">
-              <div className="h-1 w-3 rounded-full bg-white/15" />
-              <div className="h-1 w-3 rounded-full bg-white/15" />
-              <div className="h-1 w-3 rounded-full bg-white/15" />
-              <div className="h-1.5 w-4 rounded-sm bg-indigo-400/70" />
-            </div>
           </div>
-          <div className="mt-2.5 space-y-1">
-            <div className="h-1.5 w-3/4 rounded-full bg-gradient-to-r from-white/80 to-white/30" />
-            <div className="h-1.5 w-2/3 rounded-full bg-gradient-to-r from-white/60 to-white/15" />
-          </div>
-          <div className="mt-1.5 h-[5px] w-1/2 rounded-full bg-white/15" />
-          <div className="mt-2 flex gap-1.5">
-            <div className="h-2.5 w-8 rounded-md bg-gradient-to-r from-indigo-400 to-violet-500 shadow-[0_2px_10px_rgba(129,140,248,0.5)]" />
-            <div className="h-2.5 w-6 rounded-md border border-white/15" />
-          </div>
-          {/* cards row */}
-          <div className="mt-2.5 grid grid-cols-3 gap-1">
-            {[0, 1, 2].map((i) => (
-              <div key={i} className="rounded-md border border-white/[0.07] bg-white/[0.03] p-1.5">
-                <div className="h-1 w-3/4 rounded-full bg-white/40" />
-                <div className="mt-1 h-[3px] w-full rounded-full bg-white/10" />
-                <div className="mt-0.5 h-[3px] w-2/3 rounded-full bg-white/10" />
+
+          {/* real content */}
+          <div className="content-fade">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                <div className="h-1.5 w-1.5 rounded-sm bg-gradient-to-br from-indigo-400 to-violet-500" />
+                <div className="h-1 w-6 rounded-full bg-white/30" />
               </div>
-            ))}
+              <div className="flex gap-1">
+                <div className="h-1 w-3 rounded-full bg-white/15" />
+                <div className="h-1 w-3 rounded-full bg-white/15" />
+                <div className="h-1 w-3 rounded-full bg-white/15" />
+                <div className="h-1.5 w-4 rounded-sm bg-indigo-400/70" />
+              </div>
+            </div>
+            <div className="mt-2.5 space-y-1">
+              <div className="h-1.5 w-3/4 rounded-full bg-gradient-to-r from-white/80 to-white/30" />
+              <div className="h-1.5 w-2/3 rounded-full bg-gradient-to-r from-white/60 to-white/15" />
+            </div>
+            <div className="mt-1.5 h-[5px] w-1/2 rounded-full bg-white/15" />
+            <div className="relative mt-2 flex gap-1.5">
+              <div className="relative h-2.5 w-8 rounded-md bg-gradient-to-r from-indigo-400 to-violet-500 shadow-[0_2px_10px_rgba(129,140,248,0.5)]">
+                {/* hover cursor on CTA */}
+                <div className="ghost-cursor pointer-events-none absolute -right-1 -top-1 h-2.5 w-2.5 text-white">
+                  <svg viewBox="0 0 16 16" className="h-full w-full drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                    <path d="M2 1.5 L13 7.5 L8 9 L6.5 14 Z" fill="currentColor" stroke="rgba(0,0,0,0.5)" strokeWidth="0.6" />
+                  </svg>
+                </div>
+              </div>
+              <div className="h-2.5 w-6 rounded-md border border-white/15" />
+            </div>
+            <div className="mt-2.5 grid grid-cols-3 gap-1">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="rounded-md border border-white/[0.07] bg-white/[0.03] p-1.5">
+                  <div className="h-1 w-3/4 rounded-full bg-white/40" />
+                  <div className="mt-1 h-[3px] w-full rounded-full bg-white/10" />
+                  <div className="mt-0.5 h-[3px] w-2/3 rounded-full bg-white/10" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Phone */}
+      {/* Phone — auto-scrolling content */}
       <div className="phone-frame w-[58px] p-1.5">
-        <div className="rounded-[12px] bg-[#06091a] p-1.5">
+        <div className="relative h-[120px] overflow-hidden rounded-[12px] bg-[#06091a] p-1.5">
           <div className="mx-auto h-1 w-5 rounded-full bg-white/15" />
-          <div className="mt-1.5 h-1.5 w-3/4 rounded-full bg-gradient-to-r from-white/80 to-white/30" />
-          <div className="mt-1 h-1 w-2/3 rounded-full bg-white/20" />
-          <div className="mt-1.5 h-7 w-full rounded-md bg-gradient-to-br from-indigo-400/30 to-violet-500/15 ring-1 ring-white/10" />
-          <div className="mt-1.5 grid grid-cols-2 gap-1">
-            <div className="h-3.5 rounded-md bg-white/[0.06]" />
-            <div className="h-3.5 rounded-md bg-white/[0.06]" />
+          <div className="phone-scroll mt-1.5 space-y-1.5">
+            <div className="h-1.5 w-3/4 rounded-full bg-gradient-to-r from-white/80 to-white/30" />
+            <div className="h-1 w-2/3 rounded-full bg-white/20" />
+            <div className="h-7 w-full rounded-md bg-gradient-to-br from-indigo-400/30 to-violet-500/15 ring-1 ring-white/10" />
+            <div className="grid grid-cols-2 gap-1">
+              <div className="h-3.5 rounded-md bg-white/[0.06]" />
+              <div className="h-3.5 rounded-md bg-white/[0.06]" />
+            </div>
+            <div className="h-2 w-full rounded-md bg-gradient-to-r from-indigo-400 to-violet-500" />
+            <div className="h-1 w-2/3 rounded-full bg-white/20" />
+            <div className="h-6 w-full rounded-md bg-white/[0.05] ring-1 ring-white/10" />
+            <div className="grid grid-cols-2 gap-1">
+              <div className="h-3 rounded-md bg-white/[0.06]" />
+              <div className="h-3 rounded-md bg-white/[0.06]" />
+            </div>
+            <div className="h-1 w-1/2 rounded-full bg-white/20" />
           </div>
-          <div className="mt-1.5 h-2 w-full rounded-md bg-gradient-to-r from-indigo-400 to-violet-500" />
+          {/* fade mask */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-[#06091a] to-transparent" />
         </div>
       </div>
     </div>
@@ -1777,17 +1917,25 @@ function WebsiteShowcase() {
 /* ----- Business Automation flow viz ----- */
 function AutomationFlow() {
   const nodes = [
-    { label: "Lead", icon: Users },
+    { label: "Lead", icon: Users, badge: "+3" },
     { label: "CRM", icon: LayoutDashboard },
-    { label: "WhatsApp", icon: MessageCircle },
+    { label: "WhatsApp", icon: MessageCircle, badge: "12" },
     { label: "AI", icon: Bot },
     { label: "Analytics", icon: Activity },
   ];
   return (
     <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+      {/* AI activity ring */}
+      <div className="absolute right-2 top-2 flex items-center gap-1">
+        <div className="relative h-2 w-2">
+          <div className="ai-spin absolute inset-0 rounded-full border border-indigo-300/50 border-t-transparent" />
+        </div>
+        <span className="text-[8.5px] font-medium text-indigo-200/80">AI active</span>
+      </div>
+
       <div className="relative">
         {/* dashed flow line behind nodes */}
-        <svg viewBox="0 0 280 36" className="absolute inset-x-2 top-1/2 -z-0 h-9 w-[calc(100%-16px)] -translate-y-1/2" preserveAspectRatio="none">
+        <svg viewBox="0 0 280 44" className="absolute inset-x-2 top-1/2 -z-0 h-11 w-[calc(100%-16px)] -translate-y-1/2" preserveAspectRatio="none">
           <defs>
             <linearGradient id="flow-grad" x1="0" x2="1">
               <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.0" />
@@ -1796,22 +1944,53 @@ function AutomationFlow() {
               <stop offset="100%" stopColor="#34d399" stopOpacity="0.0" />
             </linearGradient>
           </defs>
-          <line x1="0" y1="18" x2="280" y2="18" stroke="url(#flow-grad)" strokeWidth="1.5" className="flow-line" />
+          <line x1="0" y1="22" x2="280" y2="22" stroke="url(#flow-grad)" strokeWidth="1.5" className="flow-line" />
         </svg>
+
+        {/* Traveling packets */}
+        <div className="pointer-events-none absolute inset-0 -z-0">
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className="packet absolute left-0 top-0 h-1.5 w-1.5 rounded-full bg-indigo-300"
+              style={{
+                animationDelay: `${i * 1.05}s`,
+                boxShadow: "0 0 10px rgba(165,180,252,0.9), 0 0 18px rgba(129,140,248,0.6)",
+              }}
+            />
+          ))}
+        </div>
 
         <div className="relative z-10 flex items-center justify-between gap-1">
           {nodes.map((n, idx) => (
-            <div key={n.label} className="flex flex-1 flex-col items-center gap-1.5">
+            <div key={n.label} className="relative flex flex-1 flex-col items-center gap-1.5">
               <div
-                className="node-pulse flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-gradient-to-br from-indigo-500/25 to-violet-500/10 text-indigo-200"
-                style={{ animationDelay: `${idx * 0.3}s` }}
+                className="node-receive relative flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-gradient-to-br from-indigo-500/25 to-violet-500/10 text-indigo-200 will-change-transform"
+                style={{ animationDelay: `${idx * 0.64}s` }}
               >
                 <n.icon className="h-3.5 w-3.5" strokeWidth={1.7} />
+                {n.badge && (
+                  <span
+                    className="badge-pop absolute -right-1 -top-1 inline-flex h-3 min-w-[12px] items-center justify-center rounded-full bg-rose-500 px-1 text-[8px] font-semibold text-white shadow-[0_0_8px_rgba(244,63,94,0.6)]"
+                    style={{ animationDelay: `${1 + idx * 0.8}s` }}
+                  >
+                    {n.badge}
+                  </span>
+                )}
               </div>
               <div className="text-[9.5px] font-medium text-white/65">{n.label}</div>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Sync status */}
+      <div className="mt-2 flex items-center justify-between border-t border-white/[0.05] pt-2 text-[9px] text-white/55">
+        <div className="flex items-center gap-1.5">
+          <span className="live-dot h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          <span>Synced · 1.2k events / min</span>
+        </div>
+        <span className="font-mono tabular-nums text-white/45">v4.2</span>
       </div>
     </div>
   );
