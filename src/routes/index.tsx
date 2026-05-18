@@ -370,27 +370,27 @@ function Hero() {
             </p>
 
             <div
-              className="hero-fade-up mt-8 flex flex-wrap items-center gap-3"
+              className="hero-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center"
               style={{ animationDelay: "380ms" }}
             >
-              <PrimaryButton size="lg">
+              <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
                 Book free consultation
                 <ArrowRight className="btn-arrow h-4 w-4" />
               </PrimaryButton>
-              <GhostButton size="lg">
+              <GhostButton size="lg" className="w-full justify-center sm:w-auto">
                 Explore solutions
               </GhostButton>
             </div>
 
             {/* Trust stats */}
             <div
-              className="hero-fade-up mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4"
+              className="hero-fade-up mt-10 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 sm:mt-12 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-6"
               style={{ animationDelay: "520ms" }}
             >
               {stats.map((s) => (
                 <div key={s.l}>
                   <div
-                    className="text-[26px] font-semibold tracking-tight text-white"
+                    className="text-[22px] font-semibold tracking-tight text-white sm:text-[26px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     <CountStat
@@ -400,7 +400,7 @@ function Hero() {
                       decimals={s.decimals}
                     />
                   </div>
-                  <div className="mt-1 text-[12px] uppercase tracking-wider text-white/45">
+                  <div className="mt-1 text-[11px] uppercase tracking-wider text-white/45 sm:text-[12px]">
                     {s.l}
                   </div>
                 </div>
