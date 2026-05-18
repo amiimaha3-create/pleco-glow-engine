@@ -41,6 +41,8 @@ import {
   Activity,
   ChevronRight,
   Circle,
+  Menu,
+  X,
 } from "lucide-react";
 import {
   Area,
@@ -189,39 +191,135 @@ function Logo({ className = "" }: { className?: string }) {
 }
 
 function Nav() {
-  const links = ["Solutions", "Industries", "Case Studies", "Company", "Pricing"];
+  const links = [
+    { label: "Solutions", href: "#solutions" },
+    { label: "How We Work", href: "#process" },
+    { label: "Case Studies", href: "#case-studies" },
+    { label: "Contact", href: "#contact" },
+  ];
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto mt-4 max-w-7xl px-4">
-        <div className="glass-strong flex h-14 items-center justify-between rounded-2xl px-3 pl-4 sm:px-4 sm:pl-5">
+        <div
+          className={`glass-strong flex h-14 items-center justify-between rounded-2xl px-3 pl-4 transition-all duration-300 sm:px-4 sm:pl-5 ${
+            scrolled ? "shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)]" : ""
+          }`}
+        >
           <Logo />
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="hidden items-center gap-8 md:flex">
             {links.map((l) => (
               <a
-                key={l}
-                href="#"
-                className="text-[13.5px] font-medium text-white/70 transition hover:text-white"
+                key={l.label}
+                href={l.href}
+                className="group relative text-[13.5px] font-medium tracking-[-0.005em] text-white/65 transition-colors duration-200 hover:text-white"
+                style={{ fontFamily: "Inter, sans-serif" }}
               >
-                {l}
+                {l.label}
+                <span className="pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-white/0 via-white/70 to-white/0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <a
-              href="#"
-              className="hidden text-[13.5px] font-medium text-white/70 transition hover:text-white sm:block"
+            <CtaButton className="hidden sm:inline-flex">Start a Project</CtaButton>
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-white/80 transition hover:bg-white/[0.07] hover:text-white md:hidden"
             >
-              Sign in
-            </a>
-            <PrimaryButton size="sm">
-              <span className="hidden sm:inline">Book a call</span>
-              <span className="sm:hidden">Book call</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </PrimaryButton>
+              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Mobile menu */}
+      <div
+        className={`fixed inset-x-0 top-[76px] z-40 mx-auto max-w-7xl px-4 transition-all duration-300 md:hidden ${
+          open
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-2 opacity-0"
+        }`}
+      >
+        <div className="glass-strong overflow-hidden rounded-2xl p-2">
+          <nav className="flex flex-col">
+            {links.map((l, i) => (
+              <a
+                key={l.label}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-white/80 transition-all duration-300 hover:bg-white/[0.05] hover:text-white ${
+                  open ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+                }`}
+                style={{
+                  fontFamily: "Inter, sans-serif",
+                  transitionDelay: open ? `${i * 40}ms` : "0ms",
+                }}
+              >
+                <span>{l.label}</span>
+                <ChevronRight className="h-4 w-4 text-white/40" />
+              </a>
+            ))}
+            <div className="mt-2 px-2 pb-1">
+              <CtaButton className="w-full justify-center">Start a Project</CtaButton>
+            </div>
+          </nav>
+        </div>
+      </div>
     </header>
+  );
+}
+
+/* --------------------------------- CTA ------------------------------------ */
+
+function CtaButton({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <a
+      href="#contact"
+      className={`group relative inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-full px-4 text-[13px] font-medium tracking-[-0.005em] text-white transition-transform duration-200 active:scale-[0.98] ${className}`}
+      style={{
+        fontFamily: "Inter, sans-serif",
+        background: "linear-gradient(180deg, #f43f5e 0%, #e11d48 100%)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.25), 0 6px 20px -6px rgba(244,63,94,0.55), 0 0 0 1px rgba(244,63,94,0.4)",
+      }}
+    >
+      <span className="relative z-10 inline-flex items-center gap-1.5">
+        {children}
+        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+      </span>
+      <span
+        className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{ background: "linear-gradient(180deg, #fb7185 0%, #f43f5e 100%)" }}
+      />
+      <span
+        className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+      />
+    </a>
   );
 }
 
