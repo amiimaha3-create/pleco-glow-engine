@@ -2489,7 +2489,7 @@ function LogisticsDemo() {
       <div className="mt-1 grid grid-cols-3 gap-1.5 text-center">
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] py-1">
           <div className="text-[9px] uppercase tracking-wider text-white/40">ETA</div>
-          <div className="font-mono text-[11px] font-semibold text-white">{eta}m</div>
+          <div className="stable-metric min-w-[34px] font-mono text-[11px] font-semibold text-white">{eta}m</div>
         </div>
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] py-1">
           <div className="text-[9px] uppercase tracking-wider text-white/40">Active</div>
@@ -2518,12 +2518,12 @@ function RetailDemo() {
       <div className="mt-1.5 grid grid-cols-2 gap-2">
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] p-2">
           <div className="text-[9.5px] uppercase tracking-wider text-white/40">Revenue</div>
-          <div className="font-mono text-[15px] font-semibold text-white">${rev}K</div>
+          <div className="stable-metric min-w-[56px] font-mono text-[15px] font-semibold text-white">${rev}K</div>
           <div className="text-[9.5px] text-emerald-300">▲ 8.2%</div>
         </div>
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] p-2">
           <div className="text-[9.5px] uppercase tracking-wider text-white/40">Orders</div>
-          <div className="font-mono text-[15px] font-semibold text-white">{orders}</div>
+          <div className="stable-metric min-w-[42px] font-mono text-[15px] font-semibold text-white">{orders}</div>
           <div className="text-[9.5px] text-sky-300">AOV $34</div>
         </div>
       </div>
@@ -2589,7 +2589,7 @@ function SMEDemo() {
     <DemoFrame>
       <div className="flex items-center justify-between">
         <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Ops health</div>
-        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+        <span className="inline-flex w-[76px] flex-none items-center justify-center gap-1 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
           Score {score}
         </span>
       </div>
