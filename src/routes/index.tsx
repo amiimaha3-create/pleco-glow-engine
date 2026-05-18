@@ -238,7 +238,7 @@ function PrimaryButton({
   };
   return (
     <button
-      className={`group relative inline-flex items-center gap-1.5 overflow-hidden rounded-full font-medium text-white transition active:scale-[0.98] ${sizes[size]} ${className}`}
+      className={`btn-premium group relative inline-flex items-center gap-1.5 overflow-hidden rounded-full font-medium text-white active:scale-[0.98] ${sizes[size]} ${className}`}
       style={{
         background:
           "linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)",
@@ -253,6 +253,10 @@ function PrimaryButton({
           background:
             "linear-gradient(180deg, #818cf8 0%, #6366f1 100%)",
         }}
+      />
+      <span
+        className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-white/15 opacity-0 transition-all duration-700 group-hover:left-[110%] group-hover:opacity-100"
+        aria-hidden
       />
     </button>
   );
