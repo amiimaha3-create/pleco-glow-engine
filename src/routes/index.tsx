@@ -1104,7 +1104,7 @@ function TrustStrip() {
     { i: Briefcase, l: "SMEs" },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <div className="text-center text-[12.5px] uppercase tracking-[0.2em] text-white/40">
           Trusted by businesses across industries
@@ -1183,7 +1183,7 @@ function Services() {
     { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable." },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Solutions"
@@ -1304,7 +1304,7 @@ function Industries() {
     { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses." },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Industries"
@@ -1369,7 +1369,7 @@ function WhyPleco() {
     },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Why Pleco Lab"
@@ -1452,7 +1452,7 @@ function CaseStudies() {
   ];
 
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Results"
@@ -1558,7 +1558,7 @@ function gen(n: number, lo: number, hi: number) {
 
 function FinalCTA() {
   return (
-    <section className="relative py-28">
+    <section className="relative py-16 sm:py-28">
       <div className="mx-auto max-w-6xl px-4">
         <div className="relative overflow-hidden rounded-3xl border border-white/10 px-8 py-20 text-center sm:px-16">
           {/* Gradient bg */}
