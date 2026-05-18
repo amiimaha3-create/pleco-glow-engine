@@ -483,20 +483,28 @@ function HeroVisual() {
 
   return (
     <div className="relative">
-      {/* Ambient halo */}
+      {/* Ambient halos — atmospheric, behind everything */}
       <div
-        className="pointer-events-none absolute -inset-10 -z-10"
+        className="pointer-events-none absolute -inset-20 -z-10"
         style={{
           background:
-            "radial-gradient(55% 50% at 60% 40%, rgba(99,102,241,0.45), transparent 70%), radial-gradient(40% 40% at 20% 80%, rgba(168,85,247,0.30), transparent 70%)",
-          filter: "blur(20px)",
+            "radial-gradient(50% 45% at 60% 38%, rgba(99,102,241,0.55), transparent 70%), radial-gradient(38% 38% at 20% 78%, rgba(168,85,247,0.38), transparent 72%), radial-gradient(35% 35% at 85% 75%, rgba(34,211,238,0.22), transparent 72%)",
+          filter: "blur(28px)",
         }}
       />
 
-      {/* Main image container */}
+      {/* Free-flow visual stage — no frame, no border */}
       <div className="relative aspect-square w-full overflow-visible">
-        {/* Photo frame */}
-        <div className="absolute inset-0 overflow-hidden rounded-[22px] ring-1 ring-white/10">
+        {/* Photo bleeds into background via radial mask + vignette */}
+        <div
+          className="absolute inset-0"
+          style={{
+            WebkitMaskImage:
+              "radial-gradient(70% 70% at 55% 45%, #000 35%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 80%, transparent 100%)",
+            maskImage:
+              "radial-gradient(70% 70% at 55% 45%, #000 35%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0.35) 80%, transparent 100%)",
+          }}
+        >
           <img
             src={heroDeveloper}
             alt="Developer working on Pleco Lab dashboard"
@@ -504,22 +512,57 @@ function HeroVisual() {
             width={1280}
             height={1280}
           />
-          {/* Color wash to lock into brand */}
+          {/* Brand color wash + depth vignette */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(6,11,26,0.10) 0%, rgba(6,11,26,0.55) 70%, rgba(6,11,26,0.95) 100%), radial-gradient(60% 60% at 70% 30%, rgba(99,102,241,0.25), transparent 70%)",
+                "linear-gradient(180deg, rgba(6,11,26,0.10) 0%, rgba(6,11,26,0.45) 70%, rgba(6,11,26,1) 100%), radial-gradient(60% 60% at 70% 30%, rgba(99,102,241,0.28), transparent 70%)",
             }}
           />
+          {/* Subtle film grain via scanline */}
+          <div className="pointer-events-none absolute inset-0">
+            <div className="scanline" aria-hidden />
+          </div>
         </div>
 
-        {/* Subtle scan line over image */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[22px]">
-          <div className="scanline" aria-hidden />
-        </div>
+        {/* Light bloom — top-right */}
+        <div
+          className="pointer-events-none absolute -right-10 -top-10 h-56 w-56 rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(165,180,252,0.45), transparent 65%)",
+            filter: "blur(30px)",
+          }}
+        />
 
-        {/* Floating feature cards */}
+        {/* Ambient drifting particles */}
+        <svg
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          viewBox="0 0 400 400"
+          aria-hidden
+        >
+          {Array.from({ length: 14 }).map((_, i) => {
+            const cx = 30 + ((i * 53) % 340);
+            const cy = 40 + ((i * 89) % 320);
+            const r = 0.8 + (i % 3) * 0.4;
+            const delay = `${(i * 0.45) % 5}s`;
+            return (
+              <circle
+                key={i}
+                cx={cx}
+                cy={cy}
+                r={r}
+                fill={i % 2 === 0 ? "#c7d2fe" : "#a78bfa"}
+                opacity="0.55"
+                className="float-particle"
+                style={{ animationDelay: delay }}
+              />
+            );
+          })}
+        </svg>
+
+        {/* Floating feature nodes — glass, soft glow, free-floating */}
         {floatCards.map((c) => (
           <div
             key={c.title}
@@ -527,14 +570,27 @@ function HeroVisual() {
             style={{ animationDelay: c.delay }}
           >
             <div
-              className={`flex items-center gap-2 rounded-2xl border bg-gradient-to-br ${c.color} px-3 py-2 backdrop-blur-xl`}
+              className="group/node relative flex items-center gap-2 rounded-2xl border border-white/10 px-3 py-2 backdrop-blur-xl"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(15,18,40,0.85) 0%, rgba(10,12,28,0.85) 100%)",
+                  "linear-gradient(180deg, rgba(15,18,40,0.78) 0%, rgba(10,12,28,0.72) 100%)",
                 boxShadow:
-                  "0 10px 30px -10px rgba(99,102,241,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
+                  "0 14px 40px -14px rgba(99,102,241,0.55), inset 0 1px 0 rgba(255,255,255,0.08)",
               }}
             >
+              {/* node glow ring */}
+              <span
+                className="pointer-events-none absolute -inset-px rounded-2xl opacity-60"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(165,180,252,0.35), transparent 60%)",
+                  WebkitMask:
+                    "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+                  WebkitMaskComposite: "xor",
+                  maskComposite: "exclude",
+                  padding: "1px",
+                }}
+              />
               <div
                 className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-gradient-to-br ${c.color}`}
               >
@@ -546,11 +602,13 @@ function HeroVisual() {
                 </div>
                 <div className="text-[10px] text-white/55">{c.sub}</div>
               </div>
+              {/* pulse indicator */}
+              <span className="ml-1 h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
             </div>
           </div>
         ))}
 
-        {/* Dotted connector accents */}
+        {/* Animated connection paths between nodes */}
         <svg
           className="pointer-events-none absolute inset-0 h-full w-full"
           viewBox="0 0 400 500"
@@ -559,64 +617,43 @@ function HeroVisual() {
         >
           <defs>
             <linearGradient id="hv-stroke" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.55" />
+              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.75" />
               <stop offset="100%" stopColor="#c084fc" stopOpacity="0.0" />
+            </linearGradient>
+            <linearGradient id="hv-stroke-2" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#67e8f9" stopOpacity="0.65" />
+              <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.0" />
             </linearGradient>
           </defs>
           <path
-            d="M120 70 C 170 110, 220 110, 280 130"
+            d="M120 70 C 170 110, 220 110, 320 100"
             stroke="url(#hv-stroke)"
-            strokeWidth="1"
-            strokeDasharray="3 4"
+            strokeWidth="1.1"
+            strokeDasharray="3 5"
+            className="flow-line"
           />
           <path
-            d="M60 170 C 120 180, 180 200, 240 220"
-            stroke="url(#hv-stroke)"
-            strokeWidth="1"
-            strokeDasharray="3 4"
+            d="M60 180 C 130 200, 200 220, 360 240"
+            stroke="url(#hv-stroke-2)"
+            strokeWidth="1.1"
+            strokeDasharray="3 5"
+            className="flow-line"
           />
           <path
-            d="M340 240 C 300 280, 280 310, 260 340"
+            d="M340 240 C 300 290, 280 320, 260 360"
             stroke="url(#hv-stroke)"
-            strokeWidth="1"
-            strokeDasharray="3 4"
+            strokeWidth="1.1"
+            strokeDasharray="3 5"
+            className="flow-line"
+          />
+          <path
+            d="M70 320 C 140 320, 200 360, 280 380"
+            stroke="url(#hv-stroke-2)"
+            strokeWidth="1.1"
+            strokeDasharray="3 5"
+            className="flow-line"
           />
         </svg>
-
-        {/* Trusted by glass strip */}
-        <div
-          className="absolute inset-x-3 bottom-3 overflow-hidden rounded-2xl border border-white/10 px-4 py-3 backdrop-blur-xl"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(15,18,40,0.75) 0%, rgba(10,12,28,0.85) 100%)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
-          }}
-        >
-          <div className="text-center text-[10.5px] uppercase tracking-[0.18em] text-white/55">
-            Trusted by growth-focused businesses
-          </div>
-          <div className="mt-2 grid grid-cols-5 gap-2">
-            {trusted.map((t) => (
-              <div
-                key={t.t}
-                className="flex flex-col items-center gap-0.5 text-white/70"
-              >
-                <div className="flex items-center gap-1">
-                  <t.i className="h-3 w-3 text-indigo-200" />
-                  <div
-                    className="text-[11px] font-semibold tracking-tight text-white"
-                    style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-                  >
-                    {t.t}
-                  </div>
-                </div>
-                <div className="text-[8.5px] uppercase tracking-wider text-white/40">
-                  {t.s}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
