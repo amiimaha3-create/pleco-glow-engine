@@ -231,14 +231,15 @@ function GhostButton({
 /* ----------------------------------- Hero --------------------------------- */
 
 function Hero() {
+  const ease = [0.22, 1, 0.36, 1] as const;
   const fade = {
     hidden: { opacity: 0, y: 18 },
     show: (i: number = 0) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] },
+      transition: { duration: 0.7, delay: 0.05 * i, ease },
     }),
-  };
+  } as const;
 
   return (
     <section className="relative pt-16 md:pt-24">
