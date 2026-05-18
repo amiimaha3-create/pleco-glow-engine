@@ -1586,62 +1586,59 @@ function Industries() {
 function WhyPleco() {
   const items = [
     {
-      i: Briefcase,
-      t: "Industry Expertise",
-      d: "Years operating inside travel, immigration, education and services — we speak your workflows.",
-      points: ["Vertical-specific blueprints", "Ops-aware design", "Compliance-ready"],
+      i: Zap,
+      t: "Ship in weeks, not quarters",
+      d: "Fixed-scope sprints, weekly demos, no theatrical kickoffs. You see working software inside 14 days.",
+      points: ["Fixed-scope sprints", "Weekly working demos", "Production in 6–8 weeks"],
     },
     {
       i: Layers,
-      t: "Custom-Built Solutions",
-      d: "No bloated SaaS. We build software shaped exactly around how your business actually works.",
-      points: ["Bespoke data models", "Owned roadmap", "Integrated stack"],
+      t: "One team, full stack",
+      d: "Design, engineering, automation, and systems — under one roof. No agency handoffs, no integration tax.",
+      points: ["Senior product engineers", "In-house design + AI", "Single point of contact"],
     },
     {
       i: ShieldCheck,
-      t: "Scalable & Secure",
-      d: "Architecture and security primitives that scale from 10 users to 10,000 without rewrites.",
-      points: ["Role-based access", "Audit trails", "Cloud-native"],
+      t: "Built to scale with you",
+      d: "Architecture reviewed for 10× growth from day one. No throwaway rewrites at the first inflection point.",
+      points: ["Cloud-native by default", "Role-based access + audit", "Cost-modelled at every layer"],
     },
     {
-      i: Headphones,
-      t: "End-to-End Support",
-      d: "From kickoff to ongoing iteration — one team that designs, ships, and supports it all.",
-      points: ["Dedicated success", "24/7 monitoring", "Continuous delivery"],
+      i: TrendingUp,
+      t: "Outcomes, not deliverables",
+      d: "Every engagement is tied to a measurable revenue or efficiency KPI. We report on outcomes — not tickets closed.",
+      points: ["Revenue & efficiency KPIs", "Monthly business reviews", "Continuous iteration"],
     },
   ];
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Why Pleco Lab"
-          title={<>We understand business. <span className="text-gradient-brand">We deliver results.</span></>}
+          title={<>The unfair advantage of a <span className="text-gradient-brand">product team</span>.</>}
           subtitle="A partner that combines product thinking, engineering, and operational depth — under one roof."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
           {items.map((it) => (
-            <div
-              key={it.t}
-              className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-7"
-            >
+            <div key={it.t} className="card-premium relative overflow-hidden p-6 sm:p-7">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-500/20 to-violet-500/5">
-                  <it.i className="h-5 w-5 text-indigo-200" />
+                <div className="icon-tile icon-tile-lg shrink-0">
+                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
                 </div>
                 <div>
                   <h3
-                    className="text-[20px] font-medium tracking-tight text-white"
+                    className="text-[18px] font-semibold tracking-[-0.02em] text-white sm:text-[20px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     {it.t}
                   </h3>
-                  <p className="mt-2 text-[14.5px] leading-relaxed text-white/60">{it.d}</p>
+                  <p className="mt-2 text-[14px] leading-[1.65] text-white/65">{it.d}</p>
                   <ul className="mt-4 space-y-1.5">
                     {it.points.map((p) => (
-                      <li key={p} className="flex items-center gap-2 text-[13px] text-white/70">
+                      <li key={p} className="flex items-center gap-2 text-[13px] text-white/75">
                         <div className="flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500/15 ring-1 ring-indigo-400/30">
-                          <Check className="h-2.5 w-2.5 text-indigo-200" />
+                          <Check className="h-2.5 w-2.5 text-indigo-200" strokeWidth={2} />
                         </div>
                         {p}
                       </li>
