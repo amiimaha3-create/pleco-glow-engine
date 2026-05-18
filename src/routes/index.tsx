@@ -440,7 +440,7 @@ function DashboardMockup() {
       });
       setRevKpi((r) => +(r + (Math.random() * 0.4 - 0.05)).toFixed(1));
       setLeadsKpi((l) => l + Math.floor(Math.random() * 3));
-    }, 1800);
+    }, 1100);
     return () => clearInterval(id);
   }, []);
 
