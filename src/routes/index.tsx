@@ -552,7 +552,7 @@ function Hero() {
                     <s.i className="h-4 w-4" />
                   </span>
                   <div
-                    className="stable-metric text-[28px] font-bold tracking-[-0.03em] text-white sm:text-[30px]"
+                    className="stable-metric !block text-[28px] font-bold tracking-[-0.03em] text-white sm:text-[30px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     {s.value}
