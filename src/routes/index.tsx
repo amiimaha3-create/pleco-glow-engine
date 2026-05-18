@@ -1525,17 +1525,17 @@ function FeaturedPreview() {
 
 function Industries() {
   const items = [
-    { i: Plane, t: "Travel & Tourism", d: "Booking engines, itinerary tools, ops dashboards." },
-    { i: Stamp, t: "Immigration", d: "Case mgmt, document workflows, client portals." },
-    { i: GraduationCap, t: "Education", d: "Lead funnels, counsellor CRMs, student journeys." },
-    { i: HeartPulse, t: "Healthcare", d: "Patient intake, appointments, compliance-ready." },
-    { i: Truck, t: "Logistics", d: "Tracking, dispatch, automation, partner APIs." },
-    { i: ShoppingBag, t: "Retail & E-commerce", d: "Storefronts, OMS, loyalty, WhatsApp commerce." },
-    { i: Building2, t: "Real Estate", d: "Listings, lead routing, broker pipelines." },
-    { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses." },
+    { i: Plane, t: "Travel & Tourism", d: "Booking engines, itinerary tools, ops dashboards.", chips: ["+120% bookings", "12 brands"] },
+    { i: Stamp, t: "Immigration", d: "Case mgmt, document workflows, client portals.", chips: ["+45% conv.", "6 firms"] },
+    { i: GraduationCap, t: "Education", d: "Lead funnels, counsellor CRMs, student journeys.", chips: ["+70% enrol", "9 partners"] },
+    { i: HeartPulse, t: "Healthcare", d: "Patient intake, appointments, compliance-ready.", chips: ["HIPAA ready", "4 clinics"] },
+    { i: Truck, t: "Logistics", d: "Tracking, dispatch, automation, partner APIs.", chips: ["99.9% SLA", "8 hubs"] },
+    { i: ShoppingBag, t: "Retail & E-commerce", d: "Storefronts, OMS, loyalty, WhatsApp commerce.", chips: ["3.2× LTV", "14 stores"] },
+    { i: Building2, t: "Real Estate", d: "Listings, lead routing, broker pipelines.", chips: ["+58% leads", "5 brokers"] },
+    { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses.", chips: ["Ship in 6w", "60+ teams"] },
   ];
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Industries"
@@ -1543,26 +1543,37 @@ function Industries() {
           subtitle="We've shipped real outcomes for the categories where speed, trust, and operations matter most."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((it) => (
-            <div
+            <a
               key={it.t}
-              className="group relative rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.01] p-5 transition hover:border-white/15 hover:bg-white/[0.05]"
+              href="#"
+              className="card-premium tilt group relative block overflow-hidden p-5"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-indigo-500/15 to-violet-500/5">
-                <it.i className="h-5 w-5 text-indigo-200" />
+              <div className="icon-tile">
+                <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
               </div>
               <h3
-                className="mt-5 text-[15.5px] font-medium tracking-tight text-white"
+                className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
                 style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
               >
                 {it.t}
               </h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-white/55">{it.d}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-[12px] font-medium text-indigo-300 opacity-0 transition group-hover:opacity-100">
-                Learn more <ArrowRight className="h-3 w-3" />
+              <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
+              <div className="mt-3.5 flex flex-wrap gap-1.5">
+                {it.chips.map((c) => (
+                  <span
+                    key={c}
+                    className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10.5px] font-medium text-white/70"
+                  >
+                    {c}
+                  </span>
+                ))}
               </div>
-            </div>
+              <div className="mt-4 inline-flex items-center gap-1 text-[12px] font-medium text-indigo-300 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                View case <ArrowRight className="h-3 w-3" strokeWidth={1.8} />
+              </div>
+            </a>
           ))}
         </div>
       </div>
