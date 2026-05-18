@@ -409,20 +409,12 @@ function Hero() {
             </div>
           </div>
 
-          {/* Right — hero visual (md+) */}
+          {/* Right — hero visual (all viewports) */}
           <div
-            className="hero-fade-up relative hidden md:block"
+            className="hero-fade-up relative"
             style={{ animationDelay: "300ms" }}
           >
             <HeroVisual />
-          </div>
-
-          {/* Mobile compact preview */}
-          <div
-            className="hero-fade-up relative md:hidden"
-            style={{ animationDelay: "300ms" }}
-          >
-            <MobileHeroPreview />
           </div>
         </div>
       </div>
