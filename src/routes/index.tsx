@@ -429,6 +429,128 @@ function Hero() {
   );
 }
 
+/* --------------------------- Mobile Hero Preview -------------------------- */
+
+function MobileHeroPreview() {
+  const spark = Array.from({ length: 16 }, (_, i) => ({
+    x: i,
+    y: 30 + Math.sin(i / 1.6) * 10 + i * 2.2,
+  }));
+  return (
+    <div className="relative">
+      <div
+        className="absolute -inset-8 -z-10"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 50% 40%, rgba(99,102,241,0.35), transparent 70%), radial-gradient(40% 40% at 80% 80%, rgba(168,85,247,0.25), transparent 70%)",
+          filter: "blur(10px)",
+        }}
+      />
+      <div
+        className="glass-strong ring-glow relative overflow-hidden rounded-2xl p-4"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(20,22,48,0.85) 0%, rgba(12,14,32,0.92) 100%)",
+        }}
+      >
+        <div className="tech-grid" aria-hidden />
+
+        {/* Header */}
+        <div className="relative flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-rose-400/70" />
+            <span className="h-2 w-2 rounded-full bg-amber-300/70" />
+            <span className="h-2 w-2 rounded-full bg-emerald-400/70" />
+          </div>
+          <div className="inline-flex items-center gap-1 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+            Live
+          </div>
+        </div>
+
+        {/* KPI row */}
+        <div className="relative mt-3 grid grid-cols-3 gap-2">
+          {[
+            { l: "Revenue", v: "$148K", c: "#818cf8" },
+            { l: "Leads", v: "1,284", c: "#a78bfa" },
+            { l: "Conv.", v: "9.4%", c: "#67e8f9" },
+          ].map((k) => (
+            <div
+              key={k.l}
+              className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2"
+            >
+              <div className="text-[9.5px] text-white/45">{k.l}</div>
+              <div
+                className="mt-0.5 text-[13px] font-semibold tracking-tight text-white"
+                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              >
+                {k.v}
+              </div>
+              <div
+                className="mt-0.5 inline-flex items-center gap-0.5 text-[9px] font-medium"
+                style={{ color: k.c }}
+              >
+                <TrendingUp className="h-2.5 w-2.5" /> +24%
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Chart */}
+        <div className="relative mt-3 rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
+          <div className="mb-1 flex items-center justify-between">
+            <div className="text-[10.5px] font-medium text-white/90">Revenue growth</div>
+            <div className="text-[9px] text-white/40">Live</div>
+          </div>
+          <div className="h-[70px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={spark} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
+                <defs>
+                  <linearGradient id="mg1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="monotone"
+                  dataKey="y"
+                  stroke="#a5b4fc"
+                  strokeWidth={2}
+                  fill="url(#mg1)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Feature pills */}
+        <div className="relative mt-3 grid grid-cols-2 gap-2">
+          {[
+            { i: Workflow, l: "Automations", c: "Active" },
+            { i: Bot, l: "AI Agents", c: "14 deals" },
+            { i: MessageCircle, l: "WhatsApp", c: "+312" },
+            { i: Users, l: "CRM", c: "110 deals" },
+          ].map((it) => (
+            <div
+              key={it.l}
+              className="flex items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.025] px-2.5 py-2"
+            >
+              <div className="flex h-6 w-6 items-center justify-center rounded-md border border-white/10 bg-gradient-to-br from-indigo-500/20 to-violet-500/5">
+                <it.i className="h-3 w-3 text-indigo-200" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-[10.5px] font-medium text-white/90">{it.l}</div>
+                <div className="truncate text-[9.5px] text-white/45">{it.c}</div>
+              </div>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------------------------- Dashboard Mockup ---------------------------- */
 
 function DashboardMockup() {
