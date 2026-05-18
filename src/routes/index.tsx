@@ -2648,7 +2648,7 @@ function Industries() {
             <a
               key={it.t}
               href="#contact"
-              className="card-premium tilt group relative block overflow-hidden p-5"
+              className="card-premium tilt industry-card-lock group relative block overflow-hidden p-5"
             >
               <div className="flex items-start justify-between">
                 <div className="icon-tile">
@@ -2666,7 +2666,7 @@ function Industries() {
 
               <it.Demo />
 
-              <div className="mt-4 flex flex-wrap gap-1.5">
+              <div className="mt-4 flex h-[24px] min-h-[24px] max-h-[24px] flex-wrap gap-1.5 overflow-hidden">
                 {it.chips.map((c) => (
                   <span
                     key={c}
@@ -2829,7 +2829,7 @@ function CaseStudies() {
 
               {/* Premium metric block with sparkline */}
               <div
-                className="mt-5 rounded-xl border border-white/[0.07] p-4"
+                className="mt-5 h-[169px] min-h-[169px] max-h-[169px] overflow-hidden rounded-xl border border-white/[0.07] p-4"
                 style={{
                   background: `radial-gradient(120% 100% at 0% 0%, ${s.color}14, transparent 60%), rgba(0,0,0,0.25)`,
                 }}
@@ -2863,7 +2863,7 @@ function CaseStudies() {
                     <div className="eyebrow mt-2">{s.label}</div>
                   </div>
                 </div>
-                <div className="mt-3 h-[58px] w-full">
+                <div className="stable-chart mt-3 h-[58px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={s.data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
                       <defs>
