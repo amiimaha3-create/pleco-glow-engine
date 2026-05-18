@@ -1286,36 +1286,33 @@ function DashboardMockup() {
 /* ---------------------------------- Trust --------------------------------- */
 
 function TrustStrip() {
-  const industries = [
-    { i: Plane, l: "Travel" },
-    { i: Stamp, l: "Immigration" },
-    { i: GraduationCap, l: "Education" },
-    { i: Truck, l: "Logistics" },
-    { i: HeartPulse, l: "Healthcare" },
-    { i: ShoppingBag, l: "Retail" },
-    { i: Building2, l: "Real Estate" },
-    { i: Briefcase, l: "SMEs" },
+  const brands = [
+    "FlyWorld",
+    "GlobalVisa",
+    "EduConnect",
+    "MediCare",
+    "TradeX",
+    "Northwind",
+    "Lumen",
   ];
   return (
-    <section className="relative py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="text-center text-[12.5px] uppercase tracking-[0.2em] text-white/40">
-          Trusted by businesses across industries
+    <section className="relative py-12 sm:py-16">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="text-center eyebrow">
+          Trusted by growth-focused teams worldwide
         </div>
-        <div className="hairline mx-auto mt-6 max-w-3xl" />
-        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:grid-cols-8">
-          {industries.map((it) => (
-            <div
-              key={it.l}
-              className="flex items-center justify-center gap-2 text-white/55 transition hover:text-white"
-            >
-              <it.i className="h-4 w-4" />
+        <div className="hairline mx-auto mt-5 max-w-3xl" />
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-4 sm:gap-x-6">
+          {brands.map((b, idx) => (
+            <div key={b} className="flex items-center gap-3 sm:gap-6">
               <span
-                className="text-[14px] font-medium tracking-tight"
-                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+                className="wordmark text-[15px] sm:text-[17px]"
               >
-                {it.l}
+                {b}
               </span>
+              {idx < brands.length - 1 && (
+                <span className="hidden h-1 w-1 rounded-full bg-white/15 sm:inline-block" aria-hidden />
+              )}
             </div>
           ))}
         </div>
