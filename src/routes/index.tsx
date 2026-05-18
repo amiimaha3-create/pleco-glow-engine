@@ -1816,47 +1816,67 @@ function gen(n: number, lo: number, hi: number) {
 
 function FinalCTA() {
   return (
-    <section className="relative py-16 sm:py-28">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="relative overflow-hidden rounded-3xl border border-white/10 px-5 py-14 text-center sm:px-16 sm:py-20">
-          {/* Gradient bg */}
-          <div
-            className="absolute inset-0 -z-10"
-            style={{
-              background:
-                "radial-gradient(60% 80% at 50% 0%, rgba(99,102,241,0.35), transparent 60%), radial-gradient(50% 80% at 80% 100%, rgba(168,85,247,0.25), transparent 60%), linear-gradient(180deg, #0a1130 0%, #060B1A 100%)",
-            }}
-          />
-          <div className="absolute inset-0 -z-10 grid-bg opacity-40" />
+          {/* Animated conic mesh */}
+          <div className="absolute inset-0 -z-10 overflow-hidden rounded-3xl">
+            <div className="mesh-conic" />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(60% 80% at 50% 0%, rgba(99,102,241,0.30), transparent 60%), linear-gradient(180deg, rgba(10,17,48,0.6) 0%, rgba(6,11,26,0.95) 100%)",
+              }}
+            />
+            {/* Floating orbs */}
+            <div
+              className="float-orb absolute -left-16 top-8 h-40 w-40 rounded-full"
+              style={{
+                background: "radial-gradient(circle, rgba(129,140,248,0.55), transparent 70%)",
+                filter: "blur(20px)",
+              }}
+            />
+            <div
+              className="float-orb absolute -right-12 bottom-6 h-44 w-44 rounded-full"
+              style={{
+                background: "radial-gradient(circle, rgba(192,132,252,0.45), transparent 70%)",
+                filter: "blur(24px)",
+                animationDelay: "3s",
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 -z-10 grid-bg opacity-30" />
 
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[12px] text-white/75 backdrop-blur">
-            <Sparkles className="h-3 w-3 text-indigo-300" />
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11.5px] text-white/80 backdrop-blur">
+            <Sparkles className="h-3 w-3 text-indigo-300" strokeWidth={1.6} />
             Start in days, not quarters
           </div>
 
           <h2
-            className="mx-auto mt-6 max-w-3xl text-[30px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px]"
+            className="mx-auto mt-5 max-w-3xl text-[30px] font-semibold leading-[1.03] tracking-[-0.035em] sm:text-[52px]"
             style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
           >
-            Ready to build your <span className="text-gradient-brand">growth engine?</span>
+            <span className="text-white">Ready to build your </span>
+            <span className="text-sweep">growth engine?</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-xl text-[14.5px] leading-relaxed text-white/65 sm:text-[15.5px]">
+          <p className="mx-auto mt-4 max-w-xl text-[14.5px] leading-[1.65] text-white/70 sm:text-[15.5px]">
             Book a free 30-minute consultation. We'll map the system, the stack,
             and the path to results — no obligation.
           </p>
 
-          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
-              Book free consultation <ArrowRight className="h-4 w-4" />
+              Book free consultation <ArrowRight className="btn-arrow h-4 w-4" />
             </PrimaryButton>
             <GhostButton size="lg" className="w-full justify-center sm:w-auto">Let's talk</GhostButton>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/45">
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> No commitment</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> Reply within 24h</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> NDA on request</span>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/55">
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> No commitment</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> Reply within 24h</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> NDA on request</span>
           </div>
         </div>
       </div>
@@ -1873,10 +1893,6 @@ function Footer() {
       links: ["CRM Development", "Website Development", "Business Automation", "AI Agents", "WhatsApp Automation", "Integrations"],
     },
     {
-      h: "Industries",
-      links: ["Travel & Tourism", "Immigration", "Education", "Healthcare", "Logistics", "Retail"],
-    },
-    {
       h: "Company",
       links: ["About", "Careers", "Customers", "Partners", "Contact"],
     },
@@ -1887,51 +1903,50 @@ function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-white/[0.06] pt-20 pb-10">
+    <footer className="relative border-t border-white/[0.06] pt-14 pb-8">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr,3fr]">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr,3fr]">
           {/* Brand */}
           <div>
             <Logo />
-            <p className="mt-5 max-w-sm text-[14px] leading-relaxed text-white/55">
-              Pleco Lab is a premium technology partner helping growth-focused
-              businesses across India, Africa, and Asia ship real outcomes.
+            <p className="mt-4 max-w-sm text-[13.5px] leading-[1.65] text-white/55">
+              Premium technology partner for growth-focused businesses across
+              India, Africa, and Asia. Product, engineering, and operations —
+              under one roof.
             </p>
-            <div className="mt-6 space-y-2.5 text-[13px] text-white/60">
+            <div className="mt-5 space-y-2 text-[13px] text-white/60">
               <div className="flex items-center gap-2.5">
-                <MapPin className="h-3.5 w-3.5 text-indigo-300" />
+                <MapPin className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.6} />
                 Headquartered in India · Serving globally
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="h-3.5 w-3.5 text-indigo-300" />
+                <Mail className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.6} />
                 hello@plecolab.io
               </div>
             </div>
 
-            <div className="mt-6 flex gap-2">
+            <div className="mt-5 flex gap-2">
               {[Twitter, Linkedin, Github].map((I, i) => (
                 <a
                   key={i}
                   href="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-white/20 hover:text-white"
                 >
-                  <I className="h-4 w-4" />
+                  <I className="h-4 w-4" strokeWidth={1.6} />
                 </a>
               ))}
             </div>
           </div>
 
           {/* Links */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {cols.map((c) => (
               <div key={c.h}>
-                <div className="text-[12.5px] font-semibold uppercase tracking-wider text-white/85">
-                  {c.h}
-                </div>
+                <div className="eyebrow text-white/70">{c.h}</div>
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map((l) => (
                     <li key={l}>
-                      <a href="#" className="text-[13.5px] text-white/55 transition hover:text-white">
+                      <a href="#" className="text-[13px] text-white/55 transition hover:text-white">
                         {l}
                       </a>
                     </li>
@@ -1942,11 +1957,15 @@ function Footer() {
           </div>
         </div>
 
-        <div className="hairline mt-16" />
+        <div className="hairline mt-12" />
 
-        <div className="mt-6 flex flex-col items-center justify-between gap-3 text-[12.5px] text-white/45 sm:flex-row">
+        <div className="mt-5 flex flex-col items-center justify-between gap-3 text-[12.5px] text-white/45 sm:flex-row">
           <div>© {new Date().getFullYear()} Pleco Lab. All rights reserved.</div>
           <div className="flex items-center gap-5">
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-2.5 py-1 text-[11.5px] font-medium text-emerald-300">
+              <span className="status-dot" />
+              All systems operational
+            </span>
             <a href="#" className="transition hover:text-white/80">Privacy</a>
             <a href="#" className="transition hover:text-white/80">Terms</a>
             <a href="#" className="transition hover:text-white/80">Security</a>
