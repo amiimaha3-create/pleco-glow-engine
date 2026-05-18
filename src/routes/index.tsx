@@ -3087,141 +3087,252 @@ function CaseStudies() {
   const studies = [
     {
       tag: "Immigration",
-      title: "Built an end-to-end case CRM for a global immigration firm.",
+      brand: "GlobalVisa",
+      title: "End-to-end case CRM for a global immigration firm.",
+      problem: "Consultants juggling 6 tools, manual case tracking, leaking deals.",
+      system: "Unified CRM · document automation · client portal",
       metric: "+45%",
       label: "Conversion rate",
-      color: "#818cf8",
+      sub: "8 weeks to production",
+      color: "#38bdf8",
       data: gen(20, 30, 70),
-      quote: "Our consultants close 2× faster.",
-      person: "Priya N., Director of Ops",
+      quote: "Our consultants close 2× faster. Pipeline visibility is night-and-day.",
+      person: "Priya N.",
+      role: "Director of Operations",
+      kpis: [
+        { l: "Cases / consultant", v: "+2.1×" },
+        { l: "Time-to-quote",      v: "−68%" },
+        { l: "SLA breaches",       v: "0" },
+      ],
     },
     {
       tag: "Travel",
-      title: "Automated bookings & WhatsApp ops for a leading travel agency.",
+      brand: "FlyWorld",
+      title: "Automated bookings & WhatsApp operations for a leading travel agency.",
+      problem: "300+ daily WhatsApp enquiries handled manually, missed bookings.",
+      system: "WhatsApp automation · booking engine · agent copilot",
       metric: "+120%",
       label: "Bookings / month",
-      color: "#c084fc",
+      sub: "Headcount unchanged",
+      color: "#f87171",
       data: gen(20, 20, 90),
-      quote: "We scaled without scaling headcount.",
-      person: "Arjun M., Founder",
+      quote: "We scaled without scaling headcount. The system pays for itself every week.",
+      person: "Arjun M.",
+      role: "Founder & CEO",
+      kpis: [
+        { l: "Reply latency",   v: "12s" },
+        { l: "Booking velocity", v: "+120%" },
+        { l: "Ops cost / book",  v: "−54%" },
+      ],
+      featured: true,
     },
     {
       tag: "Education",
+      brand: "EduConnect",
       title: "Unified counsellor pipelines for a multi-country edtech.",
+      problem: "Disconnected counsellors, no unified pipeline, low enrol rate.",
+      system: "Lead routing · counsellor CRM · automated nurture",
       metric: "+70%",
       label: "Lead-to-enrol growth",
-      color: "#67e8f9",
+      sub: "4 countries · 1 platform",
+      color: "#a78bfa",
       data: gen(20, 25, 80),
-      quote: "Best decision we made this year.",
-      person: "Sara K., Head of Growth",
+      quote: "Best decision we made this year. Every counsellor is on the same page.",
+      person: "Sara K.",
+      role: "Head of Growth",
+      kpis: [
+        { l: "Lead-to-enrol", v: "+70%" },
+        { l: "Response time", v: "< 4m" },
+        { l: "Counsellor NPS", v: "+38" },
+      ],
     },
   ];
+
+  // Reorder so featured sits in the middle on desktop
+  const ordered = [studies[0], studies[1], studies[2]];
 
   return (
     <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
-          eyebrow="Results"
-          title={<>Outcomes, not <span className="text-gradient-brand">deliverables</span>.</>}
-          subtitle="What growth looks like when product, engineering, and operations move together."
+          eyebrow="Proof"
+          title={<>Real systems. <span className="text-gradient-brand">Measurable outcomes</span>.</>}
+          subtitle="A sample of operating systems we've built for revenue, ops and growth teams."
         />
 
-        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          {studies.map((s) => (
-            <article
-              key={s.title}
-              className="card-premium group relative flex flex-col overflow-hidden p-6"
-            >
-              <div className="flex items-center justify-between">
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-white/70">
-                  {s.tag}
-                </span>
-                <span
-                  className="wordmark text-[12.5px] tracking-tight"
-                  style={{ opacity: 0.55 }}
-                >
-                  {s.tag === "Immigration" ? "GlobalVisa" : s.tag === "Travel" ? "FlyWorld" : "EduConnect"}
-                </span>
-              </div>
-
-              <h3
-                className="mt-4 text-[17px] font-medium leading-snug tracking-[-0.02em] text-white"
-                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-              >
-                {s.title}
-              </h3>
-
-              {/* Premium metric block with sparkline */}
-              <div
-                className="mt-5 h-[169px] min-h-[169px] max-h-[169px] overflow-hidden rounded-xl border border-white/[0.07] p-4"
-                style={{
-                  background: `radial-gradient(120% 100% at 0% 0%, ${s.color}14, transparent 60%), rgba(0,0,0,0.25)`,
-                }}
-              >
-                <div className="flex items-end justify-between">
-                  <div>
-                    <div className="flex items-baseline gap-2">
-                      <div
-                        className="text-[34px] font-semibold leading-none tracking-[-0.035em]"
-                        style={{
-                          background: `linear-gradient(135deg, #ffffff, ${s.color})`,
-                          WebkitBackgroundClip: "text",
-                          backgroundClip: "text",
-                          color: "transparent",
-                          fontFamily: "Space Grotesk, Inter, sans-serif",
-                        }}
-                      >
-                        {s.metric}
-                      </div>
-                      <span
-                        className="inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
-                        style={{
-                          background: `${s.color}22`,
-                          color: s.color,
-                          border: `1px solid ${s.color}40`,
-                        }}
-                      >
-                        <TrendingUp className="h-2.5 w-2.5" strokeWidth={2} /> YoY
-                      </span>
-                    </div>
-                    <div className="eyebrow mt-2">{s.label}</div>
-                  </div>
-                </div>
-                <div className="stable-chart mt-3 h-[58px] w-full">
-                  {(() => {
-                    const pts = getChartPoints(s.data, 300, 58, 3);
-                    return (
-                      <svg viewBox="0 0 300 58" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
-                        <defs>
-                          <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
-                            <stop offset="100%" stopColor={s.color} stopOpacity={0} />
-                          </linearGradient>
-                        </defs>
-                        <path d={areaPath(pts, 58, 3)} fill={`url(#cs-${s.tag})`} />
-                        <path d={linePath(pts)} fill="none" stroke={s.color} strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    );
-                  })()}
-                </div>
-              </div>
-
-              <blockquote className="mt-5 text-[13.5px] leading-[1.65] text-white/75">
-                "{s.quote}"
-              </blockquote>
-              <div className="mt-1.5 text-[12px] text-white/45">{s.person}</div>
-
-              <a
-                href="#"
-                className="mt-5 inline-flex items-center gap-1 text-[13px] font-medium text-indigo-300 transition hover:text-indigo-200"
-              >
-                Read case study <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.8} />
-              </a>
-            </article>
+        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-[1fr_1.45fr_1fr] lg:items-stretch">
+          {ordered.map((s) => (
+            <CaseCard key={s.tag} s={s} featured={!!s.featured} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function CaseCard({
+  s,
+  featured,
+}: {
+  s: {
+    tag: string;
+    brand: string;
+    title: string;
+    problem: string;
+    system: string;
+    metric: string;
+    label: string;
+    sub: string;
+    color: string;
+    data: { x: number; y: number }[];
+    quote: string;
+    person: string;
+    role: string;
+    kpis: { l: string; v: string }[];
+  };
+  featured: boolean;
+}) {
+  return (
+    <article
+      className={`wp-card anim-isolate group relative flex flex-col p-5 sm:p-6 ${
+        featured ? "lg:p-7" : ""
+      }`}
+      style={{ minHeight: featured ? 560 : 520 }}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <span className="wp-chip" style={{ color: s.color, borderColor: `${s.color}3a`, background: `${s.color}14` }}>
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color }} />
+          {s.tag}
+        </span>
+        <span className="wordmark text-[12.5px] tracking-tight text-white/55">{s.brand}</span>
+      </div>
+
+      {/* Title */}
+      <h3
+        className={`mt-4 leading-snug tracking-[-0.02em] text-white ${
+          featured ? "text-[20px] sm:text-[22px] font-semibold" : "text-[16.5px] font-medium"
+        }`}
+        style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+      >
+        {s.title}
+      </h3>
+
+      {/* Problem / System */}
+      <div className="mt-4 space-y-2">
+        <div>
+          <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-white/40">Problem</div>
+          <p className="mt-1 text-[12.5px] leading-[1.55] text-white/65">{s.problem}</p>
+        </div>
+        <div>
+          <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-white/40">System deployed</div>
+          <p className="mt-1 text-[12.5px] leading-[1.55] text-white/80">{s.system}</p>
+        </div>
+      </div>
+
+      {/* Outcome dashboard */}
+      <div
+        className="mt-5 overflow-hidden rounded-xl border border-white/[0.07] p-4"
+        style={{
+          background: `radial-gradient(120% 100% at 0% 0%, ${s.color}1a, transparent 60%), rgba(0,0,0,0.28)`,
+          height: featured ? 188 : 168,
+          minHeight: featured ? 188 : 168,
+          maxHeight: featured ? 188 : 168,
+        }}
+      >
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="flex items-baseline gap-2">
+              <div
+                className={`stable-metric leading-none tracking-[-0.035em] ${
+                  featured ? "text-[40px]" : "text-[30px]"
+                } font-semibold`}
+                style={{
+                  background: `linear-gradient(135deg, #ffffff, ${s.color})`,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "Space Grotesk, Inter, sans-serif",
+                }}
+              >
+                {s.metric}
+              </div>
+              <span
+                className="inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                style={{ background: `${s.color}22`, color: s.color, border: `1px solid ${s.color}40` }}
+              >
+                <TrendingUp className="h-2.5 w-2.5" strokeWidth={2} /> YoY
+              </span>
+            </div>
+            <div className="eyebrow mt-2">{s.label}</div>
+            <div className="mt-0.5 text-[10.5px] text-white/40">{s.sub}</div>
+          </div>
+          <span className="wp-chip wp-chip-green">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            live
+          </span>
+        </div>
+        <div className="stable-chart mt-3 w-full" style={{ height: featured ? 70 : 54 }}>
+          {(() => {
+            const H = featured ? 70 : 54;
+            const pts = getChartPoints(s.data, 300, H, 3);
+            return (
+              <svg viewBox={`0 0 300 ${H}`} className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                <defs>
+                  <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
+                    <stop offset="100%" stopColor={s.color} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <path d={areaPath(pts, H, 3)} fill={`url(#cs-${s.tag})`} />
+                <path
+                  d={linePath(pts)}
+                  fill="none"
+                  stroke={s.color}
+                  strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="wp-area-draw"
+                />
+              </svg>
+            );
+          })()}
+        </div>
+      </div>
+
+      {/* KPI strip (featured only) */}
+      {featured && (
+        <div className="mt-3 grid grid-cols-3 gap-1.5">
+          {s.kpis.map((k) => (
+            <div
+              key={k.l}
+              className="rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-1.5"
+            >
+              <div className="text-[9.5px] uppercase tracking-[0.1em] text-white/40">{k.l}</div>
+              <div className="mt-0.5 text-[12.5px] font-medium text-white stable-metric">{k.v}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Quote */}
+      <blockquote className="mt-5 text-[13px] leading-[1.6] text-white/75">"{s.quote}"</blockquote>
+      <div className="mt-1.5 text-[11.5px] text-white/45">
+        {s.person} · <span className="text-white/55">{s.role}</span>
+      </div>
+
+      {/* CTA */}
+      <div className="mt-auto pt-5">
+        <a
+          href="#"
+          className="inline-flex items-center gap-1 text-[13px] font-medium text-white/80 transition group-hover:text-white"
+        >
+          {featured ? "See full breakdown" : "View transformation"}
+          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.8} />
+        </a>
+      </div>
+    </article>
   );
 }
 
@@ -3238,68 +3349,112 @@ function gen(n: number, lo: number, hi: number) {
 /* --------------------------------- Final CTA ------------------------------ */
 
 function FinalCTA() {
+  // Architecture-inspired node network (static layout, animated edges)
+  const nodes = [
+    { x: 60,  y: 60,  r: 4 },
+    { x: 160, y: 110, r: 5 },
+    { x: 110, y: 200, r: 3 },
+    { x: 260, y: 60,  r: 3 },
+    { x: 340, y: 150, r: 5 },
+    { x: 460, y: 80,  r: 3 },
+    { x: 540, y: 180, r: 4 },
+    { x: 640, y: 110, r: 5 },
+    { x: 740, y: 60,  r: 3 },
+    { x: 720, y: 210, r: 3 },
+  ];
+  const edges = [
+    [0, 1], [1, 2], [1, 3], [3, 4], [4, 5], [4, 6],
+    [5, 7], [6, 7], [7, 8], [7, 9],
+  ];
   return (
     <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 px-5 py-14 text-center sm:px-16 sm:py-20">
-          {/* Animated conic mesh */}
+        <div className="wp-card anim-isolate relative overflow-hidden rounded-3xl px-5 py-14 text-center sm:px-16 sm:py-20">
+          {/* Background — grid + node network */}
           <div className="absolute inset-0 -z-10 overflow-hidden rounded-3xl">
-            <div className="mesh-conic" />
             <div
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(60% 80% at 50% 0%, rgba(99,102,241,0.30), transparent 60%), linear-gradient(180deg, rgba(10,17,48,0.6) 0%, rgba(6,11,26,0.95) 100%)",
+                  "radial-gradient(60% 80% at 50% 0%, rgba(56,189,248,0.18), transparent 60%), radial-gradient(50% 70% at 80% 100%, rgba(239,68,68,0.14), transparent 60%), linear-gradient(180deg, rgba(8,12,28,0.92) 0%, rgba(6,8,20,0.96) 100%)",
               }}
             />
-            {/* Floating orbs */}
-            <div
-              className="float-orb absolute -left-16 top-8 h-40 w-40 rounded-full"
-              style={{
-                background: "radial-gradient(circle, rgba(129,140,248,0.55), transparent 70%)",
-                filter: "blur(20px)",
-              }}
-            />
-            <div
-              className="float-orb absolute -right-12 bottom-6 h-44 w-44 rounded-full"
-              style={{
-                background: "radial-gradient(circle, rgba(192,132,252,0.45), transparent 70%)",
-                filter: "blur(24px)",
-                animationDelay: "3s",
-              }}
-            />
+            <div className="absolute inset-0 grid-bg opacity-25" />
+            <svg
+              viewBox="0 0 800 260"
+              preserveAspectRatio="xMidYMid slice"
+              className="absolute inset-0 h-full w-full"
+              aria-hidden
+            >
+              <defs>
+                <linearGradient id="cta-edge" x1="0" x2="1">
+                  <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#ef4444" stopOpacity="0.5" />
+                </linearGradient>
+              </defs>
+              {edges.map(([a, b], i) => {
+                const A = nodes[a], B = nodes[b];
+                return (
+                  <g key={i}>
+                    <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke="url(#cta-edge)" strokeOpacity="0.4" strokeWidth="1" />
+                    <line
+                      x1={A.x} y1={A.y} x2={B.x} y2={B.y}
+                      stroke="#e0f2fe"
+                      strokeWidth="1.2"
+                      className="wp-packet"
+                      style={{ animationDelay: `${i * 0.35}s` }}
+                    />
+                  </g>
+                );
+              })}
+              {nodes.map((n, i) => (
+                <g key={i}>
+                  <circle cx={n.x} cy={n.y} r={n.r + 4} fill="none" stroke="#38bdf8" strokeOpacity="0.35" className="wp-node-glow" style={{ animationDelay: `${i * 0.25}s` }} />
+                  <circle cx={n.x} cy={n.y} r={n.r} fill="#bae6fd" opacity="0.9" />
+                </g>
+              ))}
+            </svg>
           </div>
-          <div className="absolute inset-0 -z-10 grid-bg opacity-30" />
 
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11.5px] text-white/80 backdrop-blur">
-            <Sparkles className="h-3 w-3 text-indigo-300" strokeWidth={1.6} />
-            Start in days, not quarters
+            <Sparkles className="h-3 w-3 text-sky-300" strokeWidth={1.6} />
+            For founders & ops leaders ready to scale
           </div>
 
           <h2
-            className="mx-auto mt-5 max-w-3xl text-[30px] font-semibold leading-[1.03] tracking-[-0.035em] sm:text-[52px]"
+            className="mx-auto mt-5 max-w-3xl text-[30px] font-semibold leading-[1.04] tracking-[-0.035em] sm:text-[52px]"
             style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
           >
-            <span className="text-white">Ready to build your </span>
-            <span className="text-sweep">growth engine?</span>
+            <span className="text-white">Let's build the </span>
+            <span className="text-sweep">operating system</span>
+            <span className="text-white"> behind your growth.</span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-[14.5px] leading-[1.65] text-white/70 sm:text-[15.5px]">
-            Book a free 30-minute consultation. We'll map the system, the stack,
-            and the path to results — no obligation.
+          <p className="mx-auto mt-5 max-w-xl text-[14.5px] leading-[1.65] text-white/65 sm:text-[15.5px]">
+            A 30-minute strategy call with a senior product engineer. We'll map
+            the systems, the stack, and the path to measurable outcomes.
           </p>
 
           <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
-              Book free consultation <ArrowRight className="btn-arrow h-4 w-4" />
+              Book strategy call <ArrowRight className="btn-arrow h-4 w-4" />
             </PrimaryButton>
-            <GhostButton size="lg" className="w-full justify-center sm:w-auto">Let's talk</GhostButton>
+            <GhostButton size="lg" className="w-full justify-center sm:w-auto">
+              See how we work
+            </GhostButton>
           </div>
 
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/55">
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> No commitment</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> Reply within 24h</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> NDA on request</span>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/55">
+            {[
+              "Response within 24 hours",
+              "NDA available",
+              "Senior team only",
+              "No-obligation consultation",
+            ].map((t) => (
+              <span key={t} className="inline-flex items-center gap-1.5">
+                <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> {t}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -3310,66 +3465,59 @@ function FinalCTA() {
 /* ---------------------------------- Footer -------------------------------- */
 
 function Footer() {
-  const cols = [
-    {
-      h: "Solutions",
-      links: ["CRM Development", "Website Development", "Business Automation", "AI Agents", "WhatsApp Automation", "Integrations"],
-    },
-    {
-      h: "Company",
-      links: ["About", "Careers", "Customers", "Partners", "Contact"],
-    },
-    {
-      h: "Resources",
-      links: ["Blog", "Case Studies", "Documentation", "Changelog", "Trust & Security"],
-    },
+  const nav = [
+    { h: "Solutions",   links: ["CRM Development", "Website Development", "Business Automation", "AI Agents"] },
+    { h: "How we work", links: ["Process", "Engagements", "Team", "FAQ"] },
+    { h: "Case studies",links: ["Immigration", "Travel", "Education", "All transformations"] },
+    { h: "Contact",     links: ["Book a call", "Email us", "WhatsApp", "LinkedIn"] },
   ];
 
   return (
-    <footer className="relative border-t border-white/[0.06] pt-14 pb-8">
+    <footer className="relative border-t border-white/[0.06] pt-16 pb-8">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr,3fr]">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_2.7fr]">
           {/* Brand */}
           <div>
             <Logo />
-            <p className="mt-4 max-w-sm text-[13.5px] leading-[1.65] text-white/55">
-              Premium technology partner for growth-focused businesses across
-              India, Africa, and Asia. Product, engineering, and operations —
-              under one roof.
+            <p className="mt-5 max-w-sm text-[13.5px] leading-[1.65] text-white/55">
+              Premium product engineering &amp; automation partner. We build the
+              systems that scale revenue, ops, and growth.
             </p>
-            <div className="mt-5 space-y-2 text-[13px] text-white/60">
-              <div className="flex items-center gap-2.5">
-                <MapPin className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.6} />
-                Headquartered in India · Serving globally
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.6} />
-                hello@plecolab.io
-              </div>
-            </div>
 
-            <div className="mt-6 flex gap-2.5">
-              {[Twitter, Linkedin, Github].map((I, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="social-tile flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/65"
-                >
-                  <I className="h-4 w-4" strokeWidth={1.6} />
-                </a>
-              ))}
+            <div className="mt-6 space-y-2.5 text-[13px] text-white/65">
+              <div className="flex items-center gap-2.5">
+                <MapPin className="h-3.5 w-3.5 text-sky-300/80" strokeWidth={1.6} />
+                Delhi, India HQ · Global delivery
+              </div>
+              <a href="mailto:hello@plecolab.io" className="flex items-center gap-2.5 transition hover:text-white">
+                <Mail className="h-3.5 w-3.5 text-sky-300/80" strokeWidth={1.6} />
+                hello@plecolab.io
+              </a>
+              <a href="#" className="flex items-center gap-2.5 transition hover:text-white">
+                <Linkedin className="h-3.5 w-3.5 text-sky-300/80" strokeWidth={1.6} />
+                linkedin.com/company/plecolab
+              </a>
+              <a href="#" className="flex items-center gap-2.5 transition hover:text-white">
+                <Phone className="h-3.5 w-3.5 text-sky-300/80" strokeWidth={1.6} />
+                WhatsApp · +91 · on request
+              </a>
             </div>
           </div>
 
           {/* Links */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
-            {cols.map((c) => (
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {nav.map((c) => (
               <div key={c.h}>
-                <div className="eyebrow text-white/70">{c.h}</div>
+                <div className="text-[10.5px] font-medium uppercase tracking-[0.16em] text-white/55">
+                  {c.h}
+                </div>
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map((l) => (
                     <li key={l}>
-                      <a href="#" className="text-[13px] text-white/55 transition hover:text-white">
+                      <a
+                        href="#"
+                        className="text-[13px] text-white/55 transition hover:text-white"
+                      >
                         {l}
                       </a>
                     </li>
@@ -3380,21 +3528,17 @@ function Footer() {
           </div>
         </div>
 
-        <div className="hairline mt-12" />
+        <div className="hairline mt-14" />
 
-        <div className="mt-5 flex flex-col items-center justify-between gap-3 text-[12.5px] text-white/45 sm:flex-row">
-          <div>© {new Date().getFullYear()} Pleco Lab. All rights reserved.</div>
-          <div className="flex items-center gap-5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-2.5 py-1 text-[11.5px] font-medium text-emerald-300">
-              <span className="status-dot" />
-              All systems operational
-            </span>
+        <div className="mt-6 flex flex-col items-center justify-between gap-3 text-[12.5px] text-white/45 sm:flex-row">
+          <div>© {new Date().getFullYear()} Pleco Lab · Product engineering &amp; automation</div>
+          <div className="flex items-center gap-6">
             <a href="#" className="transition hover:text-white/80">Privacy</a>
             <a href="#" className="transition hover:text-white/80">Terms</a>
-            <a href="#" className="transition hover:text-white/80">Security</a>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
