@@ -1357,24 +1357,22 @@ function SectionHeader({
 /* -------------------------------- Services -------------------------------- */
 
 function Services() {
-  const items = [
-    {
-      i: LayoutDashboard,
-      t: "Custom CRM Development",
-      d: "Tailor-made CRM platforms built around your sales, ops, and customer workflows.",
-      span: "md:col-span-2 md:row-span-2",
-      featured: true,
-    },
+  const featured = {
+    i: LayoutDashboard,
+    t: "Custom CRM Development",
+    d: "Tailor-made CRM platforms built around your sales, ops, and customer workflows — with live pipeline, automation, and AI baked in.",
+  };
+  const supporting = [
     { i: Globe2, t: "Website Development", d: "Conversion-tuned websites that look premium and load fast." },
     { i: Workflow, t: "Business Automation", d: "Eliminate repetitive ops with workflows that just work." },
-    { i: Bot, t: "AI Agents & AI Solutions", d: "Production AI agents that handle real customer work." },
-    { i: Users, t: "Lead Management Systems", d: "Capture, score, route, and convert leads end-to-end." },
+    { i: Bot, t: "AI Agents", d: "Production AI agents that handle real customer work." },
+    { i: Users, t: "Lead Management", d: "Capture, score, route, and convert leads end-to-end." },
     { i: MessageCircle, t: "WhatsApp Automation", d: "Native WhatsApp flows that scale support and sales." },
     { i: Code2, t: "Custom Software", d: "Internal tools and bespoke software for your stack." },
     { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable." },
   ];
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Solutions"
@@ -1382,9 +1380,53 @@ function Services() {
           subtitle="From the first lead to the back-office system that runs your business — we design, build, and operate it."
         />
 
-        <div className="mt-14 grid auto-rows-[minmax(180px,auto)] grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
-          {items.map((it, idx) => (
-            <ServiceCard key={it.t} {...it} idx={idx} />
+        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-5">
+          {/* Featured */}
+          <div className="card-premium group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="icon-tile icon-tile-lg">
+                  <featured.i className="h-5 w-5" strokeWidth={1.6} />
+                </div>
+                <div className="eyebrow">Featured</div>
+              </div>
+              <ArrowUpRight className="h-4 w-4 text-white/40 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" strokeWidth={1.6} />
+            </div>
+            <h3
+              className="mt-5 text-[22px] font-semibold tracking-[-0.025em] text-white sm:text-[26px]"
+              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+            >
+              {featured.t}
+            </h3>
+            <p className="mt-2.5 max-w-md text-[14px] leading-[1.65] text-white/65">
+              {featured.d}
+            </p>
+            <div className="mt-6">
+              <FeaturedPreview />
+            </div>
+          </div>
+
+          {/* Supporting cards */}
+          {supporting.map((it) => (
+            <a
+              key={it.t}
+              href="#"
+              className="card-premium group relative overflow-hidden p-5 lg:col-span-2 lg:p-5"
+            >
+              <div className="flex items-start justify-between">
+                <div className="icon-tile">
+                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-white/25 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white/80" strokeWidth={1.6} />
+              </div>
+              <h3
+                className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
+                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              >
+                {it.t}
+              </h3>
+              <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
+            </a>
           ))}
         </div>
       </div>
@@ -1392,89 +1434,87 @@ function Services() {
   );
 }
 
-function ServiceCard({
-  i: Icon,
-  t,
-  d,
-  span,
-  featured,
-  idx,
-}: {
-  i: any;
-  t: string;
-  d: string;
-  span?: string;
-  featured?: boolean;
-  idx: number;
-}) {
-  return (
-    <div
-      className={`group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.015] p-6 transition hover:border-white/15 ${span ?? ""}`}
-    >
-      {/* Hover glow */}
-      <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(400px circle at var(--mx,50%) var(--my,0%), rgba(129,140,248,0.12), transparent 40%)",
-        }}
-      />
-
-      <div className="flex h-full flex-col">
-        <div className="flex items-start justify-between">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-indigo-500/20 to-violet-500/5">
-            <Icon className="h-4.5 w-4.5 text-indigo-200" />
-          </div>
-          <ArrowUpRight className="h-4 w-4 text-white/30 transition group-hover:text-white/80" />
-        </div>
-
-        <div className={featured ? "mt-auto pt-8" : "mt-6"}>
-          <h3
-            className={`font-medium tracking-tight text-white ${featured ? "text-[22px]" : "text-[16px]"}`}
-            style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-          >
-            {t}
-          </h3>
-          <p className={`mt-2 text-white/55 ${featured ? "text-[14.5px] leading-relaxed max-w-md" : "text-[13px] leading-relaxed"}`}>
-            {d}
-          </p>
-        </div>
-
-        {featured && <FeaturedVisual />}
-      </div>
-    </div>
-  );
-}
-
-function FeaturedVisual() {
-  const data = Array.from({ length: 20 }, (_, i) => ({
+function FeaturedPreview() {
+  const data = Array.from({ length: 22 }, (_, i) => ({
     x: i,
-    y: 30 + Math.sin(i / 2) * 10 + i * 1.5,
+    y: 28 + Math.sin(i / 2.2) * 8 + i * 1.6,
   }));
+  const stages = [
+    { l: "New", c: 48, color: "#60a5fa", pct: 100 },
+    { l: "Qualified", c: 32, color: "#818cf8", pct: 72 },
+    { l: "Proposal", c: 19, color: "#a78bfa", pct: 48 },
+    { l: "Won", c: 11, color: "#34d399", pct: 28 },
+  ];
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 -z-0 h-44 opacity-90">
-      <div className="relative h-full w-full">
-        <div className="absolute right-6 top-6 grid grid-cols-3 gap-2">
-          {["Leads", "Deals", "Revenue"].map((l, i) => (
-            <div key={l} className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5 backdrop-blur">
-              <div className="text-[9px] text-white/45">{l}</div>
-              <div className="text-[11px] font-medium text-white">
-                {["1,248", "312", "$48K"][i]}
-              </div>
-            </div>
-          ))}
+    <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.03] to-white/[0.005] p-4">
+      {/* Window chrome */}
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-rose-400/70" />
+          <span className="h-2 w-2 rounded-full bg-amber-300/70" />
+          <span className="h-2 w-2 rounded-full bg-emerald-400/70" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-24 opacity-70">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <Line
-                dataKey="y"
-                stroke="#a5b4fc"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[10px] text-white/55">
+          app.plecolab.io / pipeline
+        </div>
+        <div className="h-5 w-5 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 ring-1 ring-white/20" />
+      </div>
+
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        {[
+          { l: "Revenue", v: "$148K", d: "+24%" },
+          { l: "Deals", v: "110", d: "+12%" },
+          { l: "Win rate", v: "34%", d: "+6pt" },
+        ].map((k) => (
+          <div key={k.l} className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
+            <div className="text-[10px] text-white/45">{k.l}</div>
+            <div
+              className="mt-0.5 text-[15px] font-semibold tracking-[-0.02em] text-white"
+              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+            >
+              {k.v}
+            </div>
+            <div className="mt-0.5 inline-flex items-center gap-0.5 text-[10px] font-medium text-emerald-300">
+              <TrendingUp className="h-2.5 w-2.5" strokeWidth={1.8} /> {k.d}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-3 grid grid-cols-[1.2fr,1fr] gap-2">
+        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-3">
+          <div className="mb-1 flex items-center justify-between">
+            <div className="text-[11px] font-medium text-white/85">Revenue growth</div>
+            <div className="text-[9.5px] text-emerald-300/90">Live</div>
+          </div>
+          <div className="h-[80px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
+                <defs>
+                  <linearGradient id="fp-area" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area type="monotone" dataKey="y" stroke="#a5b4fc" strokeWidth={2} fill="url(#fp-area)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-3">
+          <div className="mb-2 text-[11px] font-medium text-white/85">Pipeline</div>
+          <div className="space-y-1.5">
+            {stages.map((s) => (
+              <div key={s.l} className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color, boxShadow: `0 0 8px ${s.color}` }} />
+                <div className="w-16 text-[10px] text-white/65">{s.l}</div>
+                <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
+                  <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${s.pct}%`, background: `linear-gradient(90deg, ${s.color}, ${s.color}99)` }} />
+                </div>
+                <div className="w-5 text-right text-[10px] font-medium text-white/80">{s.c}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
