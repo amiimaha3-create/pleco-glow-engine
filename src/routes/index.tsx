@@ -2327,9 +2327,9 @@ function LiveDot({ label = "Live" }: { label?: string }) {
 
 function DemoFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="anim-isolate relative mt-4 h-[168px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_40px_-24px_rgba(0,0,0,0.7)]">
+    <div className="anim-isolate industry-demo-lock relative mt-4 h-[168px] min-h-[168px] max-h-[168px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_40px_-24px_rgba(0,0,0,0.7)]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_0%,rgba(99,102,241,0.08),transparent_60%)]" />
-      <div className="relative h-full">{children}</div>
+      <div className="relative h-full min-h-full max-h-full overflow-hidden">{children}</div>
     </div>
   );
 }
