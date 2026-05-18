@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import heroWorkspace from "@/assets/hero-workspace.jpg";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -404,16 +405,81 @@ function Hero() {
             </div>
           </div>
 
-          {/* Right — dashboard mockup */}
+          {/* Right — hero workspace visual */}
           <div
             className="hero-fade-up relative"
             style={{ animationDelay: "300ms" }}
           >
-            <DashboardMockup />
+            <HeroVisual />
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* ------------------------------ Hero Visual ------------------------------ */
+
+function HeroVisual() {
+  const chips = [
+    { label: "Website", sub: "Next.js", icon: Globe, pos: "top-[6%] left-[32%]", delay: "0ms", color: "text-indigo-300" },
+    { label: "CRM", sub: "Leads & Pipeline", icon: Users, pos: "top-[14%] right-[4%]", delay: "200ms", color: "text-violet-300" },
+    { label: "WhatsApp", sub: "Automation", icon: MessageCircle, pos: "top-[28%] left-[2%]", delay: "400ms", color: "text-emerald-300" },
+    { label: "AI Agent", sub: "Powering Growth", icon: Sparkles, pos: "top-[44%] right-[2%]", delay: "600ms", color: "text-fuchsia-300" },
+    { label: "Analytics", sub: "Real-time Insights", icon: Activity, pos: "top-[60%] right-[6%]", delay: "800ms", color: "text-cyan-300" },
+  ];
+
+  return (
+    <div className="relative aspect-square w-full">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute -inset-10 -z-10">
+        <div className="absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(124,92,255,0.35),transparent_70%)] blur-3xl" />
+      </div>
+
+      {/* Image */}
+      <div className="relative h-full w-full overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_120px_-20px_rgba(80,60,200,0.55)]">
+        <img
+          src={heroWorkspace}
+          alt="Developer working on Pleco Lab dashboard"
+          width={1280}
+          height={1280}
+          className="h-full w-full object-cover"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-background/40 via-transparent to-transparent" />
+
+        {/* Floating tech chips */}
+        {chips.map((c) => {
+          const Icon = c.icon;
+          return (
+            <div
+              key={c.label}
+              className={`absolute ${c.pos} hero-fade-up`}
+              style={{ animationDelay: c.delay }}
+            >
+              <div className="flex items-center gap-2.5 rounded-2xl border border-white/10 bg-background/70 px-3 py-2 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.4)] animate-[float-y_6s_ease-in-out_infinite]">
+                <div className={`flex h-8 w-8 items-center justify-center rounded-xl bg-white/5 border border-white/10 ${c.color}`}>
+                  <Icon className="h-4 w-4" />
+                </div>
+                <div className="pr-1">
+                  <div className="text-[12px] font-semibold leading-tight text-foreground">{c.label}</div>
+                  <div className="text-[10px] leading-tight text-muted-foreground">{c.sub}</div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Connection dots overlay */}
+        <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-40" aria-hidden="true">
+          <defs>
+            <pattern id="hero-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.08)" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hero-dots)" />
+        </svg>
+      </div>
+    </div>
   );
 }
 
