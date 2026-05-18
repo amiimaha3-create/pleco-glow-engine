@@ -349,7 +349,7 @@ function Hero() {
             </div>
 
             <h1
-              className="hero-fade-up text-[44px] font-semibold leading-[1.03] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
+              className="hero-fade-up text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
               style={{
                 fontFamily: "Space Grotesk, Inter, sans-serif",
                 animationDelay: "120ms",
