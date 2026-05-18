@@ -1386,7 +1386,7 @@ function DashboardMockup() {
                   </div>
                   <div className="text-[9.5px] text-emerald-300">+12 today</div>
                 </div>
-                <div className="h-[44px] w-full">
+                <div className="stable-chart h-[44px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={bars}>
                       <defs>
@@ -1399,6 +1399,7 @@ function DashboardMockup() {
                         dataKey="y"
                         radius={[3, 3, 0, 0]}
                         fill="url(#bg1)"
+                        isAnimationActive={false}
                       />
                     </BarChart>
                   </ResponsiveContainer>
