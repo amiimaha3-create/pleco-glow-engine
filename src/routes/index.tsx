@@ -1801,7 +1801,7 @@ function WebsiteShowcase() {
         <div className="relative h-[1px] w-full overflow-hidden bg-white/[0.03]">
           <div className="loadbar absolute inset-y-0 left-0 bg-gradient-to-r from-indigo-400 to-violet-400" />
         </div>
-        <div className="relative p-2.5">
+        <div className="relative h-[126px] min-h-[126px] max-h-[126px] overflow-hidden p-2.5">
           {/* skeleton overlay */}
           <div className="skeleton-fade pointer-events-none absolute inset-2.5 space-y-1.5">
             <div className="h-1.5 w-3/4 animate-pulse rounded-full bg-white/10" />
@@ -1896,7 +1896,7 @@ function AutomationFlow() {
     { label: "Analytics", icon: Activity },
   ];
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       {/* AI activity ring */}
       <div className="absolute right-2 top-2 flex items-center gap-1">
         <div className="relative h-2 w-2">
@@ -1976,7 +1976,7 @@ function AIAgentDemo() {
     { i: Send, l: "Scheduled follow-up · Tue 10:00" },
   ];
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
@@ -2052,7 +2052,7 @@ function LeadDemo() {
   ];
   const today = useCountUp(142);
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       <div className="flex items-center justify-between">
         <div className="text-[10px] text-white/55">
           Today: <span className="font-semibold tabular-nums text-white">{today}</span> leads
