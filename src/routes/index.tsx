@@ -1392,22 +1392,21 @@ function DashboardMockup() {
                   <div className="text-[9.5px] text-emerald-300">+12 today</div>
                 </div>
                 <div className="stable-chart h-[44px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={bars}>
-                      <defs>
-                        <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#a78bfa" />
-                          <stop offset="100%" stopColor="#6366f1" />
-                        </linearGradient>
-                      </defs>
-                      <Bar
-                        dataKey="y"
-                        radius={[3, 3, 0, 0]}
-                        fill="url(#bg1)"
-                        isAnimationActive={false}
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <svg viewBox="0 0 180 44" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                    <defs>
+                      <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#a78bfa" />
+                        <stop offset="100%" stopColor="#6366f1" />
+                      </linearGradient>
+                    </defs>
+                    {bars.map((b, i) => {
+                      const barW = 9;
+                      const gap = 6;
+                      const max = 40;
+                      const h = Math.max(5, (b.y / max) * 38);
+                      return <rect key={i} x={6 + i * (barW + gap)} y={42 - h} width={barW} height={h} rx="3" fill="url(#bg1)" />;
+                    })}
+                  </svg>
                 </div>
                 <div className="mt-1 flex items-center justify-between text-[9.5px] text-white/45">
                   <span>plecolab.io/contact</span>
