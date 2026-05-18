@@ -1560,7 +1560,7 @@ function FinalCTA() {
   return (
     <section className="relative py-16 sm:py-28">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 px-8 py-20 text-center sm:px-16">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 px-5 py-14 text-center sm:px-16 sm:py-20">
           {/* Gradient bg */}
           <div
             className="absolute inset-0 -z-10"
