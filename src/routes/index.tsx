@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -30,6 +32,7 @@ import {
   Github,
   Mail,
   MapPin,
+  CheckCircle2,
 } from "lucide-react";
 import {
   Area,
