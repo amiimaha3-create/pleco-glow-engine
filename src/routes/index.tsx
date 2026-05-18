@@ -192,7 +192,7 @@ function Nav() {
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto mt-4 max-w-7xl px-4">
-        <div className="glass-strong flex h-14 items-center justify-between rounded-2xl px-4 pl-5">
+        <div className="glass-strong flex h-14 items-center justify-between rounded-2xl px-3 pl-4 sm:px-4 sm:pl-5">
           <Logo />
           <nav className="hidden items-center gap-7 md:flex">
             {links.map((l) => (
@@ -212,7 +212,11 @@ function Nav() {
             >
               Sign in
             </a>
-            <PrimaryButton size="sm">Book a call <ArrowRight className="h-3.5 w-3.5" /></PrimaryButton>
+            <PrimaryButton size="sm">
+              <span className="hidden sm:inline">Book a call</span>
+              <span className="sm:hidden">Book call</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </PrimaryButton>
           </div>
         </div>
       </div>
