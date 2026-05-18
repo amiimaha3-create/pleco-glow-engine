@@ -897,16 +897,12 @@ function MobileHeroPreview() {
 function DashboardMockup() {
   // Live-updating revenue series
   const baseRevenue = [22, 28, 26, 34, 31, 42, 48, 44, 56, 61, 58, 72, 68, 81, 76, 92];
-  const [revenue, setRevenue] = useState(
-    baseRevenue.map((y, x) => ({ x, y })),
-  );
-  const [revKpi, setRevKpi] = useState(148.2);
-  const [leadsKpi, setLeadsKpi] = useState(1284);
-
+  const [revenue] = useState(baseRevenue.map((y, x) => ({ x, y })));
+  const [revKpi] = useState(148.2);
+  const [leadsKpi] = useState(1284);
   // NOTE: live setInterval updates removed — they re-rendered Recharts every
   // 1.1s causing constant SVG re-layout and KPI text width drift, which the
   // browser perceived as continuous vertical jitter. Data stays static.
-  void setRevenue; void setRevKpi; void setLeadsKpi;
 
   const bars = [12, 18, 14, 22, 19, 28, 24, 31, 27, 35, 30, 40].map((y, i) => ({ x: i, y }));
 
