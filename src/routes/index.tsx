@@ -288,14 +288,55 @@ function GhostButton({
 /* ----------------------------------- Hero --------------------------------- */
 
 function Hero() {
+  const stats: Array<{
+    value: number;
+    suffix?: string;
+    prefix?: string;
+    decimals?: number;
+    l: string;
+  }> = [
+    { value: 250, suffix: "+", l: "Businesses served" },
+    { value: 15, suffix: "+", l: "Countries" },
+    { value: 98, suffix: "%", l: "Client satisfaction" },
+    { value: 24, suffix: "/7", l: "Support" },
+  ];
+
   return (
     <section className="relative pt-16 md:pt-24">
       <div className="absolute inset-0 -z-10 grid-bg" />
+
+      {/* Hero ambient atmosphere */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div
+          className="absolute left-1/2 top-[-120px] h-[520px] w-[1100px] -translate-x-1/2 opacity-80"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(99,102,241,0.28) 0%, rgba(124,58,237,0.18) 35%, transparent 70%)",
+            filter: "blur(20px)",
+          }}
+        />
+        <div
+          className="light-streak"
+          style={{ top: "22%", left: "8%", width: "38%" }}
+        />
+        <div
+          className="light-streak"
+          style={{ top: "62%", left: "20%", width: "30%", animationDelay: "3s" }}
+        />
+        <div
+          className="light-streak"
+          style={{ top: "40%", left: "55%", width: "34%", animationDelay: "5.5s" }}
+        />
+      </div>
+
       <div className="mx-auto max-w-7xl px-4">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr,1fr]">
           {/* Left */}
           <div className="relative">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-white/80 backdrop-blur">
+            <div
+              className="hero-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-white/80 backdrop-blur"
+              style={{ animationDelay: "0ms" }}
+            >
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -304,24 +345,33 @@ function Hero() {
             </div>
 
             <h1
-              className="text-[44px] font-semibold leading-[1.03] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
-              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              className="hero-fade-up text-[44px] font-semibold leading-[1.03] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
+              style={{
+                fontFamily: "Space Grotesk, Inter, sans-serif",
+                animationDelay: "120ms",
+              }}
             >
               Technology that helps
               <br />
               businesses <span className="text-gradient-brand">scale.</span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/65">
+            <p
+              className="hero-fade-up mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/65"
+              style={{ animationDelay: "260ms" }}
+            >
               Pleco Lab builds custom websites, CRM systems, AI agents,
               WhatsApp automation, and internal software for growth-focused
               SMEs and enterprises.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div
+              className="hero-fade-up mt-8 flex flex-wrap items-center gap-3"
+              style={{ animationDelay: "380ms" }}
+            >
               <PrimaryButton size="lg">
                 Book free consultation
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="btn-arrow h-4 w-4" />
               </PrimaryButton>
               <GhostButton size="lg">
                 Explore solutions
@@ -329,19 +379,22 @@ function Hero() {
             </div>
 
             {/* Trust stats */}
-            <div className="mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
-              {[
-                { v: "250+", l: "Businesses served" },
-                { v: "15+", l: "Countries" },
-                { v: "98%", l: "Client satisfaction" },
-                { v: "24/7", l: "Support" },
-              ].map((s) => (
+            <div
+              className="hero-fade-up mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4"
+              style={{ animationDelay: "520ms" }}
+            >
+              {stats.map((s) => (
                 <div key={s.l}>
                   <div
                     className="text-[26px] font-semibold tracking-tight text-white"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
-                    {s.v}
+                    <CountStat
+                      value={s.value}
+                      suffix={s.suffix}
+                      prefix={s.prefix}
+                      decimals={s.decimals}
+                    />
                   </div>
                   <div className="mt-1 text-[12px] uppercase tracking-wider text-white/45">
                     {s.l}
@@ -352,7 +405,10 @@ function Hero() {
           </div>
 
           {/* Right — dashboard mockup */}
-          <div className="relative">
+          <div
+            className="hero-fade-up relative"
+            style={{ animationDelay: "300ms" }}
+          >
             <DashboardMockup />
           </div>
         </div>
