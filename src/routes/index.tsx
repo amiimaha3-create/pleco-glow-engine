@@ -1336,18 +1336,19 @@ function SectionHeader({
 }) {
   return (
     <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11.5px] font-medium uppercase tracking-wider text-white/70">
-        <span className="h-1 w-1 rounded-full bg-indigo-400" />
-        {eyebrow}
+      <div className={`mb-4 inline-flex items-center gap-2 ${align === "center" ? "" : ""}`}>
+        <span className="h-px w-6 bg-gradient-to-r from-indigo-400/0 via-indigo-400/70 to-indigo-400/0" />
+        <span className="eyebrow">{eyebrow}</span>
+        <span className="h-px w-6 bg-gradient-to-l from-indigo-400/0 via-indigo-400/70 to-indigo-400/0" />
       </div>
       <h2
-        className="text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-[44px]"
+        className="text-[28px] font-semibold leading-[1.05] tracking-[-0.035em] text-white sm:text-[44px]"
         style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
       >
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-[15.5px] leading-relaxed text-white/60">{subtitle}</p>
+        <p className="mt-4 text-[15px] leading-[1.65] text-white/65">{subtitle}</p>
       )}
     </div>
   );
