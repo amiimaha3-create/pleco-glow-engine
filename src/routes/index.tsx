@@ -1569,7 +1569,7 @@ function Services() {
     <a
       key={it.t}
       href="#"
-      className={`card-premium group relative overflow-hidden p-5 ${it.span ?? "lg:col-span-2"}`}
+      className={`card-premium service-card-lock group relative flex flex-col overflow-hidden p-5 ${it.span ?? "lg:col-span-2"}`}
     >
       <div className="flex items-start justify-between">
         <div className="icon-tile">
@@ -1584,7 +1584,7 @@ function Services() {
         {it.t}
       </h3>
       <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
-      {it.preview && <div className="mt-4">{renderPreview(it.preview)}</div>}
+      {it.preview && <div className="stable-demo-slot mt-4">{renderPreview(it.preview)}</div>}
     </a>
   );
 
@@ -1599,7 +1599,7 @@ function Services() {
 
         <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-5">
           {/* Featured */}
-          <div className="card-premium card-elevated group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-7">
+          <div className="card-premium card-elevated featured-service-lock group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-7">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="icon-tile icon-tile-lg">
@@ -1618,7 +1618,7 @@ function Services() {
             <p className="mt-2 max-w-md text-[14px] leading-[1.6] text-white/65">
               {featured.d}
             </p>
-            <div className="mt-5">
+            <div className="stable-featured-slot mt-5">
               <FeaturedPreview />
             </div>
           </div>
