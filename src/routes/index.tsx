@@ -44,15 +44,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import {
-  Area,
-  AreaChart,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Bar,
-  BarChart,
-} from "recharts";
 import heroDeveloper from "@/assets/hero-developer.jpg";
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
@@ -92,12 +83,35 @@ function CountStat({
   const formatted =
     decimals === 0 ? v.toLocaleString() : v.toFixed(decimals);
   return (
-    <span>
+    <span className="stable-metric">
       {prefix}
       {formatted}
       {suffix}
     </span>
   );
+}
+
+type ChartPoint = { x?: number; y: number };
+
+function getChartPoints(data: ChartPoint[], width: number, height: number, pad = 4) {
+  const ys = data.map((d) => d.y);
+  const min = Math.min(...ys);
+  const max = Math.max(...ys);
+  const range = max - min || 1;
+  return data.map((d, i) => ({
+    x: pad + (i / Math.max(1, data.length - 1)) * (width - pad * 2),
+    y: height - pad - ((d.y - min) / range) * (height - pad * 2),
+  }));
+}
+
+function linePath(points: Array<{ x: number; y: number }>) {
+  return points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" ");
+}
+
+function areaPath(points: Array<{ x: number; y: number }>, height: number, pad = 4) {
+  if (!points.length) return "";
+  const bottom = height - pad;
+  return `${linePath(points)} L${points[points.length - 1].x.toFixed(1)} ${bottom} L${points[0].x.toFixed(1)} ${bottom} Z`;
 }
 
 export const Route = createFileRoute("/")({
@@ -843,24 +857,22 @@ function MobileHeroPreview() {
             <div className="text-[10.5px] font-medium text-white/90">Revenue growth</div>
             <div className="text-[9px] text-white/40">Live</div>
           </div>
-          <div className="h-[70px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={spark} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
-                <defs>
-                  <linearGradient id="mg1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
-                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <Area
-                  type="monotone"
-                  dataKey="y"
-                  stroke="#a5b4fc"
-                  strokeWidth={2}
-                  fill="url(#mg1)"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+          <div className="stable-chart h-[70px] w-full">
+            {(() => {
+              const pts = getChartPoints(spark, 280, 70, 3);
+              return (
+                <svg viewBox="0 0 280 70" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                  <defs>
+                    <linearGradient id="mg1" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                      <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <path d={areaPath(pts, 70, 3)} fill="url(#mg1)" />
+                  <path d={linePath(pts)} fill="none" stroke="#a5b4fc" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              );
+            })()}
           </div>
         </div>
 
@@ -943,7 +955,7 @@ function DashboardMockup() {
 
       {/* Premium product surface */}
       <div
-        className="glass-strong ring-glow float-y relative overflow-hidden rounded-[20px] p-3"
+        className="glass-strong ring-glow float-y layout-locked relative h-[640px] min-h-[640px] max-h-[640px] overflow-hidden rounded-[20px] p-3"
         style={{
           background:
             "linear-gradient(180deg, rgba(20,22,48,0.85) 0%, rgba(12,14,32,0.92) 100%)",
@@ -1112,14 +1124,14 @@ function DashboardMockup() {
               ].map((k) => (
                 <div
                   key={k.l}
-                  className="group relative overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5 transition hover:border-white/15 hover:bg-white/[0.04]"
+                  className="group relative h-[78px] min-h-[78px] max-h-[78px] overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5 transition hover:border-white/15 hover:bg-white/[0.04]"
                 >
                   <div className="flex items-center justify-between">
                     <div className="text-[10px] text-white/50">{k.l}</div>
                     <k.ic className="h-3 w-3 text-white/30" />
                   </div>
                   <div
-                    className="mt-0.5 text-[15px] font-semibold tracking-tight text-white"
+                    className="stable-metric mt-0.5 min-w-[64px] text-[15px] font-semibold tracking-tight text-white"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     {k.v}
@@ -1135,7 +1147,7 @@ function DashboardMockup() {
             </div>
 
             {/* Revenue chart */}
-            <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
+            <div className="h-[151px] min-h-[151px] max-h-[151px] overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
               <div className="mb-1.5 flex items-center justify-between">
                 <div>
                   <div className="text-[11px] font-medium text-white/90">
@@ -1160,33 +1172,26 @@ function DashboardMockup() {
                   ))}
                 </div>
               </div>
-              <div className="h-[96px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart
-                    data={revenue}
-                    margin={{ top: 4, right: 4, bottom: 0, left: 0 }}
-                  >
-                    <defs>
-                      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
-                        <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
-                      </linearGradient>
-                      <linearGradient id="gs" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#a5b4fc" />
-                        <stop offset="100%" stopColor="#c084fc" />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      type="monotone"
-                      dataKey="y"
-                      stroke="url(#gs)"
-                      strokeWidth={2}
-                      fill="url(#g1)"
-                      isAnimationActive={false}
-                      animationDuration={800}
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
+              <div className="stable-chart h-[96px] w-full">
+                {(() => {
+                  const pts = getChartPoints(revenue, 420, 96, 4);
+                  return (
+                    <svg viewBox="0 0 420 96" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                      <defs>
+                        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                          <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="gs" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="#a5b4fc" />
+                          <stop offset="100%" stopColor="#c084fc" />
+                        </linearGradient>
+                      </defs>
+                      <path d={areaPath(pts, 96, 4)} fill="url(#g1)" />
+                      <path d={linePath(pts)} fill="none" stroke="url(#gs)" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  );
+                })()}
               </div>
             </div>
 
@@ -1386,22 +1391,22 @@ function DashboardMockup() {
                   </div>
                   <div className="text-[9.5px] text-emerald-300">+12 today</div>
                 </div>
-                <div className="h-[44px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={bars}>
-                      <defs>
-                        <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#a78bfa" />
-                          <stop offset="100%" stopColor="#6366f1" />
-                        </linearGradient>
-                      </defs>
-                      <Bar
-                        dataKey="y"
-                        radius={[3, 3, 0, 0]}
-                        fill="url(#bg1)"
-                      />
-                    </BarChart>
-                  </ResponsiveContainer>
+                <div className="stable-chart h-[44px] w-full">
+                  <svg viewBox="0 0 180 44" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                    <defs>
+                      <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#a78bfa" />
+                        <stop offset="100%" stopColor="#6366f1" />
+                      </linearGradient>
+                    </defs>
+                    {bars.map((b, i) => {
+                      const barW = 9;
+                      const gap = 6;
+                      const max = 40;
+                      const h = Math.max(5, (b.y / max) * 38);
+                      return <rect key={i} x={6 + i * (barW + gap)} y={42 - h} width={barW} height={h} rx="3" fill="url(#bg1)" />;
+                    })}
+                  </svg>
                 </div>
                 <div className="mt-1 flex items-center justify-between text-[9.5px] text-white/45">
                   <span>plecolab.io/contact</span>
@@ -1568,7 +1573,7 @@ function Services() {
     <a
       key={it.t}
       href="#"
-      className={`card-premium group relative overflow-hidden p-5 ${it.span ?? "lg:col-span-2"}`}
+      className={`card-premium service-card-lock group relative flex flex-col overflow-hidden p-5 ${it.span ?? "lg:col-span-2"}`}
     >
       <div className="flex items-start justify-between">
         <div className="icon-tile">
@@ -1583,7 +1588,7 @@ function Services() {
         {it.t}
       </h3>
       <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
-      {it.preview && <div className="mt-4">{renderPreview(it.preview)}</div>}
+      {it.preview && <div className="stable-demo-slot mt-4">{renderPreview(it.preview)}</div>}
     </a>
   );
 
@@ -1598,7 +1603,7 @@ function Services() {
 
         <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-5">
           {/* Featured */}
-          <div className="card-premium card-elevated group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-7">
+          <div className="card-premium card-elevated featured-service-lock group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-7">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="icon-tile icon-tile-lg">
@@ -1617,7 +1622,7 @@ function Services() {
             <p className="mt-2 max-w-md text-[14px] leading-[1.6] text-white/65">
               {featured.d}
             </p>
-            <div className="mt-5">
+            <div className="stable-featured-slot mt-5">
               <FeaturedPreview />
             </div>
           </div>
@@ -1661,7 +1666,7 @@ function FeaturedPreview() {
     { l: "Won", c: 11, color: "#34d399", pct: 28 },
   ];
   return (
-    <div className="glass-sweep relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.005] p-3.5 transition-transform duration-500 ease-out will-change-transform hover:-translate-y-0.5">
+    <div className="glass-sweep layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.005] p-3.5 transition-transform duration-500 ease-out will-change-transform hover:-translate-y-0.5">
       {/* Window chrome */}
       <div className="relative flex items-center justify-between border-b border-white/[0.06] pb-2">
         <div className="flex items-center gap-1.5">
@@ -1712,27 +1717,22 @@ function FeaturedPreview() {
               <span className="text-[9.5px] text-emerald-300/90">Live</span>
             </div>
           </div>
-          <div className="h-[68px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
-                <defs>
-                  <linearGradient id="fp-area" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
-                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <Area
-                  type="monotone"
-                  dataKey="y"
-                  stroke="#a5b4fc"
-                  strokeWidth={2}
-                  fill="url(#fp-area)"
-                  isAnimationActive={false}
-                  animationDuration={1200}
-                  animationEasing="ease-out"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+          <div className="stable-chart h-[68px] w-full">
+            {(() => {
+              const pts = getChartPoints(data, 260, 68, 3);
+              return (
+                <svg viewBox="0 0 260 68" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                  <defs>
+                    <linearGradient id="fp-area" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                      <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <path d={areaPath(pts, 68, 3)} fill="url(#fp-area)" />
+                  <path d={linePath(pts)} fill="none" stroke="#a5b4fc" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              );
+            })()}
           </div>
         </div>
         <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
@@ -1781,7 +1781,7 @@ function WebsiteShowcase() {
   const url = "acme.com/launch";
 
   return (
-    <div className="relative grid grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative grid h-full min-h-full max-h-full grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       {/* ambient glow */}
       <div className="pointer-events-none absolute -inset-10 -z-10 opacity-50" style={{ background: "radial-gradient(60% 60% at 30% 30%, rgba(129,140,248,0.18), transparent 70%)" }} />
 
@@ -1791,7 +1791,7 @@ function WebsiteShowcase() {
           <span className="h-1.5 w-1.5 rounded-full bg-rose-400/70" />
           <span className="h-1.5 w-1.5 rounded-full bg-amber-300/70" />
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/70" />
-          <span className="ml-2 flex min-w-0 flex-1 items-center gap-0.5 truncate rounded-sm bg-white/[0.04] px-1.5 py-[1px] font-mono text-[8.5px] text-white/65">
+          <span className="ml-2 flex w-[92px] min-w-0 flex-none items-center gap-0.5 truncate rounded-sm bg-white/[0.04] px-1.5 py-[1px] font-mono text-[8.5px] text-white/65">
             <span className="truncate">{url}</span>
             <span className="caret inline-block h-[7px] w-[1px] bg-white/70" />
           </span>
@@ -1800,7 +1800,7 @@ function WebsiteShowcase() {
         <div className="relative h-[1px] w-full overflow-hidden bg-white/[0.03]">
           <div className="loadbar absolute inset-y-0 left-0 bg-gradient-to-r from-indigo-400 to-violet-400" />
         </div>
-        <div className="relative p-2.5">
+        <div className="relative h-[126px] min-h-[126px] max-h-[126px] overflow-hidden p-2.5">
           {/* skeleton overlay */}
           <div className="skeleton-fade pointer-events-none absolute inset-2.5 space-y-1.5">
             <div className="h-1.5 w-3/4 animate-pulse rounded-full bg-white/10" />
@@ -1814,7 +1814,7 @@ function WebsiteShowcase() {
           </div>
 
           {/* real content */}
-          <div className="content-fade">
+          <div className="content-fade absolute inset-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1">
                 <div className="h-1.5 w-1.5 rounded-sm bg-gradient-to-br from-indigo-400 to-violet-500" />
@@ -1895,7 +1895,7 @@ function AutomationFlow() {
     { label: "Analytics", icon: Activity },
   ];
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       {/* AI activity ring */}
       <div className="absolute right-2 top-2 flex items-center gap-1">
         <div className="relative h-2 w-2">
@@ -1975,7 +1975,7 @@ function AIAgentDemo() {
     { i: Send, l: "Scheduled follow-up · Tue 10:00" },
   ];
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
@@ -2051,7 +2051,7 @@ function LeadDemo() {
   ];
   const today = useCountUp(142);
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       <div className="flex items-center justify-between">
         <div className="text-[10px] text-white/55">
           Today: <span className="font-semibold tabular-nums text-white">{today}</span> leads
@@ -2124,7 +2124,7 @@ function LeadDemo() {
 /* ----- WhatsApp demo ----- */
 function WhatsAppDemo() {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-emerald-500/[0.04] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-emerald-500/[0.04] to-white/[0.005] p-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/90 ring-1 ring-white/15">
@@ -2189,7 +2189,7 @@ function CodeDemo() {
     { c: "// ✓ deployed to prod", t: 1.6 },
   ];
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-[#06091a] p-0">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-[#06091a] p-0">
       {/* IDE header */}
       <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-2 py-1.5">
         <div className="flex items-center gap-1">
@@ -2248,7 +2248,7 @@ function IntegrationsDemo() {
     { i: Activity, x: "46%", y: "82%" },
   ];
   return (
-    <div className="relative h-[170px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005]">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005]">
       {/* connection lines */}
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <defs>
@@ -2302,7 +2302,7 @@ function IntegrationsDemo() {
       ))}
 
       {/* Status bar */}
-      <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/[0.05] bg-black/20 px-2 py-1 text-[8.5px] text-white/60 backdrop-blur-sm">
+      <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/[0.05] bg-black/35 px-2 py-1 text-[8.5px] text-white/60">
         <div className="flex items-center gap-1">
           <span className="live-dot h-1 w-1 rounded-full bg-emerald-400" />
           <span>5 systems synced</span>
@@ -2326,9 +2326,9 @@ function LiveDot({ label = "Live" }: { label?: string }) {
 
 function DemoFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="anim-isolate relative mt-4 h-[168px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_40px_-24px_rgba(0,0,0,0.7)]">
+    <div className="anim-isolate industry-demo-lock relative mt-4 h-[168px] min-h-[168px] max-h-[168px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_40px_-24px_rgba(0,0,0,0.7)]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_0%,rgba(99,102,241,0.08),transparent_60%)]" />
-      <div className="relative h-full">{children}</div>
+      <div className="relative h-full min-h-full max-h-full overflow-hidden">{children}</div>
     </div>
   );
 }
@@ -2345,15 +2345,15 @@ function TravelDemo() {
       </div>
       <div className="mt-1.5 flex items-end justify-between">
         <div>
-          <div className="font-mono text-[20px] font-semibold tabular-nums tracking-tight text-white">{bookings.toLocaleString()}</div>
+          <div className="stable-metric min-w-[78px] font-mono text-[20px] font-semibold tabular-nums tracking-tight text-white">{bookings.toLocaleString()}</div>
           <div className="mt-0.5 text-[10.5px] text-emerald-300">▲ 12.4% vs yesterday</div>
         </div>
         <div className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-right">
           <div className="text-[9.5px] uppercase tracking-wider text-white/45">Revenue</div>
-          <div className="font-mono text-[12px] font-semibold text-white">${revenue}K</div>
+          <div className="stable-metric min-w-[52px] font-mono text-[12px] font-semibold text-white">${revenue}K</div>
         </div>
       </div>
-      <svg viewBox="0 0 280 60" className="mt-2 h-[58px] w-full">
+      <svg viewBox="0 0 280 60" className="mt-2 h-[58px] min-h-[58px] max-h-[58px] w-full overflow-hidden">
         <defs>
           <linearGradient id="trv-g" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="rgba(129,140,248,0.45)" />
@@ -2416,7 +2416,7 @@ function EducationDemo() {
           <div key={r.l}>
             <div className="flex items-center justify-between text-[10.5px]">
               <span className="text-white/65">{r.l}</span>
-              <span className="font-mono tabular-nums text-white/85">{r.v.toLocaleString()}</span>
+              <span className="stable-metric w-[36px] text-right font-mono tabular-nums text-white/85">{r.v.toLocaleString()}</span>
             </div>
             <div className="relative mt-1 h-1.5 overflow-hidden rounded-full bg-white/[0.05]">
               <div className={`ind-fill h-full rounded-full bg-gradient-to-r ${r.c}`} style={{ ["--w" as string]: r.w, animationDelay: `${i * 0.18}s` }} />
@@ -2488,7 +2488,7 @@ function LogisticsDemo() {
       <div className="mt-1 grid grid-cols-3 gap-1.5 text-center">
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] py-1">
           <div className="text-[9px] uppercase tracking-wider text-white/40">ETA</div>
-          <div className="font-mono text-[11px] font-semibold text-white">{eta}m</div>
+          <div className="stable-metric min-w-[34px] font-mono text-[11px] font-semibold text-white">{eta}m</div>
         </div>
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] py-1">
           <div className="text-[9px] uppercase tracking-wider text-white/40">Active</div>
@@ -2517,12 +2517,12 @@ function RetailDemo() {
       <div className="mt-1.5 grid grid-cols-2 gap-2">
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] p-2">
           <div className="text-[9.5px] uppercase tracking-wider text-white/40">Revenue</div>
-          <div className="font-mono text-[15px] font-semibold text-white">${rev}K</div>
+          <div className="stable-metric min-w-[56px] font-mono text-[15px] font-semibold text-white">${rev}K</div>
           <div className="text-[9.5px] text-emerald-300">▲ 8.2%</div>
         </div>
         <div className="rounded-md border border-white/[0.06] bg-white/[0.02] p-2">
           <div className="text-[9.5px] uppercase tracking-wider text-white/40">Orders</div>
-          <div className="font-mono text-[15px] font-semibold text-white">{orders}</div>
+          <div className="stable-metric min-w-[42px] font-mono text-[15px] font-semibold text-white">{orders}</div>
           <div className="text-[9.5px] text-sky-300">AOV $34</div>
         </div>
       </div>
@@ -2588,7 +2588,7 @@ function SMEDemo() {
     <DemoFrame>
       <div className="flex items-center justify-between">
         <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Ops health</div>
-        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+        <span className="inline-flex w-[76px] flex-none items-center justify-center gap-1 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
           Score {score}
         </span>
       </div>
@@ -2647,7 +2647,7 @@ function Industries() {
             <a
               key={it.t}
               href="#contact"
-              className="card-premium tilt group relative block overflow-hidden p-5"
+              className="card-premium tilt industry-card-lock group relative block overflow-hidden p-5"
             >
               <div className="flex items-start justify-between">
                 <div className="icon-tile">
@@ -2665,7 +2665,7 @@ function Industries() {
 
               <it.Demo />
 
-              <div className="mt-4 flex flex-wrap gap-1.5">
+              <div className="mt-4 flex h-[24px] min-h-[24px] max-h-[24px] flex-wrap gap-1.5 overflow-hidden">
                 {it.chips.map((c) => (
                   <span
                     key={c}
@@ -2828,7 +2828,7 @@ function CaseStudies() {
 
               {/* Premium metric block with sparkline */}
               <div
-                className="mt-5 rounded-xl border border-white/[0.07] p-4"
+                className="mt-5 h-[169px] min-h-[169px] max-h-[169px] overflow-hidden rounded-xl border border-white/[0.07] p-4"
                 style={{
                   background: `radial-gradient(120% 100% at 0% 0%, ${s.color}14, transparent 60%), rgba(0,0,0,0.25)`,
                 }}
@@ -2862,26 +2862,22 @@ function CaseStudies() {
                     <div className="eyebrow mt-2">{s.label}</div>
                   </div>
                 </div>
-                <div className="mt-3 h-[58px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={s.data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
-                      <defs>
-                        <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
-                          <stop offset="100%" stopColor={s.color} stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <Area
-                        type="monotone"
-                        dataKey="y"
-                        stroke={s.color}
-                        strokeWidth={2}
-                        fill={`url(#cs-${s.tag})`}
-                        isAnimationActive={false}
-                        animationDuration={1200}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                <div className="stable-chart mt-3 h-[58px] w-full">
+                  {(() => {
+                    const pts = getChartPoints(s.data, 300, 58, 3);
+                    return (
+                      <svg viewBox="0 0 300 58" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                        <defs>
+                          <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
+                            <stop offset="100%" stopColor={s.color} stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <path d={areaPath(pts, 58, 3)} fill={`url(#cs-${s.tag})`} />
+                        <path d={linePath(pts)} fill="none" stroke={s.color} strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    );
+                  })()}
                 </div>
               </div>
 

@@ -415,9 +415,92 @@
   /* Animation isolation — prevent CLS ripple from animated mini-demos */
   .anim-isolate {
     contain: layout paint style;
+    overflow: hidden;
     transform: translateZ(0);
     will-change: transform;
     backface-visibility: hidden;
+  }
+
+  .layout-locked {
+    contain: layout paint style;
+    flex-shrink: 0;
+    min-width: 0;
+    overflow: hidden;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .stable-demo-slot {
+    height: 190px;
+    min-height: 190px;
+    max-height: 190px;
+    overflow: hidden;
+    contain: layout paint style;
+    flex-shrink: 0;
+  }
+
+  .stable-featured-slot {
+    height: 278px;
+    min-height: 278px;
+    max-height: 278px;
+    overflow: hidden;
+    contain: layout paint style;
+    flex-shrink: 0;
+  }
+
+  .service-card-lock {
+    height: 346px;
+    min-height: 346px;
+    max-height: 346px;
+  }
+
+  .featured-service-lock {
+    height: 532px;
+    min-height: 532px;
+    max-height: 532px;
+  }
+
+  .industry-card-lock {
+    height: 398px;
+    min-height: 398px;
+    max-height: 398px;
+  }
+
+  .industry-demo-lock {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .stable-chart {
+    contain: strict;
+    overflow: hidden;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  .stable-chart svg,
+  .stable-chart .recharts-wrapper,
+  .stable-chart .recharts-surface {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden;
+  }
+
+  .stable-metric {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .debug-animated-layout .layout-locked,
+  .debug-animated-layout .anim-isolate,
+  .debug-animated-layout .stable-chart,
+  .debug-animated-layout .stable-demo-slot,
+  .debug-animated-layout .stable-featured-slot {
+    outline: 1px solid rgba(52, 211, 153, 0.55);
+    outline-offset: -1px;
   }
 
   /* Eyebrow */
