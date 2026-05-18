@@ -1577,22 +1577,22 @@ function FinalCTA() {
           </div>
 
           <h2
-            className="mx-auto mt-6 max-w-3xl text-[40px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px]"
+            className="mx-auto mt-6 max-w-3xl text-[30px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px]"
             style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
           >
             Ready to build your <span className="text-gradient-brand">growth engine?</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-xl text-[15.5px] leading-relaxed text-white/65">
+          <p className="mx-auto mt-5 max-w-xl text-[14.5px] leading-relaxed text-white/65 sm:text-[15.5px]">
             Book a free 30-minute consultation. We'll map the system, the stack,
             and the path to results — no obligation.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <PrimaryButton size="lg">
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
+            <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
               Book free consultation <ArrowRight className="h-4 w-4" />
             </PrimaryButton>
-            <GhostButton size="lg">Let's talk</GhostButton>
+            <GhostButton size="lg" className="w-full justify-center sm:w-auto">Let's talk</GhostButton>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/45">
