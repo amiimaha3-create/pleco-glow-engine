@@ -2863,25 +2863,21 @@ function CaseStudies() {
                   </div>
                 </div>
                 <div className="stable-chart mt-3 h-[58px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={s.data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
-                      <defs>
-                        <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
-                          <stop offset="100%" stopColor={s.color} stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <Area
-                        type="monotone"
-                        dataKey="y"
-                        stroke={s.color}
-                        strokeWidth={2}
-                        fill={`url(#cs-${s.tag})`}
-                        isAnimationActive={false}
-                        animationDuration={1200}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                  {(() => {
+                    const pts = getChartPoints(s.data, 300, 58, 3);
+                    return (
+                      <svg viewBox="0 0 300 58" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                        <defs>
+                          <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
+                            <stop offset="100%" stopColor={s.color} stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <path d={areaPath(pts, 58, 3)} fill={`url(#cs-${s.tag})`} />
+                        <path d={linePath(pts)} fill="none" stroke={s.color} strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    );
+                  })()}
                 </div>
               </div>
 
