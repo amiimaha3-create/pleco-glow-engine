@@ -1642,26 +1642,14 @@ function Services() {
 
 
 function useLiveSeries(length = 22, seed = 0) {
-  const [data, setData] = useState(() =>
+  // Static series — interval-driven updates caused Recharts to re-run its
+  // enter animation on each tick, producing visible idle vertical jitter.
+  const [data] = useState(() =>
     Array.from({ length }, (_, i) => ({
       x: i,
       y: 28 + Math.sin((i + seed) / 2.2) * 8 + i * 1.6,
     })),
   );
-  useEffect(() => {
-    let i = length + seed;
-    const id = setInterval(() => {
-      setData((prev) => {
-        const next = prev.slice(1);
-        const last = prev[prev.length - 1].y;
-        const drift = (Math.random() - 0.45) * 4;
-        const y = Math.max(8, Math.min(72, last + drift));
-        next.push({ x: i++, y });
-        return next;
-      });
-    }, 1400);
-    return () => clearInterval(id);
-  }, [length, seed]);
   return data;
 }
 
