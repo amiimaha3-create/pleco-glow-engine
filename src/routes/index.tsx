@@ -92,7 +92,7 @@ function CountStat({
   const formatted =
     decimals === 0 ? v.toLocaleString() : v.toFixed(decimals);
   return (
-    <span>
+    <span className="stable-metric">
       {prefix}
       {formatted}
       {suffix}
@@ -843,7 +843,7 @@ function MobileHeroPreview() {
             <div className="text-[10.5px] font-medium text-white/90">Revenue growth</div>
             <div className="text-[9px] text-white/40">Live</div>
           </div>
-          <div className="h-[70px] w-full">
+          <div className="stable-chart h-[70px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={spark} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
                 <defs>
@@ -943,7 +943,7 @@ function DashboardMockup() {
 
       {/* Premium product surface */}
       <div
-        className="glass-strong ring-glow float-y relative overflow-hidden rounded-[20px] p-3"
+        className="glass-strong ring-glow float-y layout-locked relative h-[640px] min-h-[640px] max-h-[640px] overflow-hidden rounded-[20px] p-3"
         style={{
           background:
             "linear-gradient(180deg, rgba(20,22,48,0.85) 0%, rgba(12,14,32,0.92) 100%)",
