@@ -2125,7 +2125,7 @@ function LeadDemo() {
 /* ----- WhatsApp demo ----- */
 function WhatsAppDemo() {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-emerald-500/[0.04] to-white/[0.005] p-3">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-emerald-500/[0.04] to-white/[0.005] p-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/90 ring-1 ring-white/15">
@@ -2190,7 +2190,7 @@ function CodeDemo() {
     { c: "// ✓ deployed to prod", t: 1.6 },
   ];
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-[#06091a] p-0">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-[#06091a] p-0">
       {/* IDE header */}
       <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-2 py-1.5">
         <div className="flex items-center gap-1">
@@ -2249,7 +2249,7 @@ function IntegrationsDemo() {
     { i: Activity, x: "46%", y: "82%" },
   ];
   return (
-    <div className="relative h-[170px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005]">
+    <div className="layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005]">
       {/* connection lines */}
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <defs>
