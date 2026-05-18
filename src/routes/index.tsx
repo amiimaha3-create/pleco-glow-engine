@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -30,6 +32,7 @@ import {
   Github,
   Mail,
   MapPin,
+  CheckCircle2,
 } from "lucide-react";
 import {
   Area,
@@ -228,275 +231,480 @@ function GhostButton({
 /* ----------------------------------- Hero --------------------------------- */
 
 function Hero() {
+  const ease = [0.22, 1, 0.36, 1] as const;
+  const fade = {
+    hidden: { opacity: 0, y: 18 },
+    show: (i: number = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, delay: 0.05 * i, ease },
+    }),
+  } as const;
+
   return (
     <section className="relative pt-16 md:pt-24">
       <div className="absolute inset-0 -z-10 grid-bg" />
+      {/* Ambient hero glow */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[720px]"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 50% 0%, rgba(99,102,241,0.18), transparent 70%)",
+        }}
+      />
       <div className="mx-auto max-w-7xl px-4">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr,1fr]">
           {/* Left */}
           <div className="relative">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-white/80 backdrop-blur">
+            <motion.div
+              variants={fade}
+              initial="hidden"
+              animate="show"
+              custom={0}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-white/80 backdrop-blur"
+            >
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
               </span>
               Now onboarding clients across India, Africa & Asia
-            </div>
+            </motion.div>
 
-            <h1
+            <motion.h1
+              variants={fade}
+              initial="hidden"
+              animate="show"
+              custom={1}
               className="text-[44px] font-semibold leading-[1.03] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
               style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
             >
               Technology that helps
               <br />
               businesses <span className="text-gradient-brand">scale.</span>
-            </h1>
+            </motion.h1>
 
-            <p className="mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/65">
-              Pleco Lab builds custom websites, CRM systems, AI agents,
-              WhatsApp automation, and internal software for growth-focused
-              SMEs and enterprises.
-            </p>
+            <motion.p
+              variants={fade}
+              initial="hidden"
+              animate="show"
+              custom={2}
+              className="mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/65"
+            >
+              Pleco Lab builds custom websites, CRM platforms, AI agents,
+              automation systems, and internal software for ambitious
+              businesses across India, Africa, and Asia.
+            </motion.p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <motion.div
+              variants={fade}
+              initial="hidden"
+              animate="show"
+              custom={3}
+              className="mt-8 flex flex-wrap items-center gap-3"
+            >
               <PrimaryButton size="lg">
                 Book free consultation
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </PrimaryButton>
               <GhostButton size="lg">
                 Explore solutions
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </GhostButton>
-            </div>
+            </motion.div>
 
             {/* Trust stats */}
-            <div className="mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
+            <motion.div
+              variants={fade}
+              initial="hidden"
+              animate="show"
+              custom={4}
+              className="mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4"
+            >
               {[
-                { v: "250+", l: "Businesses served" },
-                { v: "15+", l: "Countries" },
-                { v: "98%", l: "Client satisfaction" },
-                { v: "24/7", l: "Support" },
+                { v: 250, suffix: "+", l: "Businesses served" },
+                { v: 15, suffix: "+", l: "Countries" },
+                { v: 98, suffix: "%", l: "Client satisfaction" },
+                { v: 24, suffix: "/7", l: "Support" },
               ].map((s) => (
                 <div key={s.l}>
                   <div
                     className="text-[26px] font-semibold tracking-tight text-white"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
-                    {s.v}
+                    <CountUp to={s.v} />
+                    {s.suffix}
                   </div>
                   <div className="mt-1 text-[12px] uppercase tracking-wider text-white/45">
                     {s.l}
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right — dashboard mockup */}
-          <div className="relative">
-            <DashboardMockup />
-          </div>
+          {/* Right — ecosystem visual */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+            className="relative"
+          >
+            <EcosystemVisual />
+          </motion.div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------------------------- Dashboard Mockup ---------------------------- */
+/* ------------------------------- Count Up --------------------------------- */
 
-function DashboardMockup() {
-  const revenue = [
-    { x: 1, y: 22 }, { x: 2, y: 28 }, { x: 3, y: 26 }, { x: 4, y: 34 },
-    { x: 5, y: 31 }, { x: 6, y: 42 }, { x: 7, y: 48 }, { x: 8, y: 44 },
-    { x: 9, y: 56 }, { x: 10, y: 61 }, { x: 11, y: 58 }, { x: 12, y: 72 },
+function CountUp({ to, duration = 1.6 }: { to: number; duration?: number }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-20%" });
+  const mv = useMotionValue(0);
+  const rounded = useTransform(mv, (v) => Math.round(v).toString());
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(mv, to, { duration, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] });
+    return () => controls.stop();
+  }, [inView, to, duration, mv]);
+  useEffect(() => {
+    return rounded.on("change", (v) => {
+      if (ref.current) ref.current.textContent = v;
+    });
+  }, [rounded]);
+  return <span ref={ref}>0</span>;
+}
+
+/* --------------------------- Ecosystem Visual ----------------------------- */
+
+function EcosystemVisual() {
+  const spark = [
+    { x: 1, y: 14 }, { x: 2, y: 22 }, { x: 3, y: 19 }, { x: 4, y: 28 },
+    { x: 5, y: 26 }, { x: 6, y: 36 }, { x: 7, y: 42 }, { x: 8, y: 40 },
+    { x: 9, y: 52 }, { x: 10, y: 58 }, { x: 11, y: 55 }, { x: 12, y: 68 },
   ];
-  const bars = [12, 18, 14, 22, 19, 28, 24, 31, 27, 35, 30, 40].map((y, i) => ({ x: i, y }));
+
+  const nodes: {
+    icon: typeof Globe2;
+    label: string;
+    title: string;
+    accent: string;
+    delay: number;
+    side: "left" | "right";
+    body: React.ReactNode;
+  }[] = [
+    {
+      icon: Globe2,
+      label: "Website",
+      title: "plecolab.io",
+      accent: "#60a5fa",
+      delay: 0.1,
+      side: "left",
+      body: <BrowserMini />,
+    },
+    {
+      icon: Users,
+      label: "CRM Platform",
+      title: "New lead · Aarav Mehta",
+      accent: "#818cf8",
+      delay: 0.25,
+      side: "right",
+      body: <LeadRow />,
+    },
+    {
+      icon: MessageCircle,
+      label: "WhatsApp Automation",
+      title: "Auto-reply sent",
+      accent: "#34d399",
+      delay: 0.4,
+      side: "left",
+      body: <ChatBubbles />,
+    },
+    {
+      icon: Bot,
+      label: "AI Agent",
+      title: "Qualified · 92% intent",
+      accent: "#c084fc",
+      delay: 0.55,
+      side: "right",
+      body: <AIAgent />,
+    },
+    {
+      icon: LayoutDashboard,
+      label: "Analytics",
+      title: "Revenue +28.4%",
+      accent: "#67e8f9",
+      delay: 0.7,
+      side: "left",
+      body: <SparkChart data={spark} />,
+    },
+  ];
 
   return (
-    <div className="relative">
-      {/* Glow halo */}
+    <div className="relative mx-auto max-w-[560px]">
+      {/* Halo */}
       <div
-        className="absolute -inset-10 -z-10 opacity-70"
+        className="pointer-events-none absolute -inset-16 -z-10"
         style={{
           background:
-            "radial-gradient(60% 50% at 50% 40%, rgba(99,102,241,0.35), transparent 70%)",
+            "radial-gradient(55% 45% at 50% 45%, rgba(129,140,248,0.32), transparent 70%)",
         }}
       />
-      <div className="glass-strong ring-glow relative rounded-2xl p-3 animate-float">
-        {/* Window chrome */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] px-3 pb-3">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-            <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-            <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-          </div>
-          <div className="rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10.5px] text-white/50">
-            app.plecolab.io / overview
-          </div>
-          <div className="h-5 w-5 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500" />
-        </div>
 
-        <div className="grid grid-cols-[140px,1fr] gap-3 pt-3">
-          {/* Sidebar */}
-          <div className="space-y-1 px-1">
-            {[
-              { i: LayoutDashboard, l: "Overview", a: true },
-              { i: Users, l: "Leads" },
-              { i: Workflow, l: "Pipelines" },
-              { i: Bot, l: "AI Agents" },
-              { i: MessageCircle, l: "Inbox" },
-              { i: ShieldCheck, l: "Settings" },
-            ].map((it) => (
-              <div
-                key={it.l}
-                className={`flex items-center gap-2 rounded-lg px-2.5 py-2 text-[11.5px] ${
-                  it.a
-                    ? "bg-white/[0.06] text-white"
-                    : "text-white/50"
-                }`}
-              >
-                <it.i className="h-3.5 w-3.5" />
-                {it.l}
-              </div>
-            ))}
-            <div className="mt-4 rounded-lg border border-white/10 bg-gradient-to-br from-indigo-500/15 to-violet-500/10 p-2.5">
-              <div className="text-[10.5px] font-medium text-white/90">Upgrade</div>
-              <div className="mt-0.5 text-[10px] text-white/55">Unlock AI agents</div>
-            </div>
-          </div>
+      {/* Connection spine */}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-full w-[120px] -translate-x-1/2"
+        viewBox="0 0 120 720"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="spine" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.1" />
+            <stop offset="50%" stopColor="#a78bfa" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#67e8f9" stopOpacity="0.1" />
+          </linearGradient>
+          <linearGradient id="pulse" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="50%" stopColor="#c4b5fd" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+        </defs>
+        <line x1="60" y1="20" x2="60" y2="700" stroke="url(#spine)" strokeWidth="1.5" />
+        <motion.line
+          x1="60"
+          y1="0"
+          x2="60"
+          y2="120"
+          stroke="url(#pulse)"
+          strokeWidth="2"
+          initial={{ y: -120 }}
+          animate={{ y: [-120, 720] }}
+          transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </svg>
 
-          {/* Main */}
-          <div className="space-y-3 pr-1">
-            <div className="flex items-center justify-between px-1">
-              <div>
-                <div className="text-[10.5px] text-white/45">Welcome back</div>
-                <div className="text-[13px] font-medium text-white">Pipeline overview</div>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-[10px] text-white/60">
-                  This month
-                </div>
-                <div className="rounded-md bg-indigo-500/90 px-2 py-1 text-[10px] font-medium text-white">
-                  + New
-                </div>
-              </div>
-            </div>
+      <div className="relative flex flex-col gap-5 py-4">
+        {nodes.map((n, i) => (
+          <EcoCard key={n.label} {...n} index={i} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
-            {/* KPI cards */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { l: "Revenue", v: "$148.2K", d: "+24.6%", c: "#818cf8" },
-                { l: "Active leads", v: "1,284", d: "+18.2%", c: "#a78bfa" },
-                { l: "Conv. rate", v: "9.4%", d: "+3.1%", c: "#67e8f9" },
-              ].map((k) => (
-                <div
-                  key={k.l}
-                  className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5"
-                >
-                  <div className="text-[10px] text-white/50">{k.l}</div>
-                  <div className="mt-0.5 text-[14px] font-semibold text-white">{k.v}</div>
-                  <div className="mt-0.5 inline-flex items-center gap-0.5 text-[9.5px] font-medium" style={{ color: k.c }}>
-                    <TrendingUp className="h-2.5 w-2.5" /> {k.d}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Chart */}
-            <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
-              <div className="mb-2 flex items-center justify-between">
-                <div className="text-[11px] font-medium text-white/85">Revenue growth</div>
-                <div className="flex gap-1">
-                  {["1W", "1M", "3M", "1Y"].map((t, i) => (
-                    <span
-                      key={t}
-                      className={`rounded px-1.5 py-0.5 text-[9.5px] ${
-                        i === 1 ? "bg-white/10 text-white" : "text-white/45"
-                      }`}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="h-[110px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={revenue} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
-                    <defs>
-                      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#818cf8" stopOpacity={0.5} />
-                        <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      type="monotone"
-                      dataKey="y"
-                      stroke="#a5b4fc"
-                      strokeWidth={2}
-                      fill="url(#g1)"
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
-            {/* Bottom row: pipeline + activity */}
-            <div className="grid grid-cols-2 gap-2">
-              <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
-                <div className="mb-2 text-[11px] font-medium text-white/85">Bookings</div>
-                <div className="h-[70px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={bars}>
-                      <Bar dataKey="y" radius={[3, 3, 0, 0]} fill="#a78bfa" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-              <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
-                <div className="mb-2 text-[11px] font-medium text-white/85">Live activity</div>
-                <div className="space-y-1.5">
-                  {[
-                    { c: "#34d399", t: "Lead qualified" },
-                    { c: "#818cf8", t: "AI agent replied" },
-                    { c: "#f0abfc", t: "Deal won · $4.2K" },
-                  ].map((a) => (
-                    <div key={a.t} className="flex items-center gap-2">
-                      <span
-                        className="h-1.5 w-1.5 rounded-full"
-                        style={{ background: a.c, boxShadow: `0 0 8px ${a.c}` }}
-                      />
-                      <span className="text-[10.5px] text-white/70">{a.t}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+function EcoCard({
+  icon: Icon,
+  label,
+  title,
+  accent,
+  body,
+  delay,
+  side,
+  index,
+}: {
+  icon: typeof Globe2;
+  label: string;
+  title: string;
+  accent: string;
+  body: React.ReactNode;
+  delay: number;
+  side: "left" | "right";
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: side === "left" ? -30 : 30, y: 10 }}
+      animate={{ opacity: 1, x: 0, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.3 + delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+      className={`relative flex ${side === "left" ? "justify-start pr-16" : "justify-end pl-16"}`}
+    >
+      {/* Connector dot on spine */}
+      <div
+        className="absolute left-1/2 top-1/2 z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          background: accent,
+          boxShadow: `0 0 0 4px rgba(255,255,255,0.04), 0 0 18px ${accent}`,
+        }}
+      >
+        <span
+          className="absolute inset-0 animate-ping rounded-full"
+          style={{ background: accent, opacity: 0.35, animationDelay: `${index * 0.4}s` }}
+        />
       </div>
 
-      {/* Floating mini card */}
-      <div className="glass-strong absolute -bottom-6 -left-6 hidden rounded-xl p-3 sm:block">
+      <motion.div
+        animate={{ y: [0, -6, 0] }}
+        transition={{
+          duration: 5 + index * 0.3,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: index * 0.4,
+        }}
+        className="glass-strong group relative w-[260px] rounded-2xl p-3.5 transition hover:border-white/20"
+        style={{
+          boxShadow: `0 20px 50px -25px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.06)`,
+        }}
+      >
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-400/20 to-emerald-500/10 ring-1 ring-emerald-400/30">
-            <MessageCircle className="h-4 w-4 text-emerald-300" />
+          <div
+            className="flex h-8 w-8 items-center justify-center rounded-lg"
+            style={{
+              background: `linear-gradient(135deg, ${accent}30, ${accent}10)`,
+              boxShadow: `inset 0 0 0 1px ${accent}40`,
+            }}
+          >
+            <Icon className="h-4 w-4" style={{ color: accent }} />
           </div>
-          <div>
-            <div className="text-[11px] text-white/55">WhatsApp bot</div>
-            <div className="text-[12.5px] font-medium text-white">+312 replies today</div>
+          <div className="min-w-0 flex-1">
+            <div className="text-[10.5px] uppercase tracking-wider text-white/45">
+              {label}
+            </div>
+            <div className="truncate text-[12.5px] font-medium text-white">
+              {title}
+            </div>
           </div>
+          <CheckCircle2 className="h-3.5 w-3.5 text-white/30" />
+        </div>
+        <div className="mt-3">{body}</div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ------- Card bodies ------- */
+
+function BrowserMini() {
+  return (
+    <div className="overflow-hidden rounded-lg border border-white/[0.07] bg-white/[0.02]">
+      <div className="flex items-center gap-1 border-b border-white/[0.06] px-2 py-1.5">
+        <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+        <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+        <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+        <div className="ml-2 h-3 flex-1 rounded-sm bg-white/[0.04]" />
+      </div>
+      <div className="space-y-1.5 p-2.5">
+        <div className="h-2 w-2/3 rounded bg-gradient-to-r from-indigo-400/60 to-violet-400/40" />
+        <div className="h-1.5 w-full rounded bg-white/[0.06]" />
+        <div className="h-1.5 w-4/5 rounded bg-white/[0.06]" />
+        <div className="mt-2 flex gap-1.5">
+          <div className="h-5 w-14 rounded bg-indigo-500/70" />
+          <div className="h-5 w-12 rounded border border-white/10" />
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="glass-strong absolute -right-4 top-10 hidden rounded-xl p-3 lg:block">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-400/20 to-violet-500/10 ring-1 ring-indigo-400/30">
-            <Sparkles className="h-4 w-4 text-indigo-300" />
+function LeadRow() {
+  return (
+    <div className="space-y-1.5">
+      {[
+        { n: "Aarav Mehta", s: "Hot", c: "#34d399" },
+        { n: "Zanele Dlamini", s: "New", c: "#818cf8" },
+        { n: "Rohit Kumar", s: "Qualified", c: "#c084fc" },
+      ].map((r, i) => (
+        <div
+          key={r.n}
+          className="flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-1.5"
+        >
+          <div className="flex items-center gap-2">
+            <div
+              className="h-5 w-5 rounded-full"
+              style={{
+                background: `linear-gradient(135deg, ${r.c}, ${r.c}66)`,
+              }}
+            />
+            <span className="text-[10.5px] text-white/80">{r.n}</span>
           </div>
-          <div>
-            <div className="text-[11px] text-white/55">AI Agent</div>
-            <div className="text-[12.5px] font-medium text-white">Closed 14 deals</div>
-          </div>
+          <span
+            className="rounded px-1.5 py-0.5 text-[9px] font-medium"
+            style={{ background: `${r.c}22`, color: r.c }}
+          >
+            {r.s}
+          </span>
         </div>
+      ))}
+    </div>
+  );
+}
+
+function ChatBubbles() {
+  return (
+    <div className="space-y-1.5">
+      <div className="max-w-[80%] rounded-lg rounded-bl-sm bg-white/[0.06] px-2.5 py-1.5 text-[10.5px] text-white/80">
+        Hi! Is the Bali package still available?
+      </div>
+      <div
+        className="ml-auto max-w-[85%] rounded-lg rounded-br-sm px-2.5 py-1.5 text-[10.5px] text-white"
+        style={{ background: "linear-gradient(135deg, #10b981, #059669)" }}
+      >
+        Yes! Booking link sent to your inbox ✨
+      </div>
+      <div className="flex items-center gap-1 pt-0.5 text-[9.5px] text-white/40">
+        <span className="h-1 w-1 animate-pulse rounded-full bg-emerald-400" />
+        Auto-replied in 0.4s
+      </div>
+    </div>
+  );
+}
+
+function AIAgent() {
+  return (
+    <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-2">
+      <div className="flex items-center justify-between">
+        <span className="text-[10px] text-white/55">Intent score</span>
+        <span className="text-[10.5px] font-semibold text-white">92%</span>
+      </div>
+      <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: "92%" }}
+          transition={{ duration: 1.4, delay: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+          className="h-full rounded-full"
+          style={{
+            background: "linear-gradient(90deg, #a78bfa, #c084fc, #f0abfc)",
+            boxShadow: "0 0 12px rgba(192,132,252,0.6)",
+          }}
+        />
+      </div>
+      <div className="mt-2 flex items-center gap-1.5 text-[10px] text-white/55">
+        <Sparkles className="h-3 w-3 text-violet-300" />
+        Routing to sales pipeline…
+      </div>
+    </div>
+  );
+}
+
+function SparkChart({ data }: { data: { x: number; y: number }[] }) {
+  return (
+    <div>
+      <div className="mb-1 flex items-center justify-between">
+        <span className="text-[10px] text-white/55">MRR · last 12mo</span>
+        <span className="inline-flex items-center gap-0.5 text-[10px] font-medium text-cyan-300">
+          <TrendingUp className="h-2.5 w-2.5" /> +28.4%
+        </span>
+      </div>
+      <div className="h-[58px] w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
+            <defs>
+              <linearGradient id="ecoArea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#67e8f9" stopOpacity={0.55} />
+                <stop offset="100%" stopColor="#67e8f9" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <Area
+              type="monotone"
+              dataKey="y"
+              stroke="#a5f3fc"
+              strokeWidth={1.75}
+              fill="url(#ecoArea)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
