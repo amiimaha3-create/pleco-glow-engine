@@ -1780,25 +1780,9 @@ function FeaturedPreview() {
 
 /* ----- Website Development preview ----- */
 function WebsiteShowcase() {
-  const [url, setUrl] = useState("");
-  const full = "acme.com/launch";
-  useEffect(() => {
-    let i = 0;
-    let dir: 1 | -1 = 1;
-    const id = setInterval(() => {
-      const next = full.slice(0, i);
-      setUrl((prev) => (prev === next ? prev : next));
-      i += dir;
-      if (i > full.length) {
-        dir = -1;
-        i = full.length;
-      } else if (i < 0) {
-        dir = 1;
-        i = 0;
-      }
-    }, 260);
-    return () => clearInterval(id);
-  }, []);
+  // Static URL — the typing setInterval reshaped the URL bar text width
+  // every 260ms which propagated layout changes through the flex parent.
+  const url = "acme.com/launch";
 
   return (
     <div className="relative grid grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
