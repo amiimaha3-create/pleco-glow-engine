@@ -361,7 +361,7 @@ function Hero() {
             </h1>
 
             <p
-              className="hero-fade-up mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/65"
+              className="hero-fade-up mt-5 max-w-xl text-[15px] leading-relaxed text-white/65 sm:mt-6 sm:text-[16.5px]"
               style={{ animationDelay: "260ms" }}
             >
               Pleco Lab builds custom websites, CRM systems, AI agents,
