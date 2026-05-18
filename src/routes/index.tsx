@@ -2342,35 +2342,347 @@ function IntegrationsDemo() {
   );
 }
 
+/* ---------------------- Industries: live mini demos ---------------------- */
+
+function LiveDot({ label = "Live" }: { label?: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium tracking-wide text-emerald-300">
+      <span className="live-dot h-1.5 w-1.5 rounded-full bg-emerald-400" />
+      {label}
+    </span>
+  );
+}
+
+function DemoFrame({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative mt-4 h-[168px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_40px_-24px_rgba(0,0,0,0.7)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_0%,rgba(99,102,241,0.08),transparent_60%)]" />
+      <div className="relative h-full">{children}</div>
+    </div>
+  );
+}
+
+/* 1. Travel — booking dashboard with sparkline + counters */
+function TravelDemo() {
+  const bookings = useCountUp(1284, 1400);
+  const revenue = useCountUp(48.2, 1600, 1);
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Bookings · 24h</div>
+        <LiveDot />
+      </div>
+      <div className="mt-1.5 flex items-end justify-between">
+        <div>
+          <div className="font-mono text-[20px] font-semibold tabular-nums tracking-tight text-white">{bookings.toLocaleString()}</div>
+          <div className="mt-0.5 text-[10.5px] text-emerald-300">▲ 12.4% vs yesterday</div>
+        </div>
+        <div className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-right">
+          <div className="text-[9.5px] uppercase tracking-wider text-white/45">Revenue</div>
+          <div className="font-mono text-[12px] font-semibold text-white">${revenue}K</div>
+        </div>
+      </div>
+      <svg viewBox="0 0 280 60" className="mt-2 h-[58px] w-full">
+        <defs>
+          <linearGradient id="trv-g" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="rgba(129,140,248,0.45)" />
+            <stop offset="100%" stopColor="rgba(129,140,248,0)" />
+          </linearGradient>
+        </defs>
+        <path d="M0 45 L30 38 L60 42 L90 28 L120 32 L150 20 L180 26 L210 14 L240 18 L280 8 L280 60 L0 60 Z" fill="url(#trv-g)" />
+        <path className="ind-spark" d="M0 45 L30 38 L60 42 L90 28 L120 32 L150 20 L180 26 L210 14 L240 18 L280 8" fill="none" stroke="rgb(165,180,252)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </DemoFrame>
+  );
+}
+
+/* 2. Immigration — case workflow pipeline */
+function ImmigrationDemo() {
+  const steps = ["Intake", "Documents", "Review", "Decision"];
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Case · IMG-2841</div>
+        <span className="ind-status inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium">In Review</span>
+      </div>
+      <div className="mt-3 space-y-1.5">
+        {steps.map((s, idx) => (
+          <div key={s} className="ind-step flex items-center gap-2" style={{ animationDelay: `${idx * 0.4}s` }}>
+            <div className={`flex h-4 w-4 items-center justify-center rounded-full ${idx < 2 ? "bg-emerald-400/20 ring-1 ring-emerald-400/40" : idx === 2 ? "bg-indigo-400/20 ring-1 ring-indigo-400/40" : "bg-white/[0.04] ring-1 ring-white/10"}`}>
+              {idx < 2 ? <Check className="h-2.5 w-2.5 text-emerald-300" strokeWidth={2.4} /> : idx === 2 ? <div className="h-1.5 w-1.5 rounded-full bg-indigo-300 live-dot" /> : <div className="h-1 w-1 rounded-full bg-white/30" />}
+            </div>
+            <div className="flex-1 text-[11.5px] text-white/75">{s}</div>
+            <div className="relative h-1 w-12 overflow-hidden rounded-full bg-white/[0.05]">
+              <div className="ind-fill h-full rounded-full bg-gradient-to-r from-indigo-400 to-sky-400" style={{ ["--w" as string]: idx < 2 ? "100%" : idx === 2 ? "62%" : "0%", animationDelay: `${idx * 0.3}s` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 flex items-center justify-between text-[10px] text-white/45">
+        <span>3 docs verified</span>
+        <span className="text-emerald-300">SLA · 2d ahead</span>
+      </div>
+    </DemoFrame>
+  );
+}
+
+/* 3. Education — enrollment funnel */
+function EducationDemo() {
+  const inquiries = useCountUp(842, 1200);
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Admissions funnel</div>
+        <LiveDot label="Sync" />
+      </div>
+      <div className="mt-2 space-y-2">
+        {[
+          { l: "Inquiries", v: inquiries, w: "100%", c: "from-sky-400 to-indigo-400" },
+          { l: "Counselled", v: 612, w: "72%", c: "from-indigo-400 to-violet-400" },
+          { l: "Applied", v: 348, w: "41%", c: "from-violet-400 to-fuchsia-400" },
+          { l: "Enrolled", v: 184, w: "22%", c: "from-fuchsia-400 to-rose-400" },
+        ].map((r, i) => (
+          <div key={r.l}>
+            <div className="flex items-center justify-between text-[10.5px]">
+              <span className="text-white/65">{r.l}</span>
+              <span className="font-mono tabular-nums text-white/85">{r.v.toLocaleString()}</span>
+            </div>
+            <div className="relative mt-1 h-1.5 overflow-hidden rounded-full bg-white/[0.05]">
+              <div className={`ind-fill h-full rounded-full bg-gradient-to-r ${r.c}`} style={{ ["--w" as string]: r.w, animationDelay: `${i * 0.18}s` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </DemoFrame>
+  );
+}
+
+/* 4. Healthcare — patient queue */
+function HealthcareDemo() {
+  const rows = [
+    { n: "A. Khan", t: "09:20", s: "Checked-in", c: "emerald" },
+    { n: "M. Singh", t: "09:35", s: "In consult", c: "indigo" },
+    { n: "R. Patel", t: "09:50", s: "Triage", c: "amber" },
+    { n: "L. Chen", t: "10:05", s: "Queued", c: "slate" },
+  ];
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">OPD queue · Today</div>
+        <span className="inline-flex items-center gap-1 rounded-full border border-sky-400/20 bg-sky-400/10 px-2 py-0.5 text-[9.5px] font-medium text-sky-300">
+          <ShieldCheck className="h-2.5 w-2.5" strokeWidth={2} /> HIPAA
+        </span>
+      </div>
+      <div className="mt-2 space-y-1">
+        {rows.map((r, i) => (
+          <div key={r.n} className="ind-step flex items-center gap-2 rounded-md border border-white/[0.05] bg-white/[0.02] px-2 py-1.5" style={{ animationDelay: `${i * 0.3}s` }}>
+            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-white/[0.05] text-[9px] font-medium text-white/70">{r.n.split(" ")[0][0]}</div>
+            <div className="flex-1">
+              <div className="text-[11px] leading-tight text-white/85">{r.n}</div>
+              <div className="text-[9.5px] text-white/40">{r.t}</div>
+            </div>
+            <span className={`rounded-full px-1.5 py-0.5 text-[9.5px] font-medium ${
+              r.c === "emerald" ? "bg-emerald-400/15 text-emerald-300" :
+              r.c === "indigo" ? "bg-indigo-400/15 text-indigo-300" :
+              r.c === "amber" ? "bg-amber-400/15 text-amber-300" :
+              "bg-white/[0.05] text-white/55"
+            }`}>{r.s}</span>
+          </div>
+        ))}
+      </div>
+    </DemoFrame>
+  );
+}
+
+/* 5. Logistics — moving truck on route */
+function LogisticsDemo() {
+  const eta = useCountUp(42, 1100);
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Shipment · TRK-9214</div>
+        <LiveDot label="Tracking" />
+      </div>
+      <div className="relative mt-2 h-[78px] w-full">
+        <svg viewBox="0 0 300 60" className="absolute inset-0 h-full w-full">
+          <path d="M 8 38 C 60 38, 90 12, 150 22 S 240 50, 290 18" fill="none" stroke="rgba(165,180,252,0.18)" strokeWidth="1.5" />
+          <path className="ind-route" d="M 8 38 C 60 38, 90 12, 150 22 S 240 50, 290 18" fill="none" stroke="rgb(129,140,248)" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="8" cy="38" r="3" fill="rgb(110,231,183)" />
+          <circle cx="290" cy="18" r="3" fill="rgb(244,63,94)" />
+        </svg>
+        <div className="ind-truck absolute -left-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-md border border-white/15 bg-[#0b1024] shadow-[0_6px_16px_-4px_rgba(99,102,241,0.6)]">
+          <Truck className="h-3 w-3 text-indigo-200" strokeWidth={2} />
+        </div>
+      </div>
+      <div className="mt-1 grid grid-cols-3 gap-1.5 text-center">
+        <div className="rounded-md border border-white/[0.06] bg-white/[0.02] py-1">
+          <div className="text-[9px] uppercase tracking-wider text-white/40">ETA</div>
+          <div className="font-mono text-[11px] font-semibold text-white">{eta}m</div>
+        </div>
+        <div className="rounded-md border border-white/[0.06] bg-white/[0.02] py-1">
+          <div className="text-[9px] uppercase tracking-wider text-white/40">Active</div>
+          <div className="font-mono text-[11px] font-semibold text-white">128</div>
+        </div>
+        <div className="rounded-md border border-white/[0.06] bg-white/[0.02] py-1">
+          <div className="text-[9px] uppercase tracking-wider text-white/40">SLA</div>
+          <div className="font-mono text-[11px] font-semibold text-emerald-300">99.4%</div>
+        </div>
+      </div>
+    </DemoFrame>
+  );
+}
+
+/* 6. Retail — revenue + product widgets */
+function RetailDemo() {
+  const rev = useCountUp(12.8, 1500, 1);
+  const orders = useCountUp(384, 1200);
+  const bars = [0.45, 0.62, 0.5, 0.78, 0.6, 0.88, 0.72, 0.95, 0.68, 0.82];
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Today · Commerce</div>
+        <LiveDot label="Live" />
+      </div>
+      <div className="mt-1.5 grid grid-cols-2 gap-2">
+        <div className="rounded-md border border-white/[0.06] bg-white/[0.02] p-2">
+          <div className="text-[9.5px] uppercase tracking-wider text-white/40">Revenue</div>
+          <div className="font-mono text-[15px] font-semibold text-white">${rev}K</div>
+          <div className="text-[9.5px] text-emerald-300">▲ 8.2%</div>
+        </div>
+        <div className="rounded-md border border-white/[0.06] bg-white/[0.02] p-2">
+          <div className="text-[9.5px] uppercase tracking-wider text-white/40">Orders</div>
+          <div className="font-mono text-[15px] font-semibold text-white">{orders}</div>
+          <div className="text-[9.5px] text-sky-300">AOV $34</div>
+        </div>
+      </div>
+      <div className="mt-2 flex h-[42px] items-end gap-1">
+        {bars.map((h, i) => (
+          <div key={i} className="ind-bar flex-1 rounded-sm bg-gradient-to-t from-rose-500/60 to-rose-300/90" style={{ ["--h" as string]: String(h), animationDelay: `${i * 0.12}s` }} />
+        ))}
+      </div>
+    </DemoFrame>
+  );
+}
+
+/* 7. Real Estate — lead kanban */
+function RealEstateDemo() {
+  const cols = [
+    { l: "New", n: 24, c: "sky" },
+    { l: "Qualified", n: 12, c: "indigo" },
+    { l: "Visit", n: 6, c: "emerald" },
+  ];
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Lead pipeline</div>
+        <span className="font-mono text-[10px] text-white/60">42 leads</span>
+      </div>
+      <div className="mt-2 grid grid-cols-3 gap-1.5">
+        {cols.map((c) => (
+          <div key={c.l} className="rounded-md border border-white/[0.06] bg-white/[0.02] p-1.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[9.5px] uppercase tracking-wider text-white/45">{c.l}</span>
+              <span className="font-mono text-[9.5px] text-white/65">{c.n}</span>
+            </div>
+            <div className="relative mt-1 h-[72px] overflow-hidden">
+              <div className="ind-card-slide absolute inset-x-0 space-y-1">
+                {[0, 1, 2].map((i) => (
+                  <div key={i} className={`rounded border bg-white/[0.03] p-1 ${
+                    c.c === "sky" ? "border-sky-400/20" : c.c === "indigo" ? "border-indigo-400/20" : "border-emerald-400/20"
+                  }`}>
+                    <div className="h-1 w-2/3 rounded bg-white/20" />
+                    <div className="mt-1 h-1 w-1/2 rounded bg-white/10" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-1.5 text-[9.5px] text-emerald-300">Auto-routed to broker · 1.2s</div>
+    </DemoFrame>
+  );
+}
+
+/* 8. SMEs — KPI command center */
+function SMEDemo() {
+  const score = useCountUp(94, 1400);
+  const rings = [
+    { l: "Ops", v: 92, c: "rgb(110,231,183)" },
+    { l: "Sales", v: 78, c: "rgb(165,180,252)" },
+    { l: "Auto", v: 86, c: "rgb(244,114,182)" },
+  ];
+  const C = 2 * Math.PI * 18;
+  return (
+    <DemoFrame>
+      <div className="flex items-center justify-between">
+        <div className="text-[10.5px] font-medium uppercase tracking-[0.12em] text-white/45">Ops health</div>
+        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+          Score {score}
+        </span>
+      </div>
+      <div className="mt-2 grid grid-cols-3 gap-1">
+        {rings.map((r, i) => {
+          const len = (r.v / 100) * C;
+          return (
+            <div key={r.l} className="flex flex-col items-center">
+              <svg viewBox="0 0 44 44" className="h-12 w-12">
+                <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="3" />
+                <circle
+                  cx="22" cy="22" r="18" fill="none" stroke={r.c} strokeWidth="3" strokeLinecap="round"
+                  transform="rotate(-90 22 22)"
+                  strokeDasharray={C}
+                  className="ind-ring"
+                  style={{ ["--circ" as string]: String(C), ["--len" as string]: String(len), animationDelay: `${i * 0.2}s` }}
+                />
+                <text x="22" y="25" textAnchor="middle" className="fill-white font-mono text-[10px]">{r.v}</text>
+              </svg>
+              <div className="text-[9.5px] text-white/55">{r.l}</div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-1 flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-1">
+        <span className="text-[10px] text-white/55">Automations active</span>
+        <span className="font-mono text-[10.5px] text-white">23 / 25</span>
+      </div>
+    </DemoFrame>
+  );
+}
+
 function Industries() {
   const items = [
-    { i: Plane, t: "Travel & Tourism", d: "Booking engines, itinerary tools, ops dashboards.", chips: ["+120% bookings", "12 brands"] },
-    { i: Stamp, t: "Immigration", d: "Case mgmt, document workflows, client portals.", chips: ["+45% conv.", "6 firms"] },
-    { i: GraduationCap, t: "Education", d: "Lead funnels, counsellor CRMs, student journeys.", chips: ["+70% enrol", "9 partners"] },
-    { i: HeartPulse, t: "Healthcare", d: "Patient intake, appointments, compliance-ready.", chips: ["HIPAA ready", "4 clinics"] },
-    { i: Truck, t: "Logistics", d: "Tracking, dispatch, automation, partner APIs.", chips: ["99.9% SLA", "8 hubs"] },
-    { i: ShoppingBag, t: "Retail & E-commerce", d: "Storefronts, OMS, loyalty, WhatsApp commerce.", chips: ["3.2× LTV", "14 stores"] },
-    { i: Building2, t: "Real Estate", d: "Listings, lead routing, broker pipelines.", chips: ["+58% leads", "5 brokers"] },
-    { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses.", chips: ["Ship in 6w", "60+ teams"] },
+    { i: Plane, t: "Travel & Tourism", d: "Booking engines, itinerary tools, ops dashboards.", chips: ["+120% bookings", "12 brands"], Demo: TravelDemo },
+    { i: Stamp, t: "Immigration", d: "Case mgmt, document workflows, client portals.", chips: ["+45% conv.", "6 firms"], Demo: ImmigrationDemo },
+    { i: GraduationCap, t: "Education", d: "Lead funnels, counsellor CRMs, student journeys.", chips: ["+70% enrol", "9 partners"], Demo: EducationDemo },
+    { i: HeartPulse, t: "Healthcare", d: "Patient intake, appointments, compliance-ready.", chips: ["HIPAA ready", "4 clinics"], Demo: HealthcareDemo },
+    { i: Truck, t: "Logistics", d: "Tracking, dispatch, automation, partner APIs.", chips: ["99.9% SLA", "8 hubs"], Demo: LogisticsDemo },
+    { i: ShoppingBag, t: "Retail & E-commerce", d: "Storefronts, OMS, loyalty, WhatsApp commerce.", chips: ["3.2× LTV", "14 stores"], Demo: RetailDemo },
+    { i: Building2, t: "Real Estate", d: "Listings, lead routing, broker pipelines.", chips: ["+58% leads", "5 brokers"], Demo: RealEstateDemo },
+    { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses.", chips: ["Ship in 6w", "60+ teams"], Demo: SMEDemo },
   ];
   return (
     <section className="relative py-16 sm:py-20">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(99,102,241,0.06),transparent_70%)]" />
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Industries"
           title={<>Deep expertise across <span className="text-gradient-brand">industries</span>.</>}
-          subtitle="We've shipped real outcomes for the categories where speed, trust, and operations matter most."
+          subtitle="We build high-performance operating systems tailored for industries where speed, trust, and operational excellence matter."
         />
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((it) => (
             <a
               key={it.t}
-              href="#"
+              href="#contact"
               className="card-premium tilt group relative block overflow-hidden p-5"
             >
-              <div className="icon-tile">
-                <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
+              <div className="flex items-start justify-between">
+                <div className="icon-tile">
+                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-white/30 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white/80" strokeWidth={1.8} />
               </div>
               <h3
                 className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
@@ -2378,8 +2690,11 @@ function Industries() {
               >
                 {it.t}
               </h3>
-              <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
-              <div className="mt-3.5 flex flex-wrap gap-1.5">
+              <p className="mt-1.5 text-[12.5px] leading-[1.55] text-white/55">{it.d}</p>
+
+              <it.Demo />
+
+              <div className="mt-4 flex flex-wrap gap-1.5">
                 {it.chips.map((c) => (
                   <span
                     key={c}
@@ -2388,9 +2703,6 @@ function Industries() {
                     {c}
                   </span>
                 ))}
-              </div>
-              <div className="mt-4 inline-flex items-center gap-1 text-[12px] font-medium text-indigo-300 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                View case <ArrowRight className="h-3 w-3" strokeWidth={1.8} />
               </div>
             </a>
           ))}
