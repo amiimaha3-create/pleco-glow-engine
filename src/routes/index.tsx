@@ -51,6 +51,7 @@ import {
   Bar,
   BarChart,
 } from "recharts";
+import heroDeveloper from "@/assets/hero-developer.jpg";
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
 
