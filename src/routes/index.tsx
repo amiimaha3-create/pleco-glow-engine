@@ -1112,14 +1112,14 @@ function DashboardMockup() {
               ].map((k) => (
                 <div
                   key={k.l}
-                  className="group relative overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5 transition hover:border-white/15 hover:bg-white/[0.04]"
+                  className="group relative h-[78px] min-h-[78px] max-h-[78px] overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-2.5 transition hover:border-white/15 hover:bg-white/[0.04]"
                 >
                   <div className="flex items-center justify-between">
                     <div className="text-[10px] text-white/50">{k.l}</div>
                     <k.ic className="h-3 w-3 text-white/30" />
                   </div>
                   <div
-                    className="mt-0.5 text-[15px] font-semibold tracking-tight text-white"
+                    className="stable-metric mt-0.5 min-w-[64px] text-[15px] font-semibold tracking-tight text-white"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     {k.v}
@@ -1135,7 +1135,7 @@ function DashboardMockup() {
             </div>
 
             {/* Revenue chart */}
-            <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
+            <div className="h-[151px] min-h-[151px] max-h-[151px] overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-3">
               <div className="mb-1.5 flex items-center justify-between">
                 <div>
                   <div className="text-[11px] font-medium text-white/90">
@@ -1160,7 +1160,7 @@ function DashboardMockup() {
                   ))}
                 </div>
               </div>
-              <div className="h-[96px] w-full">
+              <div className="stable-chart h-[96px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart
                     data={revenue}
