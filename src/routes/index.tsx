@@ -51,6 +51,7 @@ import {
   Bar,
   BarChart,
 } from "recharts";
+import heroDeveloper from "@/assets/hero-developer.jpg";
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
 
@@ -408,12 +409,12 @@ function Hero() {
             </div>
           </div>
 
-          {/* Right — dashboard mockup (md+) */}
+          {/* Right — hero visual (md+) */}
           <div
             className="hero-fade-up relative hidden md:block"
             style={{ animationDelay: "300ms" }}
           >
-            <DashboardMockup />
+            <HeroVisual />
           </div>
 
           {/* Mobile compact preview */}
@@ -426,6 +427,208 @@ function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ------------------------------ Hero Visual ------------------------------ */
+
+function HeroVisual() {
+  const floatCards: Array<{
+    i: any;
+    title: string;
+    sub: string;
+    pos: string;
+    color: string;
+    delay: string;
+  }> = [
+    {
+      i: Globe,
+      title: "Website",
+      sub: "Next.js",
+      pos: "top-[6%] left-[18%]",
+      color: "from-indigo-500/25 to-indigo-500/5 border-indigo-400/30 text-indigo-200",
+      delay: "0s",
+    },
+    {
+      i: Users,
+      title: "CRM",
+      sub: "Leads & Pipeline",
+      pos: "top-[14%] right-[6%]",
+      color: "from-violet-500/25 to-violet-500/5 border-violet-400/30 text-violet-200",
+      delay: "0.8s",
+    },
+    {
+      i: MessageCircle,
+      title: "WhatsApp",
+      sub: "Automation",
+      pos: "top-[28%] left-[4%]",
+      color: "from-emerald-500/25 to-emerald-500/5 border-emerald-400/30 text-emerald-200",
+      delay: "1.4s",
+    },
+    {
+      i: Sparkles,
+      title: "AI Agent",
+      sub: "Powering Growth",
+      pos: "top-[44%] right-[2%]",
+      color: "from-fuchsia-500/25 to-fuchsia-500/5 border-fuchsia-400/30 text-fuchsia-200",
+      delay: "0.4s",
+    },
+    {
+      i: Activity,
+      title: "Analytics",
+      sub: "Real-time Insights",
+      pos: "top-[60%] right-[10%]",
+      color: "from-cyan-500/25 to-cyan-500/5 border-cyan-400/30 text-cyan-200",
+      delay: "1.1s",
+    },
+  ];
+
+  const trusted = [
+    { i: Plane, t: "FlyWorld", s: "Travels" },
+    { i: Stamp, t: "Global Visa", s: "Consultants" },
+    { i: GraduationCap, t: "EduConnect", s: "Consultants" },
+    { i: HeartPulse, t: "MediCare", s: "Healthcare" },
+    { i: Truck, t: "TradeX", s: "Import / Export" },
+  ];
+
+  return (
+    <div className="relative">
+      {/* Ambient halo */}
+      <div
+        className="pointer-events-none absolute -inset-10 -z-10"
+        style={{
+          background:
+            "radial-gradient(55% 50% at 60% 40%, rgba(99,102,241,0.45), transparent 70%), radial-gradient(40% 40% at 20% 80%, rgba(168,85,247,0.30), transparent 70%)",
+          filter: "blur(20px)",
+        }}
+      />
+
+      {/* Main image container */}
+      <div className="relative aspect-[4/5] w-full overflow-visible">
+        {/* Photo frame */}
+        <div className="absolute inset-0 overflow-hidden rounded-[22px] ring-1 ring-white/10">
+          <img
+            src={heroDeveloper}
+            alt="Developer working on Pleco Lab dashboard"
+            className="h-full w-full object-cover"
+            width={1280}
+            height={1280}
+          />
+          {/* Color wash to lock into brand */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(6,11,26,0.10) 0%, rgba(6,11,26,0.55) 70%, rgba(6,11,26,0.95) 100%), radial-gradient(60% 60% at 70% 30%, rgba(99,102,241,0.25), transparent 70%)",
+            }}
+          />
+        </div>
+
+        {/* Subtle scan line over image */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[22px]">
+          <div className="scanline" aria-hidden />
+        </div>
+
+        {/* Floating feature cards */}
+        {floatCards.map((c) => (
+          <div
+            key={c.title}
+            className={`absolute ${c.pos} float-y`}
+            style={{ animationDelay: c.delay }}
+          >
+            <div
+              className={`flex items-center gap-2 rounded-2xl border bg-gradient-to-br ${c.color} px-3 py-2 backdrop-blur-xl`}
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(15,18,40,0.85) 0%, rgba(10,12,28,0.85) 100%)",
+                boxShadow:
+                  "0 10px 30px -10px rgba(99,102,241,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
+              }}
+            >
+              <div
+                className={`flex h-7 w-7 items-center justify-center rounded-lg border bg-gradient-to-br ${c.color}`}
+              >
+                <c.i className="h-3.5 w-3.5" />
+              </div>
+              <div className="leading-tight">
+                <div className="text-[12px] font-semibold tracking-tight text-white">
+                  {c.title}
+                </div>
+                <div className="text-[10px] text-white/55">{c.sub}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Dotted connector accents */}
+        <svg
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          viewBox="0 0 400 500"
+          fill="none"
+          aria-hidden
+        >
+          <defs>
+            <linearGradient id="hv-stroke" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#c084fc" stopOpacity="0.0" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M120 70 C 170 110, 220 110, 280 130"
+            stroke="url(#hv-stroke)"
+            strokeWidth="1"
+            strokeDasharray="3 4"
+          />
+          <path
+            d="M60 170 C 120 180, 180 200, 240 220"
+            stroke="url(#hv-stroke)"
+            strokeWidth="1"
+            strokeDasharray="3 4"
+          />
+          <path
+            d="M340 240 C 300 280, 280 310, 260 340"
+            stroke="url(#hv-stroke)"
+            strokeWidth="1"
+            strokeDasharray="3 4"
+          />
+        </svg>
+
+        {/* Trusted by glass strip */}
+        <div
+          className="absolute inset-x-3 bottom-3 overflow-hidden rounded-2xl border border-white/10 px-4 py-3 backdrop-blur-xl"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(15,18,40,0.75) 0%, rgba(10,12,28,0.85) 100%)",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)",
+          }}
+        >
+          <div className="text-center text-[10.5px] uppercase tracking-[0.18em] text-white/55">
+            Trusted by growth-focused businesses
+          </div>
+          <div className="mt-2 grid grid-cols-5 gap-2">
+            {trusted.map((t) => (
+              <div
+                key={t.t}
+                className="flex flex-col items-center gap-0.5 text-white/70"
+              >
+                <div className="flex items-center gap-1">
+                  <t.i className="h-3 w-3 text-indigo-200" />
+                  <div
+                    className="text-[11px] font-semibold tracking-tight text-white"
+                    style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+                  >
+                    {t.t}
+                  </div>
+                </div>
+                <div className="text-[8.5px] uppercase tracking-wider text-white/40">
+                  {t.s}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
