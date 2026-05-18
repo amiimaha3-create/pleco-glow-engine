@@ -44,15 +44,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import {
-  Area,
-  AreaChart,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Bar,
-  BarChart,
-} from "recharts";
 import heroDeveloper from "@/assets/hero-developer.jpg";
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
@@ -98,6 +89,29 @@ function CountStat({
       {suffix}
     </span>
   );
+}
+
+type ChartPoint = { x?: number; y: number };
+
+function getChartPoints(data: ChartPoint[], width: number, height: number, pad = 4) {
+  const ys = data.map((d) => d.y);
+  const min = Math.min(...ys);
+  const max = Math.max(...ys);
+  const range = max - min || 1;
+  return data.map((d, i) => ({
+    x: pad + (i / Math.max(1, data.length - 1)) * (width - pad * 2),
+    y: height - pad - ((d.y - min) / range) * (height - pad * 2),
+  }));
+}
+
+function linePath(points: Array<{ x: number; y: number }>) {
+  return points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" ");
+}
+
+function areaPath(points: Array<{ x: number; y: number }>, height: number, pad = 4) {
+  if (!points.length) return "";
+  const bottom = height - pad;
+  return `${linePath(points)} L${points[points.length - 1].x.toFixed(1)} ${bottom} L${points[0].x.toFixed(1)} ${bottom} Z`;
 }
 
 export const Route = createFileRoute("/")({
