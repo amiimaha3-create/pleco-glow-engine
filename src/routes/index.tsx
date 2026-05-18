@@ -85,7 +85,7 @@ function CountStat({
   prefix?: string;
   decimals?: number;
 }) {
-  const v = useCountUp(target, 900, decimals);
+  const v = useCountUp(value, 900, decimals);
   const formatted =
     decimals === 0 ? v.toLocaleString() : v.toFixed(decimals);
   return (
