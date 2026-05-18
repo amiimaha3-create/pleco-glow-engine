@@ -1772,12 +1772,32 @@ function BrandWordmark({ name }: { name: string }) {
 
 function TrustStrip() {
   const brands = ["FlyWorld", "GlobalVisa", "EduConnect", "MediCare", "TradeX", "Northwind", "Lumen"];
+  const sectors = [
+    { i: Stamp, t: "Immigration" },
+    { i: Plane, t: "Travel" },
+    { i: GraduationCap, t: "Education" },
+    { i: HeartPulse, t: "Healthcare" },
+    { i: ShoppingBag, t: "Retail" },
+  ];
   return (
     <section className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="text-center eyebrow">Trusted by growth-focused teams worldwide</div>
-        <div className="hairline mx-auto mt-5 max-w-3xl" />
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10 md:gap-x-12">
+        <div className="text-center eyebrow">
+          Trusted by growth-focused businesses across
+        </div>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+          {sectors.map((s) => (
+            <div
+              key={s.t}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/75 backdrop-blur"
+            >
+              <s.i className="h-3 w-3 text-indigo-300/80" />
+              {s.t}
+            </div>
+          ))}
+        </div>
+        <div className="hairline mx-auto mt-8 max-w-3xl" />
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10 md:gap-x-12">
           {brands.map((b) => (
             <BrandWordmark key={b} name={b} />
           ))}
