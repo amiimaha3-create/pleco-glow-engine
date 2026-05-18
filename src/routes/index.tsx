@@ -501,20 +501,11 @@ function DashboardMockup() {
         {/* Tech grid + scanline + corner brackets (animated) */}
         <div className="tech-grid" aria-hidden />
         <div className="scanline" aria-hidden />
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          aria-hidden
-        >
-          <defs>
-            <linearGradient id="corner-g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#c084fc" stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
-          {/* Corner brackets */}
-          <path d="M10 24 L10 10 L24 10" stroke="url(#corner-g)" strokeWidth="1" fill="none" />
-          <path d="M calc(100% - 24px) 10 L calc(100% - 10px) 10 L calc(100% - 10px) 24" stroke="url(#corner-g)" strokeWidth="1" fill="none" />
-        </svg>
+        {/* Corner tech brackets */}
+        <span className="pointer-events-none absolute left-2 top-2 h-3 w-3 border-l border-t border-indigo-300/60" aria-hidden />
+        <span className="pointer-events-none absolute right-2 top-2 h-3 w-3 border-r border-t border-violet-300/60" aria-hidden />
+        <span className="pointer-events-none absolute bottom-2 left-2 h-3 w-3 border-b border-l border-indigo-300/60" aria-hidden />
+        <span className="pointer-events-none absolute bottom-2 right-2 h-3 w-3 border-b border-r border-violet-300/60" aria-hidden />
 
         {/* Orbiting tech particles */}
         <span
