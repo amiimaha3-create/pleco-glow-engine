@@ -54,7 +54,7 @@ import {
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
 
-function useCountUp(target: number, duration = 1800, decimals = 0) {
+function useCountUp(target: number, duration = 900, decimals = 0) {
   const [value, setValue] = useState(0);
   const startedRef = useRef(false);
   useEffect(() => {
@@ -85,7 +85,7 @@ function CountStat({
   prefix?: string;
   decimals?: number;
 }) {
-  const v = useCountUp(value, 1800, decimals);
+  const v = useCountUp(value, 900, decimals);
   const formatted =
     decimals === 0 ? v.toLocaleString() : v.toFixed(decimals);
   return (
@@ -330,7 +330,7 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr,1fr]">
+        <div className="grid items-center gap-12 md:grid-cols-[1.05fr,1fr]">
           {/* Left */}
           <div className="relative">
             <div
@@ -440,7 +440,7 @@ function DashboardMockup() {
       });
       setRevKpi((r) => +(r + (Math.random() * 0.4 - 0.05)).toFixed(1));
       setLeadsKpi((l) => l + Math.floor(Math.random() * 3));
-    }, 1800);
+    }, 1100);
     return () => clearInterval(id);
   }, []);
 
@@ -496,6 +496,48 @@ function DashboardMockup() {
             background:
               "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
           }}
+        />
+
+        {/* Tech grid + scanline + corner brackets (animated) */}
+        <div className="tech-grid" aria-hidden />
+        <div className="scanline" aria-hidden />
+        {/* Corner tech brackets */}
+        <span className="pointer-events-none absolute left-2 top-2 h-3 w-3 border-l border-t border-indigo-300/60" aria-hidden />
+        <span className="pointer-events-none absolute right-2 top-2 h-3 w-3 border-r border-t border-violet-300/60" aria-hidden />
+        <span className="pointer-events-none absolute bottom-2 left-2 h-3 w-3 border-b border-l border-indigo-300/60" aria-hidden />
+        <span className="pointer-events-none absolute bottom-2 right-2 h-3 w-3 border-b border-r border-violet-300/60" aria-hidden />
+
+        {/* Orbiting tech particles */}
+        <span
+          className="orbit"
+          style={{
+            ['--r' as never]: '180px',
+            animationDuration: '14s',
+            background: '#a5b4fc',
+            boxShadow: '0 0 12px #818cf8, 0 0 24px #818cf8',
+          }}
+          aria-hidden
+        />
+        <span
+          className="orbit"
+          style={{
+            ['--r' as never]: '220px',
+            animationDuration: '22s',
+            animationDirection: 'reverse',
+            background: '#c084fc',
+            boxShadow: '0 0 10px #a78bfa, 0 0 20px #a78bfa',
+            width: 6,
+            height: 6,
+            marginTop: -3,
+            marginLeft: -3,
+          }}
+          aria-hidden
+        />
+
+        {/* Floating data flow line (top edge under chrome) */}
+        <div
+          className="dataflow pointer-events-none absolute left-0 right-0 top-[40px] h-px opacity-70"
+          aria-hidden
         />
 
         {/* Window chrome */}
