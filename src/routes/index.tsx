@@ -307,7 +307,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative pt-10 sm:pt-16 md:pt-24">
+    <section className="relative pt-8 sm:pt-12 md:pt-16">
       <div className="absolute inset-0 -z-10 grid-bg" />
 
       {/* Hero ambient atmosphere */}
@@ -335,11 +335,11 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid items-start gap-10 md:gap-12 md:grid-cols-[1.05fr_1fr]">
+        <div className="grid items-start gap-8 md:gap-10 md:grid-cols-[1.05fr_1fr]">
           {/* Left */}
           <div className="relative">
             <div
-              className="hero-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12.5px] text-white/80 backdrop-blur"
+              className="hero-fade-up mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[12px] text-white/80 backdrop-blur"
               style={{ animationDelay: "0ms" }}
             >
               <span className="relative flex h-1.5 w-1.5">
@@ -350,7 +350,7 @@ function Hero() {
             </div>
 
             <h1
-              className="hero-fade-up text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
+              className="hero-fade-up text-[36px] font-semibold leading-[1.02] tracking-[-0.035em] text-white sm:text-[56px] lg:text-[68px]"
               style={{
                 fontFamily: "Space Grotesk, Inter, sans-serif",
                 animationDelay: "120ms",
@@ -362,7 +362,7 @@ function Hero() {
             </h1>
 
             <p
-              className="hero-fade-up mt-5 max-w-xl text-[15px] leading-relaxed text-white/65 sm:mt-6 sm:text-[16.5px]"
+              className="hero-fade-up mt-4 max-w-xl text-[15px] leading-[1.65] text-white/70 sm:mt-5 sm:text-[16px]"
               style={{ animationDelay: "260ms" }}
             >
               Pleco Lab builds custom websites, CRM systems, AI agents,
@@ -371,7 +371,7 @@ function Hero() {
             </p>
 
             <div
-              className="hero-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center"
+              className="hero-fade-up mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
               style={{ animationDelay: "380ms" }}
             >
               <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
@@ -385,13 +385,13 @@ function Hero() {
 
             {/* Trust stats */}
             <div
-              className="hero-fade-up mt-10 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 sm:mt-12 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-6"
+              className="hero-fade-up mt-7 grid max-w-xl grid-cols-2 gap-x-6 gap-y-4 sm:mt-8 sm:grid-cols-4 sm:gap-x-8"
               style={{ animationDelay: "520ms" }}
             >
               {stats.map((s) => (
                 <div key={s.l}>
                   <div
-                    className="text-[22px] font-semibold tracking-tight text-white sm:text-[26px]"
+                    className="text-[22px] font-semibold tracking-[-0.03em] text-white sm:text-[26px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     <CountStat
@@ -401,9 +401,7 @@ function Hero() {
                       decimals={s.decimals}
                     />
                   </div>
-                  <div className="mt-1 text-[11px] uppercase tracking-wider text-white/45 sm:text-[12px]">
-                    {s.l}
-                  </div>
+                  <div className="eyebrow mt-1.5">{s.l}</div>
                 </div>
               ))}
             </div>
@@ -1288,36 +1286,33 @@ function DashboardMockup() {
 /* ---------------------------------- Trust --------------------------------- */
 
 function TrustStrip() {
-  const industries = [
-    { i: Plane, l: "Travel" },
-    { i: Stamp, l: "Immigration" },
-    { i: GraduationCap, l: "Education" },
-    { i: Truck, l: "Logistics" },
-    { i: HeartPulse, l: "Healthcare" },
-    { i: ShoppingBag, l: "Retail" },
-    { i: Building2, l: "Real Estate" },
-    { i: Briefcase, l: "SMEs" },
+  const brands = [
+    "FlyWorld",
+    "GlobalVisa",
+    "EduConnect",
+    "MediCare",
+    "TradeX",
+    "Northwind",
+    "Lumen",
   ];
   return (
-    <section className="relative py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="text-center text-[12.5px] uppercase tracking-[0.2em] text-white/40">
-          Trusted by businesses across industries
+    <section className="relative py-12 sm:py-16">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="text-center eyebrow">
+          Trusted by growth-focused teams worldwide
         </div>
-        <div className="hairline mx-auto mt-6 max-w-3xl" />
-        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:grid-cols-8">
-          {industries.map((it) => (
-            <div
-              key={it.l}
-              className="flex items-center justify-center gap-2 text-white/55 transition hover:text-white"
-            >
-              <it.i className="h-4 w-4" />
+        <div className="hairline mx-auto mt-5 max-w-3xl" />
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-4 sm:gap-x-6">
+          {brands.map((b, idx) => (
+            <div key={b} className="flex items-center gap-3 sm:gap-6">
               <span
-                className="text-[14px] font-medium tracking-tight"
-                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+                className="wordmark text-[15px] sm:text-[17px]"
               >
-                {it.l}
+                {b}
               </span>
+              {idx < brands.length - 1 && (
+                <span className="hidden h-1 w-1 rounded-full bg-white/15 sm:inline-block" aria-hidden />
+              )}
             </div>
           ))}
         </div>
@@ -1341,18 +1336,19 @@ function SectionHeader({
 }) {
   return (
     <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11.5px] font-medium uppercase tracking-wider text-white/70">
-        <span className="h-1 w-1 rounded-full bg-indigo-400" />
-        {eyebrow}
+      <div className={`mb-4 inline-flex items-center gap-2 ${align === "center" ? "" : ""}`}>
+        <span className="h-px w-6 bg-gradient-to-r from-indigo-400/0 via-indigo-400/70 to-indigo-400/0" />
+        <span className="eyebrow">{eyebrow}</span>
+        <span className="h-px w-6 bg-gradient-to-l from-indigo-400/0 via-indigo-400/70 to-indigo-400/0" />
       </div>
       <h2
-        className="text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-[44px]"
+        className="text-[28px] font-semibold leading-[1.05] tracking-[-0.035em] text-white sm:text-[44px]"
         style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
       >
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-[15.5px] leading-relaxed text-white/60">{subtitle}</p>
+        <p className="mt-4 text-[15px] leading-[1.65] text-white/65">{subtitle}</p>
       )}
     </div>
   );
@@ -1361,24 +1357,22 @@ function SectionHeader({
 /* -------------------------------- Services -------------------------------- */
 
 function Services() {
-  const items = [
-    {
-      i: LayoutDashboard,
-      t: "Custom CRM Development",
-      d: "Tailor-made CRM platforms built around your sales, ops, and customer workflows.",
-      span: "md:col-span-2 md:row-span-2",
-      featured: true,
-    },
+  const featured = {
+    i: LayoutDashboard,
+    t: "Custom CRM Development",
+    d: "Tailor-made CRM platforms built around your sales, ops, and customer workflows — with live pipeline, automation, and AI baked in.",
+  };
+  const supporting = [
     { i: Globe2, t: "Website Development", d: "Conversion-tuned websites that look premium and load fast." },
     { i: Workflow, t: "Business Automation", d: "Eliminate repetitive ops with workflows that just work." },
-    { i: Bot, t: "AI Agents & AI Solutions", d: "Production AI agents that handle real customer work." },
-    { i: Users, t: "Lead Management Systems", d: "Capture, score, route, and convert leads end-to-end." },
+    { i: Bot, t: "AI Agents", d: "Production AI agents that handle real customer work." },
+    { i: Users, t: "Lead Management", d: "Capture, score, route, and convert leads end-to-end." },
     { i: MessageCircle, t: "WhatsApp Automation", d: "Native WhatsApp flows that scale support and sales." },
     { i: Code2, t: "Custom Software", d: "Internal tools and bespoke software for your stack." },
     { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable." },
   ];
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Solutions"
@@ -1386,9 +1380,53 @@ function Services() {
           subtitle="From the first lead to the back-office system that runs your business — we design, build, and operate it."
         />
 
-        <div className="mt-14 grid auto-rows-[minmax(180px,auto)] grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
-          {items.map((it, idx) => (
-            <ServiceCard key={it.t} {...it} idx={idx} />
+        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-5">
+          {/* Featured */}
+          <div className="card-premium group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="icon-tile icon-tile-lg">
+                  <featured.i className="h-5 w-5" strokeWidth={1.6} />
+                </div>
+                <div className="eyebrow">Featured</div>
+              </div>
+              <ArrowUpRight className="h-4 w-4 text-white/40 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" strokeWidth={1.6} />
+            </div>
+            <h3
+              className="mt-5 text-[22px] font-semibold tracking-[-0.025em] text-white sm:text-[26px]"
+              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+            >
+              {featured.t}
+            </h3>
+            <p className="mt-2.5 max-w-md text-[14px] leading-[1.65] text-white/65">
+              {featured.d}
+            </p>
+            <div className="mt-6">
+              <FeaturedPreview />
+            </div>
+          </div>
+
+          {/* Supporting cards */}
+          {supporting.map((it) => (
+            <a
+              key={it.t}
+              href="#"
+              className="card-premium group relative overflow-hidden p-5 lg:col-span-2 lg:p-5"
+            >
+              <div className="flex items-start justify-between">
+                <div className="icon-tile">
+                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-white/25 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white/80" strokeWidth={1.6} />
+              </div>
+              <h3
+                className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
+                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              >
+                {it.t}
+              </h3>
+              <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
+            </a>
           ))}
         </div>
       </div>
@@ -1396,89 +1434,87 @@ function Services() {
   );
 }
 
-function ServiceCard({
-  i: Icon,
-  t,
-  d,
-  span,
-  featured,
-  idx,
-}: {
-  i: any;
-  t: string;
-  d: string;
-  span?: string;
-  featured?: boolean;
-  idx: number;
-}) {
-  return (
-    <div
-      className={`group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.015] p-6 transition hover:border-white/15 ${span ?? ""}`}
-    >
-      {/* Hover glow */}
-      <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(400px circle at var(--mx,50%) var(--my,0%), rgba(129,140,248,0.12), transparent 40%)",
-        }}
-      />
-
-      <div className="flex h-full flex-col">
-        <div className="flex items-start justify-between">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-indigo-500/20 to-violet-500/5">
-            <Icon className="h-4.5 w-4.5 text-indigo-200" />
-          </div>
-          <ArrowUpRight className="h-4 w-4 text-white/30 transition group-hover:text-white/80" />
-        </div>
-
-        <div className={featured ? "mt-auto pt-8" : "mt-6"}>
-          <h3
-            className={`font-medium tracking-tight text-white ${featured ? "text-[22px]" : "text-[16px]"}`}
-            style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-          >
-            {t}
-          </h3>
-          <p className={`mt-2 text-white/55 ${featured ? "text-[14.5px] leading-relaxed max-w-md" : "text-[13px] leading-relaxed"}`}>
-            {d}
-          </p>
-        </div>
-
-        {featured && <FeaturedVisual />}
-      </div>
-    </div>
-  );
-}
-
-function FeaturedVisual() {
-  const data = Array.from({ length: 20 }, (_, i) => ({
+function FeaturedPreview() {
+  const data = Array.from({ length: 22 }, (_, i) => ({
     x: i,
-    y: 30 + Math.sin(i / 2) * 10 + i * 1.5,
+    y: 28 + Math.sin(i / 2.2) * 8 + i * 1.6,
   }));
+  const stages = [
+    { l: "New", c: 48, color: "#60a5fa", pct: 100 },
+    { l: "Qualified", c: 32, color: "#818cf8", pct: 72 },
+    { l: "Proposal", c: 19, color: "#a78bfa", pct: 48 },
+    { l: "Won", c: 11, color: "#34d399", pct: 28 },
+  ];
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 -z-0 h-44 opacity-90">
-      <div className="relative h-full w-full">
-        <div className="absolute right-6 top-6 grid grid-cols-3 gap-2">
-          {["Leads", "Deals", "Revenue"].map((l, i) => (
-            <div key={l} className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5 backdrop-blur">
-              <div className="text-[9px] text-white/45">{l}</div>
-              <div className="text-[11px] font-medium text-white">
-                {["1,248", "312", "$48K"][i]}
-              </div>
-            </div>
-          ))}
+    <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.03] to-white/[0.005] p-4">
+      {/* Window chrome */}
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-rose-400/70" />
+          <span className="h-2 w-2 rounded-full bg-amber-300/70" />
+          <span className="h-2 w-2 rounded-full bg-emerald-400/70" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-24 opacity-70">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <Line
-                dataKey="y"
-                stroke="#a5b4fc"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[10px] text-white/55">
+          app.plecolab.io / pipeline
+        </div>
+        <div className="h-5 w-5 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 ring-1 ring-white/20" />
+      </div>
+
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        {[
+          { l: "Revenue", v: "$148K", d: "+24%" },
+          { l: "Deals", v: "110", d: "+12%" },
+          { l: "Win rate", v: "34%", d: "+6pt" },
+        ].map((k) => (
+          <div key={k.l} className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
+            <div className="text-[10px] text-white/45">{k.l}</div>
+            <div
+              className="mt-0.5 text-[15px] font-semibold tracking-[-0.02em] text-white"
+              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+            >
+              {k.v}
+            </div>
+            <div className="mt-0.5 inline-flex items-center gap-0.5 text-[10px] font-medium text-emerald-300">
+              <TrendingUp className="h-2.5 w-2.5" strokeWidth={1.8} /> {k.d}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-3 grid grid-cols-[1.2fr,1fr] gap-2">
+        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-3">
+          <div className="mb-1 flex items-center justify-between">
+            <div className="text-[11px] font-medium text-white/85">Revenue growth</div>
+            <div className="text-[9.5px] text-emerald-300/90">Live</div>
+          </div>
+          <div className="h-[80px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
+                <defs>
+                  <linearGradient id="fp-area" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area type="monotone" dataKey="y" stroke="#a5b4fc" strokeWidth={2} fill="url(#fp-area)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-3">
+          <div className="mb-2 text-[11px] font-medium text-white/85">Pipeline</div>
+          <div className="space-y-1.5">
+            {stages.map((s) => (
+              <div key={s.l} className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color, boxShadow: `0 0 8px ${s.color}` }} />
+                <div className="w-16 text-[10px] text-white/65">{s.l}</div>
+                <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
+                  <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${s.pct}%`, background: `linear-gradient(90deg, ${s.color}, ${s.color}99)` }} />
+                </div>
+                <div className="w-5 text-right text-[10px] font-medium text-white/80">{s.c}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -1489,17 +1525,17 @@ function FeaturedVisual() {
 
 function Industries() {
   const items = [
-    { i: Plane, t: "Travel & Tourism", d: "Booking engines, itinerary tools, ops dashboards." },
-    { i: Stamp, t: "Immigration", d: "Case mgmt, document workflows, client portals." },
-    { i: GraduationCap, t: "Education", d: "Lead funnels, counsellor CRMs, student journeys." },
-    { i: HeartPulse, t: "Healthcare", d: "Patient intake, appointments, compliance-ready." },
-    { i: Truck, t: "Logistics", d: "Tracking, dispatch, automation, partner APIs." },
-    { i: ShoppingBag, t: "Retail & E-commerce", d: "Storefronts, OMS, loyalty, WhatsApp commerce." },
-    { i: Building2, t: "Real Estate", d: "Listings, lead routing, broker pipelines." },
-    { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses." },
+    { i: Plane, t: "Travel & Tourism", d: "Booking engines, itinerary tools, ops dashboards.", chips: ["+120% bookings", "12 brands"] },
+    { i: Stamp, t: "Immigration", d: "Case mgmt, document workflows, client portals.", chips: ["+45% conv.", "6 firms"] },
+    { i: GraduationCap, t: "Education", d: "Lead funnels, counsellor CRMs, student journeys.", chips: ["+70% enrol", "9 partners"] },
+    { i: HeartPulse, t: "Healthcare", d: "Patient intake, appointments, compliance-ready.", chips: ["HIPAA ready", "4 clinics"] },
+    { i: Truck, t: "Logistics", d: "Tracking, dispatch, automation, partner APIs.", chips: ["99.9% SLA", "8 hubs"] },
+    { i: ShoppingBag, t: "Retail & E-commerce", d: "Storefronts, OMS, loyalty, WhatsApp commerce.", chips: ["3.2× LTV", "14 stores"] },
+    { i: Building2, t: "Real Estate", d: "Listings, lead routing, broker pipelines.", chips: ["+58% leads", "5 brokers"] },
+    { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses.", chips: ["Ship in 6w", "60+ teams"] },
   ];
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Industries"
@@ -1507,26 +1543,37 @@ function Industries() {
           subtitle="We've shipped real outcomes for the categories where speed, trust, and operations matter most."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((it) => (
-            <div
+            <a
               key={it.t}
-              className="group relative rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.01] p-5 transition hover:border-white/15 hover:bg-white/[0.05]"
+              href="#"
+              className="card-premium tilt group relative block overflow-hidden p-5"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-indigo-500/15 to-violet-500/5">
-                <it.i className="h-5 w-5 text-indigo-200" />
+              <div className="icon-tile">
+                <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
               </div>
               <h3
-                className="mt-5 text-[15.5px] font-medium tracking-tight text-white"
+                className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
                 style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
               >
                 {it.t}
               </h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-white/55">{it.d}</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-[12px] font-medium text-indigo-300 opacity-0 transition group-hover:opacity-100">
-                Learn more <ArrowRight className="h-3 w-3" />
+              <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
+              <div className="mt-3.5 flex flex-wrap gap-1.5">
+                {it.chips.map((c) => (
+                  <span
+                    key={c}
+                    className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10.5px] font-medium text-white/70"
+                  >
+                    {c}
+                  </span>
+                ))}
               </div>
-            </div>
+              <div className="mt-4 inline-flex items-center gap-1 text-[12px] font-medium text-indigo-300 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                View case <ArrowRight className="h-3 w-3" strokeWidth={1.8} />
+              </div>
+            </a>
           ))}
         </div>
       </div>
@@ -1539,62 +1586,59 @@ function Industries() {
 function WhyPleco() {
   const items = [
     {
-      i: Briefcase,
-      t: "Industry Expertise",
-      d: "Years operating inside travel, immigration, education and services — we speak your workflows.",
-      points: ["Vertical-specific blueprints", "Ops-aware design", "Compliance-ready"],
+      i: Zap,
+      t: "Ship in weeks, not quarters",
+      d: "Fixed-scope sprints, weekly demos, no theatrical kickoffs. You see working software inside 14 days.",
+      points: ["Fixed-scope sprints", "Weekly working demos", "Production in 6–8 weeks"],
     },
     {
       i: Layers,
-      t: "Custom-Built Solutions",
-      d: "No bloated SaaS. We build software shaped exactly around how your business actually works.",
-      points: ["Bespoke data models", "Owned roadmap", "Integrated stack"],
+      t: "One team, full stack",
+      d: "Design, engineering, automation, and systems — under one roof. No agency handoffs, no integration tax.",
+      points: ["Senior product engineers", "In-house design + AI", "Single point of contact"],
     },
     {
       i: ShieldCheck,
-      t: "Scalable & Secure",
-      d: "Architecture and security primitives that scale from 10 users to 10,000 without rewrites.",
-      points: ["Role-based access", "Audit trails", "Cloud-native"],
+      t: "Built to scale with you",
+      d: "Architecture reviewed for 10× growth from day one. No throwaway rewrites at the first inflection point.",
+      points: ["Cloud-native by default", "Role-based access + audit", "Cost-modelled at every layer"],
     },
     {
-      i: Headphones,
-      t: "End-to-End Support",
-      d: "From kickoff to ongoing iteration — one team that designs, ships, and supports it all.",
-      points: ["Dedicated success", "24/7 monitoring", "Continuous delivery"],
+      i: TrendingUp,
+      t: "Outcomes, not deliverables",
+      d: "Every engagement is tied to a measurable revenue or efficiency KPI. We report on outcomes — not tickets closed.",
+      points: ["Revenue & efficiency KPIs", "Monthly business reviews", "Continuous iteration"],
     },
   ];
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Why Pleco Lab"
-          title={<>We understand business. <span className="text-gradient-brand">We deliver results.</span></>}
+          title={<>The unfair advantage of a <span className="text-gradient-brand">product team</span>.</>}
           subtitle="A partner that combines product thinking, engineering, and operational depth — under one roof."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
           {items.map((it) => (
-            <div
-              key={it.t}
-              className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-7"
-            >
+            <div key={it.t} className="card-premium relative overflow-hidden p-6 sm:p-7">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-500/20 to-violet-500/5">
-                  <it.i className="h-5 w-5 text-indigo-200" />
+                <div className="icon-tile icon-tile-lg shrink-0">
+                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
                 </div>
                 <div>
                   <h3
-                    className="text-[20px] font-medium tracking-tight text-white"
+                    className="text-[18px] font-semibold tracking-[-0.02em] text-white sm:text-[20px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     {it.t}
                   </h3>
-                  <p className="mt-2 text-[14.5px] leading-relaxed text-white/60">{it.d}</p>
+                  <p className="mt-2 text-[14px] leading-[1.65] text-white/65">{it.d}</p>
                   <ul className="mt-4 space-y-1.5">
                     {it.points.map((p) => (
-                      <li key={p} className="flex items-center gap-2 text-[13px] text-white/70">
+                      <li key={p} className="flex items-center gap-2 text-[13px] text-white/75">
                         <div className="flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500/15 ring-1 ring-indigo-400/30">
-                          <Check className="h-2.5 w-2.5 text-indigo-200" />
+                          <Check className="h-2.5 w-2.5 text-indigo-200" strokeWidth={2} />
                         </div>
                         {p}
                       </li>
@@ -1647,7 +1691,7 @@ function CaseStudies() {
   ];
 
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Results"
@@ -1655,53 +1699,70 @@ function CaseStudies() {
           subtitle="What growth looks like when product, engineering, and operations move together."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-3">
           {studies.map((s) => (
             <article
               key={s.title}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 transition hover:border-white/15"
+              className="card-premium group relative flex flex-col overflow-hidden p-6"
             >
               <div className="flex items-center justify-between">
                 <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-white/70">
                   {s.tag}
                 </span>
-                <div className="flex items-center gap-0.5 text-amber-300/90">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3 w-3 fill-amber-300/90" />
-                  ))}
-                </div>
+                <span
+                  className="wordmark text-[12.5px] tracking-tight"
+                  style={{ opacity: 0.55 }}
+                >
+                  {s.tag === "Immigration" ? "GlobalVisa" : s.tag === "Travel" ? "FlyWorld" : "EduConnect"}
+                </span>
               </div>
 
               <h3
-                className="mt-5 text-[18px] font-medium leading-snug tracking-tight text-white"
+                className="mt-4 text-[17px] font-medium leading-snug tracking-[-0.02em] text-white"
                 style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
               >
                 {s.title}
               </h3>
 
-              <div className="mt-5 rounded-xl border border-white/[0.07] bg-black/20 p-4">
+              {/* Premium metric block with sparkline */}
+              <div
+                className="mt-5 rounded-xl border border-white/[0.07] p-4"
+                style={{
+                  background: `radial-gradient(120% 100% at 0% 0%, ${s.color}14, transparent 60%), rgba(0,0,0,0.25)`,
+                }}
+              >
                 <div className="flex items-end justify-between">
                   <div>
-                    <div
-                      className="text-[34px] font-semibold leading-none tracking-tight"
-                      style={{
-                        background: `linear-gradient(135deg, #ffffff, ${s.color})`,
-                        WebkitBackgroundClip: "text",
-                        backgroundClip: "text",
-                        color: "transparent",
-                      }}
-                    >
-                      {s.metric}
+                    <div className="flex items-baseline gap-2">
+                      <div
+                        className="text-[34px] font-semibold leading-none tracking-[-0.035em]"
+                        style={{
+                          background: `linear-gradient(135deg, #ffffff, ${s.color})`,
+                          WebkitBackgroundClip: "text",
+                          backgroundClip: "text",
+                          color: "transparent",
+                          fontFamily: "Space Grotesk, Inter, sans-serif",
+                        }}
+                      >
+                        {s.metric}
+                      </div>
+                      <span
+                        className="inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                        style={{
+                          background: `${s.color}22`,
+                          color: s.color,
+                          border: `1px solid ${s.color}40`,
+                        }}
+                      >
+                        <TrendingUp className="h-2.5 w-2.5" strokeWidth={2} /> YoY
+                      </span>
                     </div>
-                    <div className="mt-1.5 text-[11.5px] uppercase tracking-wider text-white/45">
-                      {s.label}
-                    </div>
+                    <div className="eyebrow mt-2">{s.label}</div>
                   </div>
-                  <TrendingUp className="h-4 w-4" style={{ color: s.color }} />
                 </div>
-                <div className="mt-3 h-[60px] w-full">
+                <div className="mt-3 h-[58px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={s.data}>
+                    <AreaChart data={s.data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
                       <defs>
                         <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
@@ -1714,22 +1775,24 @@ function CaseStudies() {
                         stroke={s.color}
                         strokeWidth={2}
                         fill={`url(#cs-${s.tag})`}
+                        isAnimationActive
+                        animationDuration={1200}
                       />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
               </div>
 
-              <blockquote className="mt-5 text-[13.5px] leading-relaxed text-white/70">
-                “{s.quote}”
+              <blockquote className="mt-5 text-[13.5px] leading-[1.65] text-white/75">
+                "{s.quote}"
               </blockquote>
-              <div className="mt-2 text-[12px] text-white/45">{s.person}</div>
+              <div className="mt-1.5 text-[12px] text-white/45">{s.person}</div>
 
               <a
                 href="#"
                 className="mt-5 inline-flex items-center gap-1 text-[13px] font-medium text-indigo-300 transition hover:text-indigo-200"
               >
-                Read case study <ArrowUpRight className="h-3.5 w-3.5" />
+                Read case study <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.8} />
               </a>
             </article>
           ))}
@@ -1753,47 +1816,67 @@ function gen(n: number, lo: number, hi: number) {
 
 function FinalCTA() {
   return (
-    <section className="relative py-16 sm:py-28">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="relative overflow-hidden rounded-3xl border border-white/10 px-5 py-14 text-center sm:px-16 sm:py-20">
-          {/* Gradient bg */}
-          <div
-            className="absolute inset-0 -z-10"
-            style={{
-              background:
-                "radial-gradient(60% 80% at 50% 0%, rgba(99,102,241,0.35), transparent 60%), radial-gradient(50% 80% at 80% 100%, rgba(168,85,247,0.25), transparent 60%), linear-gradient(180deg, #0a1130 0%, #060B1A 100%)",
-            }}
-          />
-          <div className="absolute inset-0 -z-10 grid-bg opacity-40" />
+          {/* Animated conic mesh */}
+          <div className="absolute inset-0 -z-10 overflow-hidden rounded-3xl">
+            <div className="mesh-conic" />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(60% 80% at 50% 0%, rgba(99,102,241,0.30), transparent 60%), linear-gradient(180deg, rgba(10,17,48,0.6) 0%, rgba(6,11,26,0.95) 100%)",
+              }}
+            />
+            {/* Floating orbs */}
+            <div
+              className="float-orb absolute -left-16 top-8 h-40 w-40 rounded-full"
+              style={{
+                background: "radial-gradient(circle, rgba(129,140,248,0.55), transparent 70%)",
+                filter: "blur(20px)",
+              }}
+            />
+            <div
+              className="float-orb absolute -right-12 bottom-6 h-44 w-44 rounded-full"
+              style={{
+                background: "radial-gradient(circle, rgba(192,132,252,0.45), transparent 70%)",
+                filter: "blur(24px)",
+                animationDelay: "3s",
+              }}
+            />
+          </div>
+          <div className="absolute inset-0 -z-10 grid-bg opacity-30" />
 
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[12px] text-white/75 backdrop-blur">
-            <Sparkles className="h-3 w-3 text-indigo-300" />
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11.5px] text-white/80 backdrop-blur">
+            <Sparkles className="h-3 w-3 text-indigo-300" strokeWidth={1.6} />
             Start in days, not quarters
           </div>
 
           <h2
-            className="mx-auto mt-6 max-w-3xl text-[30px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px]"
+            className="mx-auto mt-5 max-w-3xl text-[30px] font-semibold leading-[1.03] tracking-[-0.035em] sm:text-[52px]"
             style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
           >
-            Ready to build your <span className="text-gradient-brand">growth engine?</span>
+            <span className="text-white">Ready to build your </span>
+            <span className="text-sweep">growth engine?</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-xl text-[14.5px] leading-relaxed text-white/65 sm:text-[15.5px]">
+          <p className="mx-auto mt-4 max-w-xl text-[14.5px] leading-[1.65] text-white/70 sm:text-[15.5px]">
             Book a free 30-minute consultation. We'll map the system, the stack,
             and the path to results — no obligation.
           </p>
 
-          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
-              Book free consultation <ArrowRight className="h-4 w-4" />
+              Book free consultation <ArrowRight className="btn-arrow h-4 w-4" />
             </PrimaryButton>
             <GhostButton size="lg" className="w-full justify-center sm:w-auto">Let's talk</GhostButton>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/45">
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> No commitment</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> Reply within 24h</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" /> NDA on request</span>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/55">
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> No commitment</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> Reply within 24h</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={2} /> NDA on request</span>
           </div>
         </div>
       </div>
@@ -1810,10 +1893,6 @@ function Footer() {
       links: ["CRM Development", "Website Development", "Business Automation", "AI Agents", "WhatsApp Automation", "Integrations"],
     },
     {
-      h: "Industries",
-      links: ["Travel & Tourism", "Immigration", "Education", "Healthcare", "Logistics", "Retail"],
-    },
-    {
       h: "Company",
       links: ["About", "Careers", "Customers", "Partners", "Contact"],
     },
@@ -1824,51 +1903,50 @@ function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-white/[0.06] pt-20 pb-10">
+    <footer className="relative border-t border-white/[0.06] pt-14 pb-8">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr,3fr]">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr,3fr]">
           {/* Brand */}
           <div>
             <Logo />
-            <p className="mt-5 max-w-sm text-[14px] leading-relaxed text-white/55">
-              Pleco Lab is a premium technology partner helping growth-focused
-              businesses across India, Africa, and Asia ship real outcomes.
+            <p className="mt-4 max-w-sm text-[13.5px] leading-[1.65] text-white/55">
+              Premium technology partner for growth-focused businesses across
+              India, Africa, and Asia. Product, engineering, and operations —
+              under one roof.
             </p>
-            <div className="mt-6 space-y-2.5 text-[13px] text-white/60">
+            <div className="mt-5 space-y-2 text-[13px] text-white/60">
               <div className="flex items-center gap-2.5">
-                <MapPin className="h-3.5 w-3.5 text-indigo-300" />
+                <MapPin className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.6} />
                 Headquartered in India · Serving globally
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="h-3.5 w-3.5 text-indigo-300" />
+                <Mail className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.6} />
                 hello@plecolab.io
               </div>
             </div>
 
-            <div className="mt-6 flex gap-2">
+            <div className="mt-5 flex gap-2">
               {[Twitter, Linkedin, Github].map((I, i) => (
                 <a
                   key={i}
                   href="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-white/20 hover:text-white"
                 >
-                  <I className="h-4 w-4" />
+                  <I className="h-4 w-4" strokeWidth={1.6} />
                 </a>
               ))}
             </div>
           </div>
 
           {/* Links */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {cols.map((c) => (
               <div key={c.h}>
-                <div className="text-[12.5px] font-semibold uppercase tracking-wider text-white/85">
-                  {c.h}
-                </div>
+                <div className="eyebrow text-white/70">{c.h}</div>
                 <ul className="mt-4 space-y-2.5">
                   {c.links.map((l) => (
                     <li key={l}>
-                      <a href="#" className="text-[13.5px] text-white/55 transition hover:text-white">
+                      <a href="#" className="text-[13px] text-white/55 transition hover:text-white">
                         {l}
                       </a>
                     </li>
@@ -1879,11 +1957,15 @@ function Footer() {
           </div>
         </div>
 
-        <div className="hairline mt-16" />
+        <div className="hairline mt-12" />
 
-        <div className="mt-6 flex flex-col items-center justify-between gap-3 text-[12.5px] text-white/45 sm:flex-row">
+        <div className="mt-5 flex flex-col items-center justify-between gap-3 text-[12.5px] text-white/45 sm:flex-row">
           <div>© {new Date().getFullYear()} Pleco Lab. All rights reserved.</div>
           <div className="flex items-center gap-5">
+            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-2.5 py-1 text-[11.5px] font-medium text-emerald-300">
+              <span className="status-dot" />
+              All systems operational
+            </span>
             <a href="#" className="transition hover:text-white/80">Privacy</a>
             <a href="#" className="transition hover:text-white/80">Terms</a>
             <a href="#" className="transition hover:text-white/80">Security</a>
