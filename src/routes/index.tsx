@@ -1151,7 +1151,7 @@ function SectionHeader({
         {eyebrow}
       </div>
       <h2
-        className="text-[36px] font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-[44px]"
+        className="text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-[44px]"
         style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
       >
         {title}
