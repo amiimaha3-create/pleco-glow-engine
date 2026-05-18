@@ -1285,35 +1285,72 @@ function DashboardMockup() {
 
 /* ---------------------------------- Trust --------------------------------- */
 
+function BrandWordmark({ name }: { name: string }) {
+  // Premium SVG wordmarks — monochrome, glyph-shaped per brand
+  const marks: Record<string, React.ReactNode> = {
+    FlyWorld: (
+      <svg viewBox="0 0 140 22" className="h-5 w-auto" fill="none">
+        <path d="M2 16 L8 4 L12 16 M5 11 H11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="18" cy="11" r="4" stroke="currentColor" strokeWidth="1.6" />
+        <text x="28" y="15" fontFamily="Space Grotesk, Inter, sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">FlyWorld</text>
+      </svg>
+    ),
+    GlobalVisa: (
+      <svg viewBox="0 0 150 22" className="h-5 w-auto" fill="none">
+        <circle cx="10" cy="11" r="6.5" stroke="currentColor" strokeWidth="1.6" />
+        <path d="M3.5 11 H16.5 M10 4.5 C7 8 7 14 10 17.5 M10 4.5 C13 8 13 14 10 17.5" stroke="currentColor" strokeWidth="1.2" />
+        <text x="22" y="15" fontFamily="Space Grotesk, Inter, sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">GlobalVisa</text>
+      </svg>
+    ),
+    EduConnect: (
+      <svg viewBox="0 0 160 22" className="h-5 w-auto" fill="none">
+        <path d="M3 9 L11 5 L19 9 L11 13 Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+        <path d="M7 11 V15 C7 16 9 17 11 17 C13 17 15 16 15 15 V11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <text x="24" y="15" fontFamily="Space Grotesk, Inter, sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">EduConnect</text>
+      </svg>
+    ),
+    MediCare: (
+      <svg viewBox="0 0 140 22" className="h-5 w-auto" fill="none">
+        <path d="M11 3 V19 M3 11 H19" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+        <text x="24" y="15" fontFamily="Space Grotesk, Inter, sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">MediCare</text>
+      </svg>
+    ),
+    TradeX: (
+      <svg viewBox="0 0 120 22" className="h-5 w-auto" fill="none">
+        <path d="M3 16 L8 8 L12 12 L18 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="18" cy="4" r="1.6" fill="currentColor" />
+        <text x="24" y="15" fontFamily="Space Grotesk, Inter, sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">TradeX</text>
+      </svg>
+    ),
+    Northwind: (
+      <svg viewBox="0 0 150 22" className="h-5 w-auto" fill="none">
+        <path d="M3 17 V5 L14 17 V5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="20" y="15" fontFamily="Space Grotesk, Inter, sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">Northwind</text>
+      </svg>
+    ),
+    Lumen: (
+      <svg viewBox="0 0 110 22" className="h-5 w-auto" fill="none">
+        <circle cx="10" cy="11" r="4" fill="currentColor" />
+        <g stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
+          <path d="M10 2 V4.5 M10 17.5 V20 M2 11 H4.5 M15.5 11 H18 M4.4 5.4 L6 7 M14 15 L15.6 16.6 M4.4 16.6 L6 15 M14 7 L15.6 5.4" />
+        </g>
+        <text x="22" y="15" fontFamily="Space Grotesk, Inter, sans-serif" fontSize="13" fontWeight="700" letterSpacing="-0.02em" fill="currentColor">Lumen</text>
+      </svg>
+    ),
+  };
+  return <div className="brand-mark">{marks[name]}</div>;
+}
+
 function TrustStrip() {
-  const brands = [
-    "FlyWorld",
-    "GlobalVisa",
-    "EduConnect",
-    "MediCare",
-    "TradeX",
-    "Northwind",
-    "Lumen",
-  ];
+  const brands = ["FlyWorld", "GlobalVisa", "EduConnect", "MediCare", "TradeX", "Northwind", "Lumen"];
   return (
     <section className="relative py-12 sm:py-16">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="text-center eyebrow">
-          Trusted by growth-focused teams worldwide
-        </div>
+        <div className="text-center eyebrow">Trusted by growth-focused teams worldwide</div>
         <div className="hairline mx-auto mt-5 max-w-3xl" />
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-3 gap-y-4 sm:gap-x-6">
-          {brands.map((b, idx) => (
-            <div key={b} className="flex items-center gap-3 sm:gap-6">
-              <span
-                className="wordmark text-[15px] sm:text-[17px]"
-              >
-                {b}
-              </span>
-              {idx < brands.length - 1 && (
-                <span className="hidden h-1 w-1 rounded-full bg-white/15 sm:inline-block" aria-hidden />
-              )}
-            </div>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 sm:gap-x-10 md:gap-x-12">
+          {brands.map((b) => (
+            <BrandWordmark key={b} name={b} />
           ))}
         </div>
       </div>
