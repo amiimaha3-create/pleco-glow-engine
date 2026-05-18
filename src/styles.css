@@ -127,10 +127,18 @@
   }
 
   .glass-strong {
-    background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(180deg, rgba(14,17,32,0.78) 0%, rgba(10,12,24,0.72) 100%);
     border: 1px solid rgba(255,255,255,0.09);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  @supports (backdrop-filter: blur(8px)) {
+    .glass-strong {
+      background: linear-gradient(180deg, rgba(14,17,32,0.55) 0%, rgba(10,12,24,0.45) 100%);
+      backdrop-filter: blur(10px) saturate(140%);
+      -webkit-backdrop-filter: blur(10px) saturate(140%);
+    }
   }
 
   .ring-glow {
@@ -396,10 +404,20 @@
   /* Tilt on hover (CSS only) */
   .tilt {
     transform-style: preserve-3d;
+    transform: translateZ(0);
     transition: transform 320ms cubic-bezier(0.2,0.7,0.2,1);
+    will-change: transform;
   }
   .tilt:hover {
     transform: perspective(900px) rotateX(2deg) rotateY(-2deg) translateY(-2px);
+  }
+
+  /* Animation isolation — prevent CLS ripple from animated mini-demos */
+  .anim-isolate {
+    contain: layout paint style;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   /* Eyebrow */
