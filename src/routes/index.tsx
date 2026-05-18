@@ -1809,7 +1809,8 @@ function WebsiteShowcase() {
     let i = 0;
     let dir: 1 | -1 = 1;
     const id = setInterval(() => {
-      setUrl(full.slice(0, i));
+      const next = full.slice(0, i);
+      setUrl((prev) => (prev === next ? prev : next));
       i += dir;
       if (i > full.length) {
         dir = -1;
@@ -1818,7 +1819,7 @@ function WebsiteShowcase() {
         dir = 1;
         i = 0;
       }
-    }, 180);
+    }, 260);
     return () => clearInterval(id);
   }, []);
 
