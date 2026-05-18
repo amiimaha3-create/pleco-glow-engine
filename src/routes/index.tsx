@@ -1718,26 +1718,21 @@ function FeaturedPreview() {
             </div>
           </div>
           <div className="stable-chart h-[68px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
-                <defs>
-                  <linearGradient id="fp-area" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
-                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <Area
-                  type="monotone"
-                  dataKey="y"
-                  stroke="#a5b4fc"
-                  strokeWidth={2}
-                  fill="url(#fp-area)"
-                  isAnimationActive={false}
-                  animationDuration={1200}
-                  animationEasing="ease-out"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+            {(() => {
+              const pts = getChartPoints(data, 260, 68, 3);
+              return (
+                <svg viewBox="0 0 260 68" className="h-full w-full" preserveAspectRatio="none" aria-hidden>
+                  <defs>
+                    <linearGradient id="fp-area" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                      <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <path d={areaPath(pts, 68, 3)} fill="url(#fp-area)" />
+                  <path d={linePath(pts)} fill="none" stroke="#a5b4fc" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              );
+            })()}
           </div>
         </div>
         <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
