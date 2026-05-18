@@ -346,7 +346,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
             className="relative"
           >
             <EcosystemVisual />
@@ -366,7 +366,7 @@ function CountUp({ to, duration = 1.6 }: { to: number; duration?: number }) {
   const rounded = useTransform(mv, (v) => Math.round(v).toString());
   useEffect(() => {
     if (!inView) return;
-    const controls = animate(mv, to, { duration, ease: [0.22, 1, 0.36, 1] });
+    const controls = animate(mv, to, { duration, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] });
     return () => controls.stop();
   }, [inView, to, duration, mv]);
   useEffect(() => {
@@ -518,7 +518,7 @@ function EcoCard({
     <motion.div
       initial={{ opacity: 0, x: side === "left" ? -30 : 30, y: 10 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.3 + delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, delay: 0.3 + delay, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
       className={`relative flex ${side === "left" ? "justify-start pr-16" : "justify-end pl-16"}`}
     >
       {/* Connector dot on spine */}
@@ -662,7 +662,7 @@ function AIAgent() {
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: "92%" }}
-          transition={{ duration: 1.4, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.4, delay: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
           className="h-full rounded-full"
           style={{
             background: "linear-gradient(90deg, #a78bfa, #c084fc, #f0abfc)",
