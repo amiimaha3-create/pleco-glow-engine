@@ -1662,7 +1662,7 @@ function FeaturedPreview() {
     { l: "Won", c: 11, color: "#34d399", pct: 28 },
   ];
   return (
-    <div className="glass-sweep relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.005] p-3.5 transition-transform duration-500 ease-out will-change-transform hover:-translate-y-0.5">
+    <div className="glass-sweep layout-locked relative h-full min-h-full max-h-full overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.005] p-3.5 transition-transform duration-500 ease-out will-change-transform hover:-translate-y-0.5">
       {/* Window chrome */}
       <div className="relative flex items-center justify-between border-b border-white/[0.06] pb-2">
         <div className="flex items-center gap-1.5">
@@ -1713,7 +1713,7 @@ function FeaturedPreview() {
               <span className="text-[9.5px] text-emerald-300/90">Live</span>
             </div>
           </div>
-          <div className="h-[68px] w-full">
+          <div className="stable-chart h-[68px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
                 <defs>
@@ -1782,7 +1782,7 @@ function WebsiteShowcase() {
   const url = "acme.com/launch";
 
   return (
-    <div className="relative grid grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+    <div className="layout-locked relative grid h-full min-h-full max-h-full grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
       {/* ambient glow */}
       <div className="pointer-events-none absolute -inset-10 -z-10 opacity-50" style={{ background: "radial-gradient(60% 60% at 30% 30%, rgba(129,140,248,0.18), transparent 70%)" }} />
 
@@ -1792,7 +1792,7 @@ function WebsiteShowcase() {
           <span className="h-1.5 w-1.5 rounded-full bg-rose-400/70" />
           <span className="h-1.5 w-1.5 rounded-full bg-amber-300/70" />
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/70" />
-          <span className="ml-2 flex min-w-0 flex-1 items-center gap-0.5 truncate rounded-sm bg-white/[0.04] px-1.5 py-[1px] font-mono text-[8.5px] text-white/65">
+          <span className="ml-2 flex w-[92px] min-w-0 flex-none items-center gap-0.5 truncate rounded-sm bg-white/[0.04] px-1.5 py-[1px] font-mono text-[8.5px] text-white/65">
             <span className="truncate">{url}</span>
             <span className="caret inline-block h-[7px] w-[1px] bg-white/70" />
           </span>
@@ -1815,7 +1815,7 @@ function WebsiteShowcase() {
           </div>
 
           {/* real content */}
-          <div className="content-fade">
+          <div className="content-fade absolute inset-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1">
                 <div className="h-1.5 w-1.5 rounded-sm bg-gradient-to-br from-indigo-400 to-violet-500" />
