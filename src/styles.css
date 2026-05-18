@@ -656,5 +656,67 @@
     to { transform: rotate(360deg); }
   }
   .ai-spin { animation: ai-spin 6s linear infinite; }
+
+  /* ---------- Capabilities demo animations ---------- */
+
+  @keyframes thinking-bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+    40%           { transform: translateY(-3px); opacity: 1; }
+  }
+  .thinking-dot { animation: thinking-bounce 1.4s ease-in-out infinite; }
+
+  @keyframes msg-in {
+    0%, 10%   { opacity: 0; transform: translateY(6px); }
+    20%, 100% { opacity: 1; transform: translateY(0); }
+  }
+  .msg-in { animation: msg-in 6s ease-out infinite both; }
+
+  @keyframes ai-stream {
+    0%, 8%    { width: 0; }
+    55%, 100% { width: 100%; }
+  }
+  .ai-stream {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    animation: ai-stream 6s ease-out infinite;
+  }
+
+  @keyframes task-in {
+    0%, 30%, 100% { opacity: 0; transform: translateX(-4px); }
+    45%, 90%      { opacity: 1; transform: translateX(0); }
+  }
+  .task-in { animation: task-in 6s ease-in-out infinite both; }
+
+  @keyframes lead-flow {
+    0%, 8%    { transform: translate(0, 0); opacity: 0; }
+    14%, 30%  { opacity: 1; transform: translate(0, 0); }
+    44%, 58%  { transform: translate(108%, 0); opacity: 1; }
+    72%, 88%  { transform: translate(216%, 0); opacity: 1; }
+    100%      { transform: translate(216%, 0); opacity: 0; }
+  }
+  .lead-flow {
+    transform-origin: left center;
+    animation: lead-flow 9s cubic-bezier(0.65, 0, 0.35, 1) infinite both;
+  }
+
+  @keyframes code-line-in {
+    0%, 5%    { opacity: 0; transform: translateX(-4px); }
+    15%, 100% { opacity: 1; transform: translateX(0); }
+  }
+  .code-line { animation: code-line-in 5s ease-out infinite both; }
+
+  @keyframes deploy-ok {
+    0%, 70%, 100% { opacity: 0; transform: translateY(4px); }
+    80%, 95%      { opacity: 1; transform: translateY(0); }
+  }
+  .deploy-ok { animation: deploy-ok 5s ease-in-out infinite; }
+
+  @keyframes hub-ring {
+    0%   { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  .hub-ring { animation: hub-ring 2.6s ease-out infinite; }
 }
 

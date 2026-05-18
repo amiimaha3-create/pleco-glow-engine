@@ -1534,20 +1534,61 @@ function Services() {
     t: "Custom CRM Development",
     d: "Tailor-made CRM platforms built around your sales, ops, and customer workflows — with live pipeline, automation, and AI baked in.",
   };
-  const supporting: {
+  type SupportItem = {
     i: typeof LayoutDashboard;
     t: string;
     d: string;
-    preview?: "website" | "automation";
-  }[] = [
+    preview?: "website" | "automation" | "ai" | "leads" | "whatsapp" | "code" | "integrations";
+    span?: string;
+  };
+  const topRow: SupportItem[] = [
     { i: Globe2, t: "Website Development", d: "Conversion-tuned websites that look premium and load fast.", preview: "website" },
     { i: Workflow, t: "Business Automation", d: "Eliminate repetitive ops with workflows that just work.", preview: "automation" },
-    { i: Bot, t: "AI Agents", d: "Production AI agents that handle real customer work." },
-    { i: Users, t: "Lead Management", d: "Capture, score, route, and convert leads end-to-end." },
-    { i: MessageCircle, t: "WhatsApp Automation", d: "Native WhatsApp flows that scale support and sales." },
-    { i: Code2, t: "Custom Software", d: "Internal tools and bespoke software for your stack." },
-    { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable." },
   ];
+  const bentoRow: SupportItem[] = [
+    { i: Bot, t: "AI Agents", d: "Production AI agents that handle real customer work — search, draft, decide, act.", preview: "ai", span: "lg:col-span-3" },
+    { i: Users, t: "Lead Management", d: "Capture, score, route, and convert leads end-to-end.", preview: "leads", span: "lg:col-span-3" },
+    { i: MessageCircle, t: "WhatsApp Automation", d: "Native WhatsApp flows that scale support and sales.", preview: "whatsapp", span: "lg:col-span-2" },
+    { i: Code2, t: "Custom Software", d: "Internal tools and bespoke software for your stack.", preview: "code", span: "lg:col-span-2" },
+    { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable.", preview: "integrations", span: "lg:col-span-2" },
+  ];
+
+  const renderPreview = (p?: SupportItem["preview"]) => {
+    switch (p) {
+      case "website": return <WebsiteShowcase />;
+      case "automation": return <AutomationFlow />;
+      case "ai": return <AIAgentDemo />;
+      case "leads": return <LeadDemo />;
+      case "whatsapp": return <WhatsAppDemo />;
+      case "code": return <CodeDemo />;
+      case "integrations": return <IntegrationsDemo />;
+      default: return null;
+    }
+  };
+
+  const renderCard = (it: SupportItem) => (
+    <a
+      key={it.t}
+      href="#"
+      className={`card-premium group relative overflow-hidden p-5 ${it.span ?? "lg:col-span-2"}`}
+    >
+      <div className="flex items-start justify-between">
+        <div className="icon-tile">
+          <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
+        </div>
+        <ArrowUpRight className="h-4 w-4 text-white/25 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white/80" strokeWidth={1.6} />
+      </div>
+      <h3
+        className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
+        style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+      >
+        {it.t}
+      </h3>
+      <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
+      {it.preview && <div className="mt-4">{renderPreview(it.preview)}</div>}
+    </a>
+  );
+
   return (
     <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
@@ -1583,38 +1624,12 @@ function Services() {
             </div>
           </div>
 
-          {/* Supporting cards */}
-          {supporting.map((it) => (
-            <a
-              key={it.t}
-              href="#"
-              className={`card-premium group relative overflow-hidden p-5 lg:col-span-2 ${it.preview ? "lg:row-span-1" : ""}`}
-            >
-              <div className="flex items-start justify-between">
-                <div className="icon-tile">
-                  <it.i className="h-[18px] w-[18px]" strokeWidth={1.6} />
-                </div>
-                <ArrowUpRight className="h-4 w-4 text-white/25 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white/80" strokeWidth={1.6} />
-              </div>
-              <h3
-                className="mt-4 text-[15.5px] font-medium tracking-[-0.015em] text-white"
-                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-              >
-                {it.t}
-              </h3>
-              <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
-              {it.preview === "website" && (
-                <div className="mt-4">
-                  <WebsiteShowcase />
-                </div>
-              )}
-              {it.preview === "automation" && (
-                <div className="mt-4">
-                  <AutomationFlow />
-                </div>
-              )}
-            </a>
-          ))}
+          {topRow.map(renderCard)}
+        </div>
+
+        {/* Bento row — asymmetric premium product showcase */}
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-6">
+          {bentoRow.map(renderCard)}
         </div>
       </div>
     </section>
@@ -1981,7 +1996,351 @@ function AutomationFlow() {
   );
 }
 
-/* ------------------------------- Industries ------------------------------- */
+/* ----- AI Agents demo ----- */
+function AIAgentDemo() {
+  const tasks = [
+    { i: Search, l: "Searched CRM · 1,284 records" },
+    { i: Sparkles, l: "Drafted personalized reply" },
+    { i: Send, l: "Scheduled follow-up · Tue 10:00" },
+  ];
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <div className="relative flex h-5 w-5 items-center justify-center rounded-md bg-gradient-to-br from-indigo-400/40 to-violet-500/20 ring-1 ring-white/15">
+            <Bot className="h-3 w-3 text-indigo-200" strokeWidth={1.8} />
+          </div>
+          <span className="text-[10.5px] font-medium text-white/85">Pleco AI</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <span className="live-dot h-1 w-1 rounded-full bg-emerald-400" />
+          <span className="text-[9px] font-medium text-emerald-300/90">Online</span>
+        </div>
+      </div>
+
+      {/* User message */}
+      <div className="mt-2.5 flex justify-end">
+        <div className="max-w-[80%] rounded-lg rounded-tr-sm bg-white/[0.06] px-2 py-1.5 text-[10.5px] text-white/85">
+          Follow up with hot leads from last week
+        </div>
+      </div>
+
+      {/* AI bubble with streaming */}
+      <div className="msg-in mt-1.5 flex items-start gap-1.5">
+        <div className="mt-0.5 flex h-4 w-4 items-center justify-center rounded-md bg-gradient-to-br from-indigo-400 to-violet-500 ring-1 ring-white/15">
+          <Sparkles className="h-2.5 w-2.5 text-white" strokeWidth={2} />
+        </div>
+        <div className="relative max-w-[85%] rounded-lg rounded-tl-sm border border-indigo-300/15 bg-gradient-to-br from-indigo-500/10 to-violet-500/[0.04] px-2 py-1.5 text-[10.5px] leading-[1.5] text-white/85">
+          <span className="ai-stream">Found 14 qualified leads — drafting replies and</span>
+          <span className="caret ml-px inline-block h-[8px] w-[1px] bg-indigo-300 align-middle" />
+        </div>
+      </div>
+
+      {/* Thinking dots */}
+      <div className="mt-1.5 ml-5 flex items-center gap-0.5">
+        {[0, 0.15, 0.3].map((d, i) => (
+          <span
+            key={i}
+            className="thinking-dot h-1 w-1 rounded-full bg-indigo-300/80"
+            style={{ animationDelay: `${d}s` }}
+          />
+        ))}
+      </div>
+
+      {/* Task chips */}
+      <div className="mt-2.5 space-y-1">
+        {tasks.map((t, i) => (
+          <div
+            key={t.l}
+            className="task-in flex items-center gap-1.5 rounded-md border border-white/[0.07] bg-white/[0.025] px-1.5 py-1"
+            style={{ animationDelay: `${0.8 + i * 0.7}s` }}
+          >
+            <CheckCircle2 className="h-2.5 w-2.5 text-emerald-300" strokeWidth={2} />
+            <t.i className="h-2.5 w-2.5 text-indigo-200/80" strokeWidth={1.8} />
+            <span className="text-[9.5px] text-white/70">{t.l}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ----- Lead Management demo ----- */
+function LeadDemo() {
+  const cols = [
+    { l: "New", color: "#60a5fa", n: 48 },
+    { l: "Qualified", color: "#818cf8", n: 32 },
+    { l: "Won", color: "#34d399", n: 11 },
+  ];
+  const leads = [
+    { name: "Acme Co.", score: 92, tag: "Hot" },
+    { name: "Northwind", score: 78, tag: "Warm" },
+    { name: "Globex", score: 64, tag: "Warm" },
+  ];
+  const today = useCountUp(142);
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+      <div className="flex items-center justify-between">
+        <div className="text-[10px] text-white/55">
+          Today: <span className="font-semibold tabular-nums text-white">{today}</span> leads
+        </div>
+        <div className="flex items-center gap-1">
+          <span className="live-dot h-1 w-1 rounded-full bg-emerald-400" />
+          <span className="text-[9px] text-emerald-300/90">Routing</span>
+        </div>
+      </div>
+
+      {/* Mini kanban */}
+      <div className="relative mt-2.5 grid grid-cols-3 gap-1.5">
+        {cols.map((c) => (
+          <div key={c.l} className="rounded-md border border-white/[0.06] bg-white/[0.02] p-1.5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1">
+                <span
+                  className="h-1 w-1 rounded-full"
+                  style={{ background: c.color, boxShadow: `0 0 6px ${c.color}` }}
+                />
+                <span className="text-[9px] font-medium text-white/70">{c.l}</span>
+              </div>
+              <span className="tabular-nums text-[9px] text-white/45">{c.n}</span>
+            </div>
+            <div className="mt-1.5 h-[42px]" />
+          </div>
+        ))}
+
+        {/* Flowing lead card overlay */}
+        <div className="pointer-events-none absolute left-[2%] top-[26px] w-[31%]">
+          <div
+            className="lead-flow rounded-md border border-indigo-300/30 bg-gradient-to-br from-indigo-500/25 to-violet-500/10 p-1.5 shadow-[0_4px_18px_-6px_rgba(129,140,248,0.55)]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="truncate text-[9px] font-medium text-white">Acme Co.</span>
+              <span className="rounded-sm bg-rose-500/20 px-1 text-[8px] font-semibold text-rose-200">92</span>
+            </div>
+            <div className="mt-1 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
+              <div className="h-full w-[92%] rounded-full bg-gradient-to-r from-rose-400 to-rose-500" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Lead list */}
+      <div className="mt-2 space-y-1">
+        {leads.map((l, i) => (
+          <div
+            key={l.name}
+            className="task-in flex items-center justify-between rounded-md border border-white/[0.06] bg-white/[0.02] px-1.5 py-1"
+            style={{ animationDelay: `${i * 0.6}s` }}
+          >
+            <div className="flex items-center gap-1.5">
+              <div className="h-3 w-3 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 ring-1 ring-white/10" />
+              <span className="text-[9.5px] text-white/80">{l.name}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[8.5px] text-white/50">{l.tag}</span>
+              <span className="rounded-sm bg-white/[0.05] px-1 text-[8.5px] font-semibold tabular-nums text-white/85">
+                {l.score}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ----- WhatsApp demo ----- */
+function WhatsAppDemo() {
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-emerald-500/[0.04] to-white/[0.005] p-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/90 ring-1 ring-white/15">
+            <MessageCircle className="h-2.5 w-2.5 text-white" strokeWidth={2.2} />
+          </div>
+          <span className="text-[10px] font-medium text-white/85">+91 · Pleco Bot</span>
+        </div>
+        <span className="rounded-sm bg-emerald-500/15 px-1 py-0.5 text-[8.5px] font-medium text-emerald-300">trigger: new_lead</span>
+      </div>
+
+      <div className="mt-2.5 space-y-1.5">
+        <div className="msg-in flex" style={{ animationDelay: "0s" }}>
+          <div className="max-w-[80%] rounded-lg rounded-tl-sm bg-white/[0.06] px-2 py-1 text-[10px] text-white/85">
+            Hi, interested in your travel plan
+          </div>
+        </div>
+
+        <div className="msg-in flex justify-end" style={{ animationDelay: "1.2s" }}>
+          <div className="max-w-[80%] rounded-lg rounded-tr-sm bg-emerald-500/85 px-2 py-1 text-[10px] text-white shadow-[0_2px_10px_rgba(16,185,129,0.35)]">
+            Welcome! Bali or Maldives?
+          </div>
+        </div>
+
+        <div className="msg-in flex" style={{ animationDelay: "2.4s" }}>
+          <div className="flex items-center gap-0.5 rounded-lg rounded-tl-sm bg-white/[0.06] px-2 py-1.5">
+            {[0, 0.15, 0.3].map((d, i) => (
+              <span key={i} className="thinking-dot h-1 w-1 rounded-full bg-white/70" style={{ animationDelay: `${d}s` }} />
+            ))}
+          </div>
+        </div>
+
+        <div className="msg-in flex" style={{ animationDelay: "3.4s" }}>
+          <div className="max-w-[80%] rounded-lg rounded-tl-sm bg-white/[0.06] px-2 py-1 text-[10px] text-white/85">
+            Maldives · 5 nights
+          </div>
+        </div>
+
+        <div className="msg-in flex justify-end" style={{ animationDelay: "4.4s" }}>
+          <div className="max-w-[80%] rounded-lg rounded-tr-sm bg-emerald-500/85 px-2 py-1 text-[10px] text-white shadow-[0_2px_10px_rgba(16,185,129,0.35)]">
+            Sent 3 packages ✈️
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-2 flex items-center justify-between border-t border-white/[0.05] pt-1.5 text-[8.5px] text-white/55">
+        <div className="flex items-center gap-1">
+          <Zap className="h-2.5 w-2.5 text-amber-300" strokeWidth={2} />
+          <span>Auto-replied in 1.2s</span>
+        </div>
+        <span className="tabular-nums">98.4% SLA</span>
+      </div>
+    </div>
+  );
+}
+
+/* ----- Custom Software demo ----- */
+function CodeDemo() {
+  const lines = [
+    { c: "const order = await db.orders", t: 0 },
+    { c: "  .create({ data })", t: 0.4 },
+    { c: "await stripe.charge(order.id)", t: 0.9 },
+    { c: "// ✓ deployed to prod", t: 1.6 },
+  ];
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-[#06091a] p-0">
+      {/* IDE header */}
+      <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.02] px-2 py-1.5">
+        <div className="flex items-center gap-1">
+          <span className="h-1.5 w-1.5 rounded-full bg-rose-400/70" />
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-300/70" />
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/70" />
+          <span className="ml-1.5 font-mono text-[8.5px] text-white/55">api/orders.ts</span>
+        </div>
+        <span className="font-mono text-[8.5px] text-white/40">main</span>
+      </div>
+
+      {/* Code lines */}
+      <div className="font-mono text-[9.5px] leading-[1.5] text-white/80">
+        {lines.map((l, i) => (
+          <div
+            key={i}
+            className="code-line flex gap-2 px-2 py-[1px]"
+            style={{ animationDelay: `${l.t}s` }}
+          >
+            <span className="w-3 text-right text-white/25">{i + 1}</span>
+            <span className={l.c.startsWith("//") ? "text-emerald-300/80" : "text-indigo-200/90"}>
+              {l.c}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Terminal */}
+      <div className="border-t border-white/[0.06] bg-black/30 px-2 py-1.5 font-mono text-[9px] text-white/60">
+        <div>
+          <span className="text-emerald-300">$</span> pnpm deploy
+        </div>
+        <div className="deploy-ok mt-0.5 flex items-center gap-1 text-emerald-300">
+          <CheckCircle2 className="h-2.5 w-2.5" strokeWidth={2} /> Build · 28s · live
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between border-t border-white/[0.06] px-2 py-1 text-[8.5px] text-white/55">
+        <div className="flex items-center gap-1">
+          <span className="live-dot h-1 w-1 rounded-full bg-emerald-400" />
+          <span>API · 142 req/s</span>
+        </div>
+        <span className="tabular-nums text-white/40">p99 38ms</span>
+      </div>
+    </div>
+  );
+}
+
+/* ----- Integrations demo ----- */
+function IntegrationsDemo() {
+  const sats = [
+    { i: ShoppingBag, x: "8%", y: "10%" },
+    { i: MessageCircle, x: "82%", y: "12%" },
+    { i: Mail, x: "4%", y: "62%" },
+    { i: Briefcase, x: "84%", y: "60%" },
+    { i: Activity, x: "46%", y: "82%" },
+  ];
+  return (
+    <div className="relative h-[170px] overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005]">
+      {/* connection lines */}
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="int-line" x1="0" x2="1">
+            <stop offset="0%" stopColor="#a5b4fc" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#a5b4fc" stopOpacity="0.1" />
+          </linearGradient>
+        </defs>
+        {sats.map((s, i) => (
+          <line
+            key={i}
+            x1="50"
+            y1="50"
+            x2={parseFloat(s.x)}
+            y2={parseFloat(s.y)}
+            stroke="url(#int-line)"
+            strokeWidth="0.4"
+            strokeDasharray="1.5 1.5"
+            className="flow-line"
+            style={{ animationDelay: `${i * 0.25}s` }}
+          />
+        ))}
+      </svg>
+
+      {/* Central hub */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-indigo-300/30 bg-gradient-to-br from-indigo-500/30 to-violet-500/15 shadow-[0_0_30px_-8px_rgba(129,140,248,0.7)]">
+          <Plug className="h-4 w-4 text-indigo-100" strokeWidth={1.8} />
+          <span className="hub-ring absolute inset-0 rounded-xl border border-indigo-300/50" />
+          <span
+            className="hub-ring absolute inset-0 rounded-xl border border-indigo-300/40"
+            style={{ animationDelay: "1.3s" }}
+          />
+        </div>
+      </div>
+
+      {/* Satellites */}
+      {sats.map((s, i) => (
+        <div
+          key={i}
+          className="absolute -translate-x-1/2 -translate-y-1/2"
+          style={{ left: s.x, top: s.y }}
+        >
+          <div
+            className="node-receive flex h-6 w-6 items-center justify-center rounded-lg border border-white/15 bg-white/[0.04] text-white/80"
+            style={{ animationDelay: `${i * 0.5}s` }}
+          >
+            <s.i className="h-3 w-3" strokeWidth={1.7} />
+          </div>
+        </div>
+      ))}
+
+      {/* Status bar */}
+      <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/[0.05] bg-black/20 px-2 py-1 text-[8.5px] text-white/60 backdrop-blur-sm">
+        <div className="flex items-center gap-1">
+          <span className="live-dot h-1 w-1 rounded-full bg-emerald-400" />
+          <span>5 systems synced</span>
+        </div>
+        <span className="font-mono tabular-nums text-white/45">2.4k events/min</span>
+      </div>
+    </div>
+  );
+}
 
 function Industries() {
   const items = [
