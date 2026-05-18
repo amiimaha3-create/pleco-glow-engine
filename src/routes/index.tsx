@@ -1399,9 +1399,14 @@ function Services() {
     t: "Custom CRM Development",
     d: "Tailor-made CRM platforms built around your sales, ops, and customer workflows — with live pipeline, automation, and AI baked in.",
   };
-  const supporting = [
-    { i: Globe2, t: "Website Development", d: "Conversion-tuned websites that look premium and load fast." },
-    { i: Workflow, t: "Business Automation", d: "Eliminate repetitive ops with workflows that just work." },
+  const supporting: {
+    i: typeof LayoutDashboard;
+    t: string;
+    d: string;
+    preview?: "website" | "automation";
+  }[] = [
+    { i: Globe2, t: "Website Development", d: "Conversion-tuned websites that look premium and load fast.", preview: "website" },
+    { i: Workflow, t: "Business Automation", d: "Eliminate repetitive ops with workflows that just work.", preview: "automation" },
     { i: Bot, t: "AI Agents", d: "Production AI agents that handle real customer work." },
     { i: Users, t: "Lead Management", d: "Capture, score, route, and convert leads end-to-end." },
     { i: MessageCircle, t: "WhatsApp Automation", d: "Native WhatsApp flows that scale support and sales." },
@@ -1419,7 +1424,7 @@ function Services() {
 
         <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-5">
           {/* Featured */}
-          <div className="card-premium group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-8">
+          <div className="card-premium card-elevated group relative overflow-hidden p-6 lg:col-span-3 lg:row-span-2 lg:p-7">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="icon-tile icon-tile-lg">
@@ -1430,15 +1435,15 @@ function Services() {
               <ArrowUpRight className="h-4 w-4 text-white/40 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" strokeWidth={1.6} />
             </div>
             <h3
-              className="mt-5 text-[22px] font-semibold tracking-[-0.025em] text-white sm:text-[26px]"
+              className="mt-4 text-[22px] font-semibold tracking-[-0.025em] text-white sm:text-[25px]"
               style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
             >
               {featured.t}
             </h3>
-            <p className="mt-2.5 max-w-md text-[14px] leading-[1.65] text-white/65">
+            <p className="mt-2 max-w-md text-[14px] leading-[1.6] text-white/65">
               {featured.d}
             </p>
-            <div className="mt-6">
+            <div className="mt-5">
               <FeaturedPreview />
             </div>
           </div>
@@ -1448,7 +1453,7 @@ function Services() {
             <a
               key={it.t}
               href="#"
-              className="card-premium group relative overflow-hidden p-5 lg:col-span-2 lg:p-5"
+              className={`card-premium group relative overflow-hidden p-5 lg:col-span-2 ${it.preview ? "lg:row-span-1" : ""}`}
             >
               <div className="flex items-start justify-between">
                 <div className="icon-tile">
@@ -1463,6 +1468,16 @@ function Services() {
                 {it.t}
               </h3>
               <p className="mt-1.5 text-[13px] leading-[1.6] text-white/55">{it.d}</p>
+              {it.preview === "website" && (
+                <div className="mt-4">
+                  <WebsiteShowcase />
+                </div>
+              )}
+              {it.preview === "automation" && (
+                <div className="mt-4">
+                  <AutomationFlow />
+                </div>
+              )}
             </a>
           ))}
         </div>
@@ -1483,9 +1498,9 @@ function FeaturedPreview() {
     { l: "Won", c: 11, color: "#34d399", pct: 28 },
   ];
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.03] to-white/[0.005] p-4">
+    <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.005] p-3.5">
       {/* Window chrome */}
-      <div className="flex items-center justify-between border-b border-white/[0.06] pb-2.5">
+      <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
         <div className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-rose-400/70" />
           <span className="h-2 w-2 rounded-full bg-amber-300/70" />
@@ -1497,16 +1512,16 @@ function FeaturedPreview() {
         <div className="h-5 w-5 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 ring-1 ring-white/20" />
       </div>
 
-      <div className="mt-3 grid grid-cols-3 gap-2">
+      <div className="mt-2.5 grid grid-cols-3 gap-2">
         {[
           { l: "Revenue", v: "$148K", d: "+24%" },
           { l: "Deals", v: "110", d: "+12%" },
           { l: "Win rate", v: "34%", d: "+6pt" },
         ].map((k) => (
-          <div key={k.l} className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
+          <div key={k.l} className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2">
             <div className="text-[10px] text-white/45">{k.l}</div>
             <div
-              className="mt-0.5 text-[15px] font-semibold tracking-[-0.02em] text-white"
+              className="mt-0.5 text-[14.5px] font-semibold tracking-[-0.02em] text-white"
               style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
             >
               {k.v}
@@ -1518,13 +1533,13 @@ function FeaturedPreview() {
         ))}
       </div>
 
-      <div className="mt-3 grid grid-cols-[1.2fr,1fr] gap-2">
-        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-3">
+      <div className="mt-2.5 grid grid-cols-[1.2fr,1fr] gap-2">
+        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
           <div className="mb-1 flex items-center justify-between">
             <div className="text-[11px] font-medium text-white/85">Revenue growth</div>
             <div className="text-[9.5px] text-emerald-300/90">Live</div>
           </div>
-          <div className="h-[80px] w-full">
+          <div className="h-[68px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
                 <defs>
@@ -1538,13 +1553,13 @@ function FeaturedPreview() {
             </ResponsiveContainer>
           </div>
         </div>
-        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-3">
-          <div className="mb-2 text-[11px] font-medium text-white/85">Pipeline</div>
+        <div className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
+          <div className="mb-1.5 text-[11px] font-medium text-white/85">Pipeline</div>
           <div className="space-y-1.5">
             {stages.map((s) => (
               <div key={s.l} className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color, boxShadow: `0 0 8px ${s.color}` }} />
-                <div className="w-16 text-[10px] text-white/65">{s.l}</div>
+                <div className="w-14 text-[10px] text-white/65">{s.l}</div>
                 <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.05]">
                   <div className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${s.pct}%`, background: `linear-gradient(90deg, ${s.color}, ${s.color}99)` }} />
                 </div>
@@ -1552,6 +1567,115 @@ function FeaturedPreview() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ----- Website Development preview ----- */
+function WebsiteShowcase() {
+  return (
+    <div className="relative grid grid-cols-[1fr,auto] items-end gap-3 overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+      {/* Desktop browser */}
+      <div className="rounded-lg border border-white/10 bg-[#0a1024]/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+        <div className="flex items-center gap-1.5 border-b border-white/[0.06] px-2 py-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-rose-400/70" />
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-300/70" />
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/70" />
+          <span className="ml-2 truncate rounded-sm bg-white/[0.04] px-1.5 py-[1px] text-[8.5px] text-white/55">acme.com</span>
+        </div>
+        <div className="p-2.5">
+          {/* mini hero */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <div className="h-1.5 w-1.5 rounded-sm bg-gradient-to-br from-indigo-400 to-violet-500" />
+              <div className="h-1 w-6 rounded-full bg-white/30" />
+            </div>
+            <div className="flex gap-1">
+              <div className="h-1 w-3 rounded-full bg-white/15" />
+              <div className="h-1 w-3 rounded-full bg-white/15" />
+              <div className="h-1 w-3 rounded-full bg-white/15" />
+              <div className="h-1.5 w-4 rounded-sm bg-indigo-400/70" />
+            </div>
+          </div>
+          <div className="mt-2.5 space-y-1">
+            <div className="h-1.5 w-3/4 rounded-full bg-gradient-to-r from-white/80 to-white/30" />
+            <div className="h-1.5 w-2/3 rounded-full bg-gradient-to-r from-white/60 to-white/15" />
+          </div>
+          <div className="mt-1.5 h-[5px] w-1/2 rounded-full bg-white/15" />
+          <div className="mt-2 flex gap-1.5">
+            <div className="h-2.5 w-8 rounded-md bg-gradient-to-r from-indigo-400 to-violet-500 shadow-[0_2px_10px_rgba(129,140,248,0.5)]" />
+            <div className="h-2.5 w-6 rounded-md border border-white/15" />
+          </div>
+          {/* cards row */}
+          <div className="mt-2.5 grid grid-cols-3 gap-1">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="rounded-md border border-white/[0.07] bg-white/[0.03] p-1.5">
+                <div className="h-1 w-3/4 rounded-full bg-white/40" />
+                <div className="mt-1 h-[3px] w-full rounded-full bg-white/10" />
+                <div className="mt-0.5 h-[3px] w-2/3 rounded-full bg-white/10" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Phone */}
+      <div className="phone-frame w-[58px] p-1.5">
+        <div className="rounded-[12px] bg-[#06091a] p-1.5">
+          <div className="mx-auto h-1 w-5 rounded-full bg-white/15" />
+          <div className="mt-1.5 h-1.5 w-3/4 rounded-full bg-gradient-to-r from-white/80 to-white/30" />
+          <div className="mt-1 h-1 w-2/3 rounded-full bg-white/20" />
+          <div className="mt-1.5 h-7 w-full rounded-md bg-gradient-to-br from-indigo-400/30 to-violet-500/15 ring-1 ring-white/10" />
+          <div className="mt-1.5 grid grid-cols-2 gap-1">
+            <div className="h-3.5 rounded-md bg-white/[0.06]" />
+            <div className="h-3.5 rounded-md bg-white/[0.06]" />
+          </div>
+          <div className="mt-1.5 h-2 w-full rounded-md bg-gradient-to-r from-indigo-400 to-violet-500" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ----- Business Automation flow viz ----- */
+function AutomationFlow() {
+  const nodes = [
+    { label: "Lead", icon: Users },
+    { label: "CRM", icon: LayoutDashboard },
+    { label: "WhatsApp", icon: MessageCircle },
+    { label: "AI", icon: Bot },
+    { label: "Analytics", icon: Activity },
+  ];
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-b from-white/[0.035] to-white/[0.005] p-3">
+      <div className="relative">
+        {/* dashed flow line behind nodes */}
+        <svg viewBox="0 0 280 36" className="absolute inset-x-2 top-1/2 -z-0 h-9 w-[calc(100%-16px)] -translate-y-1/2" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="flow-grad" x1="0" x2="1">
+              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.0" />
+              <stop offset="20%" stopColor="#818cf8" stopOpacity="0.7" />
+              <stop offset="80%" stopColor="#a78bfa" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#34d399" stopOpacity="0.0" />
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="18" x2="280" y2="18" stroke="url(#flow-grad)" strokeWidth="1.5" className="flow-line" />
+        </svg>
+
+        <div className="relative z-10 flex items-center justify-between gap-1">
+          {nodes.map((n, idx) => (
+            <div key={n.label} className="flex flex-1 flex-col items-center gap-1.5">
+              <div
+                className="node-pulse flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-gradient-to-br from-indigo-500/25 to-violet-500/10 text-indigo-200"
+                style={{ animationDelay: `${idx * 0.3}s` }}
+              >
+                <n.icon className="h-3.5 w-3.5" strokeWidth={1.7} />
+              </div>
+              <div className="text-[9.5px] font-medium text-white/65">{n.label}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
