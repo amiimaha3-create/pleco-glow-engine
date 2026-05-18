@@ -41,6 +41,8 @@ import {
   Activity,
   ChevronRight,
   Circle,
+  Menu,
+  X,
 } from "lucide-react";
 import {
   Area,
