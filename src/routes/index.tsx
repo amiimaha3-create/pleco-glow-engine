@@ -1691,7 +1691,7 @@ function CaseStudies() {
   ];
 
   return (
-    <section className="relative py-16 sm:py-24">
+    <section className="relative py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Results"
@@ -1699,53 +1699,70 @@ function CaseStudies() {
           subtitle="What growth looks like when product, engineering, and operations move together."
         />
 
-        <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-3">
           {studies.map((s) => (
             <article
               key={s.title}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 transition hover:border-white/15"
+              className="card-premium group relative flex flex-col overflow-hidden p-6"
             >
               <div className="flex items-center justify-between">
                 <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-white/70">
                   {s.tag}
                 </span>
-                <div className="flex items-center gap-0.5 text-amber-300/90">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3 w-3 fill-amber-300/90" />
-                  ))}
-                </div>
+                <span
+                  className="wordmark text-[12.5px] tracking-tight"
+                  style={{ opacity: 0.55 }}
+                >
+                  {s.tag === "Immigration" ? "GlobalVisa" : s.tag === "Travel" ? "FlyWorld" : "EduConnect"}
+                </span>
               </div>
 
               <h3
-                className="mt-5 text-[18px] font-medium leading-snug tracking-tight text-white"
+                className="mt-4 text-[17px] font-medium leading-snug tracking-[-0.02em] text-white"
                 style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
               >
                 {s.title}
               </h3>
 
-              <div className="mt-5 rounded-xl border border-white/[0.07] bg-black/20 p-4">
+              {/* Premium metric block with sparkline */}
+              <div
+                className="mt-5 rounded-xl border border-white/[0.07] p-4"
+                style={{
+                  background: `radial-gradient(120% 100% at 0% 0%, ${s.color}14, transparent 60%), rgba(0,0,0,0.25)`,
+                }}
+              >
                 <div className="flex items-end justify-between">
                   <div>
-                    <div
-                      className="text-[34px] font-semibold leading-none tracking-tight"
-                      style={{
-                        background: `linear-gradient(135deg, #ffffff, ${s.color})`,
-                        WebkitBackgroundClip: "text",
-                        backgroundClip: "text",
-                        color: "transparent",
-                      }}
-                    >
-                      {s.metric}
+                    <div className="flex items-baseline gap-2">
+                      <div
+                        className="text-[34px] font-semibold leading-none tracking-[-0.035em]"
+                        style={{
+                          background: `linear-gradient(135deg, #ffffff, ${s.color})`,
+                          WebkitBackgroundClip: "text",
+                          backgroundClip: "text",
+                          color: "transparent",
+                          fontFamily: "Space Grotesk, Inter, sans-serif",
+                        }}
+                      >
+                        {s.metric}
+                      </div>
+                      <span
+                        className="inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                        style={{
+                          background: `${s.color}22`,
+                          color: s.color,
+                          border: `1px solid ${s.color}40`,
+                        }}
+                      >
+                        <TrendingUp className="h-2.5 w-2.5" strokeWidth={2} /> YoY
+                      </span>
                     </div>
-                    <div className="mt-1.5 text-[11.5px] uppercase tracking-wider text-white/45">
-                      {s.label}
-                    </div>
+                    <div className="eyebrow mt-2">{s.label}</div>
                   </div>
-                  <TrendingUp className="h-4 w-4" style={{ color: s.color }} />
                 </div>
-                <div className="mt-3 h-[60px] w-full">
+                <div className="mt-3 h-[58px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={s.data}>
+                    <AreaChart data={s.data} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
                       <defs>
                         <linearGradient id={`cs-${s.tag}`} x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor={s.color} stopOpacity={0.55} />
@@ -1758,22 +1775,24 @@ function CaseStudies() {
                         stroke={s.color}
                         strokeWidth={2}
                         fill={`url(#cs-${s.tag})`}
+                        isAnimationActive
+                        animationDuration={1200}
                       />
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
               </div>
 
-              <blockquote className="mt-5 text-[13.5px] leading-relaxed text-white/70">
-                “{s.quote}”
+              <blockquote className="mt-5 text-[13.5px] leading-[1.65] text-white/75">
+                "{s.quote}"
               </blockquote>
-              <div className="mt-2 text-[12px] text-white/45">{s.person}</div>
+              <div className="mt-1.5 text-[12px] text-white/45">{s.person}</div>
 
               <a
                 href="#"
                 className="mt-5 inline-flex items-center gap-1 text-[13px] font-medium text-indigo-300 transition hover:text-indigo-200"
               >
-                Read case study <ArrowUpRight className="h-3.5 w-3.5" />
+                Read case study <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.8} />
               </a>
             </article>
           ))}
