@@ -1182,7 +1182,7 @@ function DashboardMockup() {
                       stroke="url(#gs)"
                       strokeWidth={2}
                       fill="url(#g1)"
-                      isAnimationActive
+                      isAnimationActive={false}
                       animationDuration={800}
                     />
                   </AreaChart>
@@ -1727,7 +1727,7 @@ function FeaturedPreview() {
                   stroke="#a5b4fc"
                   strokeWidth={2}
                   fill="url(#fp-area)"
-                  isAnimationActive
+                  isAnimationActive={false}
                   animationDuration={1200}
                   animationEasing="ease-out"
                 />
@@ -2877,7 +2877,7 @@ function CaseStudies() {
                         stroke={s.color}
                         strokeWidth={2}
                         fill={`url(#cs-${s.tag})`}
-                        isAnimationActive
+                        isAnimationActive={false}
                         animationDuration={1200}
                       />
                     </AreaChart>
