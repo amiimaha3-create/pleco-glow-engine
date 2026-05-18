@@ -192,7 +192,7 @@ function Nav() {
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto mt-4 max-w-7xl px-4">
-        <div className="glass-strong flex h-14 items-center justify-between rounded-2xl px-4 pl-5">
+        <div className="glass-strong flex h-14 items-center justify-between rounded-2xl px-3 pl-4 sm:px-4 sm:pl-5">
           <Logo />
           <nav className="hidden items-center gap-7 md:flex">
             {links.map((l) => (
@@ -212,7 +212,11 @@ function Nav() {
             >
               Sign in
             </a>
-            <PrimaryButton size="sm">Book a call <ArrowRight className="h-3.5 w-3.5" /></PrimaryButton>
+            <PrimaryButton size="sm">
+              <span className="hidden sm:inline">Book a call</span>
+              <span className="sm:hidden">Book call</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </PrimaryButton>
           </div>
         </div>
       </div>
@@ -302,7 +306,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative pt-16 md:pt-24">
+    <section className="relative pt-10 sm:pt-16 md:pt-24">
       <div className="absolute inset-0 -z-10 grid-bg" />
 
       {/* Hero ambient atmosphere */}
@@ -330,7 +334,7 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-7xl px-4">
-        <div className="grid items-start gap-12 md:grid-cols-[1.05fr,1fr]">
+        <div className="grid items-start gap-10 md:gap-12 md:grid-cols-[1.05fr,1fr]">
           {/* Left */}
           <div className="relative">
             <div
@@ -345,7 +349,7 @@ function Hero() {
             </div>
 
             <h1
-              className="hero-fade-up text-[44px] font-semibold leading-[1.03] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
+              className="hero-fade-up text-[36px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px] lg:text-[68px]"
               style={{
                 fontFamily: "Space Grotesk, Inter, sans-serif",
                 animationDelay: "120ms",
@@ -357,7 +361,7 @@ function Hero() {
             </h1>
 
             <p
-              className="hero-fade-up mt-6 max-w-xl text-[16.5px] leading-relaxed text-white/65"
+              className="hero-fade-up mt-5 max-w-xl text-[15px] leading-relaxed text-white/65 sm:mt-6 sm:text-[16.5px]"
               style={{ animationDelay: "260ms" }}
             >
               Pleco Lab builds custom websites, CRM systems, AI agents,
@@ -366,27 +370,27 @@ function Hero() {
             </p>
 
             <div
-              className="hero-fade-up mt-8 flex flex-wrap items-center gap-3"
+              className="hero-fade-up mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center"
               style={{ animationDelay: "380ms" }}
             >
-              <PrimaryButton size="lg">
+              <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
                 Book free consultation
                 <ArrowRight className="btn-arrow h-4 w-4" />
               </PrimaryButton>
-              <GhostButton size="lg">
+              <GhostButton size="lg" className="w-full justify-center sm:w-auto">
                 Explore solutions
               </GhostButton>
             </div>
 
             {/* Trust stats */}
             <div
-              className="hero-fade-up mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4"
+              className="hero-fade-up mt-10 grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 sm:mt-12 sm:grid-cols-4 sm:gap-x-8 sm:gap-y-6"
               style={{ animationDelay: "520ms" }}
             >
               {stats.map((s) => (
                 <div key={s.l}>
                   <div
-                    className="text-[26px] font-semibold tracking-tight text-white"
+                    className="text-[22px] font-semibold tracking-tight text-white sm:text-[26px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
                     <CountStat
@@ -396,7 +400,7 @@ function Hero() {
                       decimals={s.decimals}
                     />
                   </div>
-                  <div className="mt-1 text-[12px] uppercase tracking-wider text-white/45">
+                  <div className="mt-1 text-[11px] uppercase tracking-wider text-white/45 sm:text-[12px]">
                     {s.l}
                   </div>
                 </div>
@@ -404,16 +408,146 @@ function Hero() {
             </div>
           </div>
 
-          {/* Right — dashboard mockup */}
+          {/* Right — dashboard mockup (md+) */}
           <div
-            className="hero-fade-up relative"
+            className="hero-fade-up relative hidden md:block"
             style={{ animationDelay: "300ms" }}
           >
             <DashboardMockup />
           </div>
+
+          {/* Mobile compact preview */}
+          <div
+            className="hero-fade-up relative md:hidden"
+            style={{ animationDelay: "300ms" }}
+          >
+            <MobileHeroPreview />
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* --------------------------- Mobile Hero Preview -------------------------- */
+
+function MobileHeroPreview() {
+  const spark = Array.from({ length: 16 }, (_, i) => ({
+    x: i,
+    y: 30 + Math.sin(i / 1.6) * 10 + i * 2.2,
+  }));
+  return (
+    <div className="relative">
+      <div
+        className="absolute -inset-8 -z-10"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 50% 40%, rgba(99,102,241,0.35), transparent 70%), radial-gradient(40% 40% at 80% 80%, rgba(168,85,247,0.25), transparent 70%)",
+          filter: "blur(10px)",
+        }}
+      />
+      <div
+        className="glass-strong ring-glow relative overflow-hidden rounded-2xl p-4"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(20,22,48,0.85) 0%, rgba(12,14,32,0.92) 100%)",
+        }}
+      >
+        <div className="tech-grid" aria-hidden />
+
+        {/* Header */}
+        <div className="relative flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-rose-400/70" />
+            <span className="h-2 w-2 rounded-full bg-amber-300/70" />
+            <span className="h-2 w-2 rounded-full bg-emerald-400/70" />
+          </div>
+          <div className="inline-flex items-center gap-1 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+            Live
+          </div>
+        </div>
+
+        {/* KPI row */}
+        <div className="relative mt-3 grid grid-cols-3 gap-2">
+          {[
+            { l: "Revenue", v: "$148K", c: "#818cf8" },
+            { l: "Leads", v: "1,284", c: "#a78bfa" },
+            { l: "Conv.", v: "9.4%", c: "#67e8f9" },
+          ].map((k) => (
+            <div
+              key={k.l}
+              className="rounded-lg border border-white/[0.07] bg-white/[0.025] p-2"
+            >
+              <div className="text-[9.5px] text-white/45">{k.l}</div>
+              <div
+                className="mt-0.5 text-[13px] font-semibold tracking-tight text-white"
+                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              >
+                {k.v}
+              </div>
+              <div
+                className="mt-0.5 inline-flex items-center gap-0.5 text-[9px] font-medium"
+                style={{ color: k.c }}
+              >
+                <TrendingUp className="h-2.5 w-2.5" /> +24%
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Chart */}
+        <div className="relative mt-3 rounded-lg border border-white/[0.07] bg-white/[0.025] p-2.5">
+          <div className="mb-1 flex items-center justify-between">
+            <div className="text-[10.5px] font-medium text-white/90">Revenue growth</div>
+            <div className="text-[9px] text-white/40">Live</div>
+          </div>
+          <div className="h-[70px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={spark} margin={{ top: 2, right: 2, bottom: 0, left: 0 }}>
+                <defs>
+                  <linearGradient id="mg1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity={0.55} />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="monotone"
+                  dataKey="y"
+                  stroke="#a5b4fc"
+                  strokeWidth={2}
+                  fill="url(#mg1)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Feature pills */}
+        <div className="relative mt-3 grid grid-cols-2 gap-2">
+          {[
+            { i: Workflow, l: "Automations", c: "Active" },
+            { i: Bot, l: "AI Agents", c: "14 deals" },
+            { i: MessageCircle, l: "WhatsApp", c: "+312" },
+            { i: Users, l: "CRM", c: "110 deals" },
+          ].map((it) => (
+            <div
+              key={it.l}
+              className="flex items-center gap-2 rounded-lg border border-white/[0.07] bg-white/[0.025] px-2.5 py-2"
+            >
+              <div className="flex h-6 w-6 items-center justify-center rounded-md border border-white/10 bg-gradient-to-br from-indigo-500/20 to-violet-500/5">
+                <it.i className="h-3 w-3 text-indigo-200" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-[10.5px] font-medium text-white/90">{it.l}</div>
+                <div className="truncate text-[9.5px] text-white/45">{it.c}</div>
+              </div>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -970,7 +1104,7 @@ function TrustStrip() {
     { i: Briefcase, l: "SMEs" },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <div className="text-center text-[12.5px] uppercase tracking-[0.2em] text-white/40">
           Trusted by businesses across industries
@@ -1017,7 +1151,7 @@ function SectionHeader({
         {eyebrow}
       </div>
       <h2
-        className="text-[36px] font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-[44px]"
+        className="text-[28px] font-semibold leading-[1.08] tracking-[-0.02em] text-white sm:text-[44px]"
         style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
       >
         {title}
@@ -1049,7 +1183,7 @@ function Services() {
     { i: Plug, t: "Integrations & APIs", d: "Connect every tool — clean, observable, reliable." },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Solutions"
@@ -1170,7 +1304,7 @@ function Industries() {
     { i: Briefcase, t: "SMEs", d: "Operating systems for service businesses." },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Industries"
@@ -1235,7 +1369,7 @@ function WhyPleco() {
     },
   ];
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Why Pleco Lab"
@@ -1318,7 +1452,7 @@ function CaseStudies() {
   ];
 
   return (
-    <section className="relative py-24">
+    <section className="relative py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           eyebrow="Results"
@@ -1424,9 +1558,9 @@ function gen(n: number, lo: number, hi: number) {
 
 function FinalCTA() {
   return (
-    <section className="relative py-28">
+    <section className="relative py-16 sm:py-28">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 px-8 py-20 text-center sm:px-16">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 px-5 py-14 text-center sm:px-16 sm:py-20">
           {/* Gradient bg */}
           <div
             className="absolute inset-0 -z-10"
@@ -1443,22 +1577,22 @@ function FinalCTA() {
           </div>
 
           <h2
-            className="mx-auto mt-6 max-w-3xl text-[40px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px]"
+            className="mx-auto mt-6 max-w-3xl text-[30px] font-semibold leading-[1.05] tracking-[-0.025em] text-white sm:text-[56px]"
             style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
           >
             Ready to build your <span className="text-gradient-brand">growth engine?</span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-xl text-[15.5px] leading-relaxed text-white/65">
+          <p className="mx-auto mt-5 max-w-xl text-[14.5px] leading-relaxed text-white/65 sm:text-[15.5px]">
             Book a free 30-minute consultation. We'll map the system, the stack,
             and the path to results — no obligation.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <PrimaryButton size="lg">
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
+            <PrimaryButton size="lg" className="w-full justify-center sm:w-auto">
               Book free consultation <ArrowRight className="h-4 w-4" />
             </PrimaryButton>
-            <GhostButton size="lg">Let's talk</GhostButton>
+            <GhostButton size="lg" className="w-full justify-center sm:w-auto">Let's talk</GhostButton>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12.5px] text-white/45">
