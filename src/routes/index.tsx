@@ -408,12 +408,12 @@ function Hero() {
             </div>
           </div>
 
-          {/* Right — dashboard mockup (md+) */}
+          {/* Right — hero visual (md+) */}
           <div
             className="hero-fade-up relative hidden md:block"
             style={{ animationDelay: "300ms" }}
           >
-            <DashboardMockup />
+            <HeroVisual />
           </div>
 
           {/* Mobile compact preview */}
