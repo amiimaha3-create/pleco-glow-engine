@@ -1622,22 +1622,7 @@ function Services() {
 }
 
 /* --------- shared hooks for live demos --------- */
-function useCountUp(target: number, duration = 1400, decimals = 0) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    let raf = 0;
-    const start = performance.now();
-    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      setVal(target * ease(t));
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [target, duration]);
-  return decimals ? val.toFixed(decimals) : Math.round(val).toString();
-}
+
 
 function useLiveSeries(length = 22, seed = 0) {
   const [data, setData] = useState(() =>
