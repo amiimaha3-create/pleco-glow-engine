@@ -504,7 +504,7 @@ function HeroVisual() {
       />
 
       {/* Main image container */}
-      <div className="relative aspect-[4/5] w-full overflow-visible">
+      <div className="relative aspect-square w-full overflow-visible">
         {/* Photo frame */}
         <div className="absolute inset-0 overflow-hidden rounded-[22px] ring-1 ring-white/10">
           <img
