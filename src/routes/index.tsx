@@ -44,7 +44,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import heroDeveloper from "@/assets/hero-developer.jpg";
+
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
 
