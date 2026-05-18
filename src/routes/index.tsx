@@ -903,21 +903,10 @@ function DashboardMockup() {
   const [revKpi, setRevKpi] = useState(148.2);
   const [leadsKpi, setLeadsKpi] = useState(1284);
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      setRevenue((prev) => {
-        const last = prev[prev.length - 1].y;
-        const delta = (Math.random() - 0.4) * 10;
-        const next = Math.max(30, Math.min(120, last + delta));
-        const shifted = prev.slice(1).map((p, i) => ({ x: i, y: p.y }));
-        shifted.push({ x: shifted.length, y: next });
-        return shifted;
-      });
-      setRevKpi((r) => +(r + (Math.random() * 0.4 - 0.05)).toFixed(1));
-      setLeadsKpi((l) => l + Math.floor(Math.random() * 3));
-    }, 1100);
-    return () => clearInterval(id);
-  }, []);
+  // NOTE: live setInterval updates removed — they re-rendered Recharts every
+  // 1.1s causing constant SVG re-layout and KPI text width drift, which the
+  // browser perceived as continuous vertical jitter. Data stays static.
+  void setRevenue; void setRevKpi; void setLeadsKpi;
 
   const bars = [12, 18, 14, 22, 19, 28, 24, 31, 27, 35, 30, 40].map((y, i) => ({ x: i, y }));
 
