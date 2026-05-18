@@ -2346,15 +2346,15 @@ function TravelDemo() {
       </div>
       <div className="mt-1.5 flex items-end justify-between">
         <div>
-          <div className="font-mono text-[20px] font-semibold tabular-nums tracking-tight text-white">{bookings.toLocaleString()}</div>
+          <div className="stable-metric min-w-[78px] font-mono text-[20px] font-semibold tabular-nums tracking-tight text-white">{bookings.toLocaleString()}</div>
           <div className="mt-0.5 text-[10.5px] text-emerald-300">▲ 12.4% vs yesterday</div>
         </div>
         <div className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-right">
           <div className="text-[9.5px] uppercase tracking-wider text-white/45">Revenue</div>
-          <div className="font-mono text-[12px] font-semibold text-white">${revenue}K</div>
+          <div className="stable-metric min-w-[52px] font-mono text-[12px] font-semibold text-white">${revenue}K</div>
         </div>
       </div>
-      <svg viewBox="0 0 280 60" className="mt-2 h-[58px] w-full">
+      <svg viewBox="0 0 280 60" className="mt-2 h-[58px] min-h-[58px] max-h-[58px] w-full overflow-hidden">
         <defs>
           <linearGradient id="trv-g" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stopColor="rgba(129,140,248,0.45)" />
@@ -2417,7 +2417,7 @@ function EducationDemo() {
           <div key={r.l}>
             <div className="flex items-center justify-between text-[10.5px]">
               <span className="text-white/65">{r.l}</span>
-              <span className="font-mono tabular-nums text-white/85">{r.v.toLocaleString()}</span>
+              <span className="stable-metric w-[36px] text-right font-mono tabular-nums text-white/85">{r.v.toLocaleString()}</span>
             </div>
             <div className="relative mt-1 h-1.5 overflow-hidden rounded-full bg-white/[0.05]">
               <div className={`ind-fill h-full rounded-full bg-gradient-to-r ${r.c}`} style={{ ["--w" as string]: r.w, animationDelay: `${i * 0.18}s` }} />
