@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import heroWorkspace from "@/assets/hero-workspace.jpg";
 import {
   ArrowRight,
   ArrowUpRight,
