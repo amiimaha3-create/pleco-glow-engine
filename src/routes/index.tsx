@@ -54,7 +54,7 @@ import {
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
 
-function useCountUp(target: number, duration = 1800, decimals = 0) {
+function useCountUp(target: number, duration = 900, decimals = 0) {
   const [value, setValue] = useState(0);
   const startedRef = useRef(false);
   useEffect(() => {
