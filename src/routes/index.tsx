@@ -541,7 +541,7 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
-        <div className="grid items-start gap-10 lg:gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+        <div className="grid items-center gap-10 lg:gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
           {/* Left column */}
           <div className="relative pt-2">
             {/* Status pill */}
