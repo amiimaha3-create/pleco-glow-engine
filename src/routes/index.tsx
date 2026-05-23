@@ -1188,6 +1188,7 @@ function HeroVisual() {
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );
