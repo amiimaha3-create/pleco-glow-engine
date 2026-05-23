@@ -1017,66 +1017,107 @@ function HeroVisual() {
           </div>
         </div>
 
-        {/* Pedestal with cube — bottom right */}
+        {/* Live KPI mini-panel — bottom right */}
         <div
-          className="absolute z-10"
-          style={{ right: "30px", bottom: "20px", width: "190px", height: "150px" }}
+          className="float-y absolute z-10"
+          style={{
+            right: "24px",
+            bottom: "16px",
+            width: "230px",
+            animationDelay: "0.8s",
+          }}
         >
-          {/* Cube */}
           <div
-            className="float-y absolute left-1/2 top-2 z-20 -translate-x-1/2"
+            className="relative overflow-hidden rounded-2xl border border-white/12 p-3.5 backdrop-blur-xl"
             style={{
-              width: "76px",
-              height: "76px",
-              animationDelay: "0.6s",
-              transform: "perspective(800px) rotateX(8deg) rotateY(-14deg)",
-              transformStyle: "preserve-3d",
+              background:
+                "linear-gradient(160deg, rgba(30,28,60,0.78), rgba(15,15,28,0.92))",
+              boxShadow:
+                "0 30px 70px -20px rgba(124,58,237,0.55), inset 0 1px 0 rgba(255,255,255,0.08)",
             }}
           >
+            {/* Glow accent */}
             <div
-              className="relative h-full w-full rounded-xl border border-white/15"
+              className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-60"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(30,30,50,0.95), rgba(15,15,28,0.98))",
-                boxShadow:
-                  "0 30px 60px -15px rgba(168,85,247,0.7), inset 0 1px 0 rgba(255,255,255,0.1)",
-              }}
-            >
-              {/* Glowing O */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className="h-9 w-9 rounded-full border-2"
-                  style={{
-                    borderColor: "rgba(192,132,252,0.9)",
-                    boxShadow:
-                      "0 0 16px rgba(192,132,252,0.9), inset 0 0 12px rgba(192,132,252,0.55)",
-                  }}
-                />
-              </div>
-              {/* Top edge highlight */}
-              <div
-                className="pointer-events-none absolute inset-x-2 top-0 h-px"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Soft glow base (neon ring removed) */}
-          <div
-            className="absolute bottom-3 left-1/2 -translate-x-1/2"
-            style={{ width: "180px", height: "44px" }}
-          >
-            <div
-              className="absolute inset-x-6 -bottom-2 h-6 rounded-[50%] opacity-60"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(168,85,247,0.4), transparent 70%)",
-                filter: "blur(12px)",
+                  "radial-gradient(circle, rgba(168,85,247,0.55), transparent 70%)",
+                filter: "blur(18px)",
               }}
             />
+
+            {/* Header */}
+            <div className="relative flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-emerald-300/90">
+                  Live ops
+                </span>
+              </div>
+              <span className="text-[8.5px] uppercase tracking-[0.14em] text-white/40">
+                24h
+              </span>
+            </div>
+
+            {/* Big metric */}
+            <div className="relative mt-2.5">
+              <div
+                className="stable-metric text-[26px] font-bold leading-none tracking-[-0.03em] text-white"
+                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
+              >
+                12,847
+              </div>
+              <div className="mt-1 flex items-center gap-1 text-[9.5px] font-medium text-emerald-300/90">
+                <ArrowUpRight className="h-2.5 w-2.5" />
+                +18.4% automated actions
+              </div>
+            </div>
+
+            {/* Mini sparkline */}
+            <svg
+              className="mt-2.5 h-8 w-full"
+              viewBox="0 0 200 32"
+              preserveAspectRatio="none"
+              aria-hidden
+            >
+              <defs>
+                <linearGradient id="sparkA" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.55" />
+                  <stop offset="100%" stopColor="#a78bfa" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M0 24 L20 20 L40 22 L60 14 L80 17 L100 10 L120 13 L140 6 L160 9 L180 4 L200 7 L200 32 L0 32 Z"
+                fill="url(#sparkA)"
+              />
+              <path
+                d="M0 24 L20 20 L40 22 L60 14 L80 17 L100 10 L120 13 L140 6 L160 9 L180 4 L200 7"
+                stroke="#a78bfa"
+                strokeWidth="1.5"
+                fill="none"
+              />
+            </svg>
+
+            {/* Tiny stat row */}
+            <div className="mt-2 grid grid-cols-3 gap-2 border-t border-white/8 pt-2.5">
+              {[
+                { v: "99.9%", l: "Uptime" },
+                { v: "<120ms", l: "Latency" },
+                { v: "SOC2", l: "Secure" },
+              ].map((m) => (
+                <div key={m.l}>
+                  <div className="stable-metric text-[10.5px] font-semibold text-white">
+                    {m.v}
+                  </div>
+                  <div className="text-[8px] uppercase tracking-[0.12em] text-white/40">
+                    {m.l}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
