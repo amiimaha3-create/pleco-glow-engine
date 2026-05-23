@@ -494,6 +494,52 @@
     line-height: 1;
   }
 
+  /* Animated hero stat */
+  @keyframes stat-shimmer {
+    0% { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+    35% { opacity: 1; }
+    100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+  }
+  @keyframes stat-pop {
+    0% { transform: translateY(8px) scale(0.92); opacity: 0; filter: blur(6px); }
+    60% { transform: translateY(0) scale(1.04); opacity: 1; filter: blur(0); }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  @keyframes stat-underline-grow {
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+  @keyframes stat-spark {
+    0%, 100% { opacity: 0; transform: scale(0.6); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+  .stat-wrap { position: relative; display: inline-block; }
+  .stat-wrap.in-view .stat-num { animation: stat-pop 0.85s cubic-bezier(0.2,0.7,0.2,1) both; }
+  .stat-wrap .stat-shimmer-layer {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    border-radius: 6px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+  }
+  .stat-wrap.in-view .stat-shimmer-layer::before {
+    content: "";
+    position: absolute; top: 0; left: 0; height: 100%; width: 45%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: stat-shimmer 1.6s ease-out 0.25s 1 both;
+  }
+  .stat-wrap .stat-underline {
+    position: absolute; left: 0; right: 30%; bottom: -4px; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, rgba(167,139,250,0.95), rgba(99,102,241,0));
+    transform: scaleX(0); transform-origin: left center;
+  }
+  .stat-wrap.in-view .stat-underline { animation: stat-underline-grow 0.9s cubic-bezier(0.2,0.7,0.2,1) 0.5s forwards; }
+  .stat-wrap .stat-spark {
+    position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 999px;
+    background: radial-gradient(circle, #fff 0%, rgba(167,139,250,0.9) 40%, transparent 70%);
+    opacity: 0;
+  }
+  .stat-wrap.in-view .stat-spark { animation: stat-spark 1.2s ease-out 0.7s 1 both; }
+
   .debug-animated-layout .layout-locked,
   .debug-animated-layout .anim-isolate,
   .debug-animated-layout .stable-chart,
