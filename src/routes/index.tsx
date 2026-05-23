@@ -737,7 +737,11 @@ function HeroVisual() {
       />
 
       {/* Stage — fixed dimensions, no shifts */}
-      <div className="relative mx-auto h-[520px] w-full max-w-[680px] sm:h-[580px]">
+      {/* Responsive scaler — keeps the 680px stage intact while shrinking on mobile */}
+      <div className="relative mx-auto w-full max-w-[680px] h-[300px] sm:h-[580px]">
+        <div
+          className="absolute left-1/2 top-0 -translate-x-1/2 origin-top scale-[0.5] sm:scale-100 h-[580px] w-[680px]"
+        >
         {/* Dashboard — tilted 3D perspective */}
         <div
           className="float-y layout-locked absolute"
@@ -1184,6 +1188,7 @@ function HeroVisual() {
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );
