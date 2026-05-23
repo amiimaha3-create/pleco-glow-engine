@@ -417,18 +417,76 @@ function GhostButton({
 
 /* ----------------------------------- Hero --------------------------------- */
 
+function AnimatedHeroStat({
+  num,
+  suffix,
+  delay = 0,
+}: {
+  num: number;
+  suffix: string;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const [active, setActive] = useState(false);
+  const [display, setDisplay] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setTimeout(() => setActive(true), delay);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [delay]);
+  useEffect(() => {
+    if (!active) return;
+    const dur = 1400;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(num * eased);
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active, num]);
+  return (
+    <span ref={ref} className={`stat-wrap ${active ? "in-view" : ""}`}>
+      <span className="stat-num stable-metric inline-block">
+        {Math.round(display).toLocaleString()}
+        {suffix}
+      </span>
+      <span className="stat-shimmer-layer" aria-hidden />
+      <span className="stat-underline" aria-hidden />
+      <span className="stat-spark" aria-hidden />
+    </span>
+  );
+}
+
 function Hero() {
   const stats: Array<{
-    value: string;
+    num: number;
+    suffix: string;
     l: string;
     sub?: string;
     i: typeof Users;
     tint: string;
+    delay: number;
   }> = [
-    { value: "250+", l: "BUSINESSES", sub: "SERVED", i: Users, tint: "from-rose-500/25 to-rose-500/0 text-rose-200 border-rose-400/30" },
-    { value: "15+", l: "COUNTRIES", i: Globe, tint: "from-indigo-500/25 to-indigo-500/0 text-indigo-200 border-indigo-400/30" },
-    { value: "98%", l: "CLIENT", sub: "SATISFACTION", i: Sparkles, tint: "from-violet-500/25 to-violet-500/0 text-violet-200 border-violet-400/30" },
-    { value: "24/7", l: "SUPPORT", i: Headphones, tint: "from-cyan-500/25 to-cyan-500/0 text-cyan-200 border-cyan-400/30" },
+    { num: 250, suffix: "+", l: "BUSINESSES", sub: "SERVED", i: Users, tint: "from-rose-500/25 to-rose-500/0 text-rose-200 border-rose-400/30", delay: 0 },
+    { num: 15, suffix: "+", l: "COUNTRIES", i: Globe, tint: "from-indigo-500/25 to-indigo-500/0 text-indigo-200 border-indigo-400/30", delay: 120 },
+    { num: 98, suffix: "%", l: "CLIENT", sub: "SATISFACTION", i: Sparkles, tint: "from-violet-500/25 to-violet-500/0 text-violet-200 border-violet-400/30", delay: 240 },
+    { num: 24, suffix: "/7", l: "SUPPORT", i: Headphones, tint: "from-cyan-500/25 to-cyan-500/0 text-cyan-200 border-cyan-400/30", delay: 360 },
   ];
 
   return (
@@ -552,10 +610,10 @@ function Hero() {
                     <s.i className="h-4 w-4" />
                   </span>
                   <div
-                    className="stable-metric !block text-[28px] font-bold tracking-[-0.03em] text-white sm:text-[30px]"
+                    className="!block text-[28px] font-bold tracking-[-0.03em] text-white sm:text-[30px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
-                    {s.value}
+                    <AnimatedHeroStat num={s.num} suffix={s.suffix} delay={s.delay} />
                   </div>
                   <div className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/50">
                     {s.l}
