@@ -610,10 +610,10 @@ function Hero() {
                     <s.i className="h-4 w-4" />
                   </span>
                   <div
-                    className="stable-metric !block text-[28px] font-bold tracking-[-0.03em] text-white sm:text-[30px]"
+                    className="!block text-[28px] font-bold tracking-[-0.03em] text-white sm:text-[30px]"
                     style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
                   >
-                    {s.value}
+                    <AnimatedHeroStat num={s.num} suffix={s.suffix} delay={s.delay} />
                   </div>
                   <div className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/50">
                     {s.l}
