@@ -515,7 +515,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative pt-10 pb-6 sm:pt-14 md:pt-20">
+    <section className="relative pt-10 pb-4 sm:pt-14 md:pt-16">
       <div className="absolute inset-0 -z-10 grid-bg opacity-60" />
 
       {/* Ambient atmosphere */}
@@ -541,7 +541,7 @@ function Hero() {
       </div>
 
       <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
-        <div className="grid items-start gap-10 lg:gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
+        <div className="grid items-center gap-10 lg:gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
           {/* Left column */}
           <div className="relative pt-2">
             {/* Status pill */}
@@ -737,7 +737,7 @@ function HeroVisual() {
       />
 
       {/* Stage — fixed dimensions, no shifts */}
-      <div className="relative mx-auto h-[560px] w-full max-w-[680px] sm:h-[620px]">
+      <div className="relative mx-auto h-[520px] w-full max-w-[680px] sm:h-[580px]">
         {/* Dashboard — tilted 3D perspective */}
         <div
           className="float-y layout-locked absolute"
