@@ -515,7 +515,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative pt-10 pb-6 sm:pt-14 md:pt-20">
+    <section className="relative pt-10 pb-4 sm:pt-14 md:pt-16">
       <div className="absolute inset-0 -z-10 grid-bg opacity-60" />
 
       {/* Ambient atmosphere */}
