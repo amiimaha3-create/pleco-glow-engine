@@ -981,25 +981,17 @@ function HeroVisual() {
             </div>
           </div>
 
-          {/* Neon ring pedestal */}
+          {/* Soft glow base (neon ring removed) */}
           <div
             className="absolute bottom-3 left-1/2 -translate-x-1/2"
             style={{ width: "180px", height: "44px" }}
           >
             <div
-              className="absolute inset-0 rounded-[50%] border-2"
-              style={{
-                borderColor: "rgba(192,132,252,0.95)",
-                boxShadow:
-                  "0 0 30px rgba(168,85,247,0.85), 0 0 60px rgba(168,85,247,0.55), inset 0 0 18px rgba(192,132,252,0.5)",
-              }}
-            />
-            <div
-              className="absolute inset-x-6 -bottom-2 h-4 rounded-[50%] opacity-80"
+              className="absolute inset-x-6 -bottom-2 h-6 rounded-[50%] opacity-60"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, rgba(168,85,247,0.55), transparent 70%)",
-                filter: "blur(6px)",
+                  "radial-gradient(ellipse at center, rgba(168,85,247,0.4), transparent 70%)",
+                filter: "blur(12px)",
               }}
             />
           </div>
