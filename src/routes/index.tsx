@@ -426,45 +426,70 @@ function AnimatedHeroStat({
   suffix: string;
   delay?: number;
 }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
+  const finalStr = String(num);
+  const len = finalStr.length;
+  const [digits, setDigits] = useState<string[]>(() =>
+    Array.from({ length: len }, () => "0"),
+  );
   const [active, setActive] = useState(false);
-  const [display, setDisplay] = useState(0);
+
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setTimeout(() => setActive(true), delay);
-            io.disconnect();
-          }
-        });
-      },
-      { threshold: 0.4 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    // Start immediately on mount (no scroll wait)
+    const startTimer = setTimeout(() => setActive(true), delay);
+    return () => clearTimeout(startTimer);
   }, [delay]);
+
   useEffect(() => {
     if (!active) return;
-    const dur = 1400;
+    const rollDuration = 1800; // total casino roll
+    const lockStagger = 220;   // ms between locking each digit (left -> right)
     const start = performance.now();
     let raf = 0;
+    let lastShuffle = 0;
+
     const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / dur);
-      const eased = 1 - Math.pow(1 - t, 3);
-      setDisplay(num * eased);
-      if (t < 1) raf = requestAnimationFrame(tick);
+      const elapsed = now - start;
+      // Lock digits progressively from left
+      const lockedCount = Math.min(
+        len,
+        Math.floor(elapsed / lockStagger),
+      );
+      // Shuffle unlocked digits every ~55ms for casino feel
+      if (now - lastShuffle > 55 || elapsed >= rollDuration) {
+        lastShuffle = now;
+        const next: string[] = [];
+        for (let i = 0; i < len; i++) {
+          if (i < lockedCount || elapsed >= rollDuration) {
+            next.push(finalStr[i]);
+          } else {
+            next.push(String(Math.floor(Math.random() * 10)));
+          }
+        }
+        setDigits(next);
+      }
+      if (elapsed < rollDuration) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        setDigits(finalStr.split(""));
+      }
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [active, num]);
+  }, [active, finalStr, len]);
+
   return (
-    <span ref={ref} className={`stat-wrap ${active ? "in-view" : ""}`}>
-      <span className="stat-num stable-metric inline-block">
-        {Math.round(display).toLocaleString()}
-        {suffix}
+    <span className={`stat-wrap ${active ? "in-view" : ""}`}>
+      <span className="stat-num stable-metric inline-flex items-baseline">
+        {digits.map((d, i) => (
+          <span
+            key={i}
+            className="stat-digit inline-block tabular-nums"
+            style={{ minWidth: "0.6em", textAlign: "center" }}
+          >
+            {d}
+          </span>
+        ))}
+        <span>{suffix}</span>
       </span>
       <span className="stat-shimmer-layer" aria-hidden />
       <span className="stat-underline" aria-hidden />
