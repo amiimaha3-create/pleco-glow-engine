@@ -206,7 +206,7 @@ function Logo({ className = "" }: { className?: string }) {
 
 function Nav() {
   const links = [
-    { label: "Solutions", href: "#solutions" },
+    { label: "Solutions", href: "/solutions" },
     { label: "How We Work", href: "#process" },
     { label: "Case Studies", href: "#case-studies" },
     { label: "Contact", href: "#contact" },
