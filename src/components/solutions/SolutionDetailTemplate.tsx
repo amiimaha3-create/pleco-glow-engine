@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
-import { useEffect, useState, type PropsWithChildren } from "react";
+import { useEffect, useState } from "react";
 import type { SolutionConfig } from "@/lib/solutions/types";
 import { EcosystemCard } from "./EcosystemCard";
 import { FadeUp, FloatY, Stagger, StaggerItem } from "./motion";
