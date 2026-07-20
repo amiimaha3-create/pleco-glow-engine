@@ -306,23 +306,43 @@ function Nav() {
       >
         <div className="glass-strong overflow-hidden rounded-2xl p-2">
           <nav className="flex flex-col">
-            {links.map((l, i) => (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-white/80 transition-all duration-300 hover:bg-white/[0.05] hover:text-white ${
-                  open ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
-                }`}
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  transitionDelay: open ? `${i * 40}ms` : "0ms",
-                }}
-              >
-                <span>{l.label}</span>
-                <ChevronRight className="h-4 w-4 text-white/40" />
-              </a>
-            ))}
+            {links.map((l, i) => {
+              const isInternal = l.href.startsWith("/");
+              const cls = `flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-white/80 transition-all duration-300 hover:bg-white/[0.05] hover:text-white ${
+                open ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+              }`;
+              const style = {
+                fontFamily: "Inter, sans-serif",
+                transitionDelay: open ? `${i * 40}ms` : "0ms",
+              };
+              const inner = (
+                <>
+                  <span>{l.label}</span>
+                  <ChevronRight className="h-4 w-4 text-white/40" />
+                </>
+              );
+              return isInternal ? (
+                <Link
+                  key={l.label}
+                  to={l.href}
+                  onClick={() => setOpen(false)}
+                  className={cls}
+                  style={style}
+                >
+                  {inner}
+                </Link>
+              ) : (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={cls}
+                  style={style}
+                >
+                  {inner}
+                </a>
+              );
+            })}
             <div className="mt-2 px-2 pb-1">
               <CtaButton className="w-full justify-center">Start a Project</CtaButton>
             </div>
