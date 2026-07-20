@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
@@ -251,17 +251,35 @@ function Nav() {
         >
           <Logo />
           <nav className="hidden items-center gap-8 md:flex">
-            {links.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="group relative text-[13.5px] font-medium tracking-[-0.005em] text-white/65 transition-colors duration-200 hover:text-white"
-                style={{ fontFamily: "Inter, sans-serif" }}
-              >
-                {l.label}
+            {links.map((l) => {
+              const isInternal = l.href.startsWith("/");
+              const cls =
+                "group relative text-[13.5px] font-medium tracking-[-0.005em] text-white/65 transition-colors duration-200 hover:text-white";
+              const underline = (
                 <span className="pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-white/0 via-white/70 to-white/0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
-              </a>
-            ))}
+              );
+              return isInternal ? (
+                <Link
+                  key={l.label}
+                  to={l.href}
+                  className={cls}
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                >
+                  {l.label}
+                  {underline}
+                </Link>
+              ) : (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  className={cls}
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                >
+                  {l.label}
+                  {underline}
+                </a>
+              );
+            })}
           </nav>
           <div className="flex items-center gap-2">
             <CtaButton className="hidden sm:inline-flex">Start a Project</CtaButton>
@@ -288,23 +306,43 @@ function Nav() {
       >
         <div className="glass-strong overflow-hidden rounded-2xl p-2">
           <nav className="flex flex-col">
-            {links.map((l, i) => (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-white/80 transition-all duration-300 hover:bg-white/[0.05] hover:text-white ${
-                  open ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
-                }`}
-                style={{
-                  fontFamily: "Inter, sans-serif",
-                  transitionDelay: open ? `${i * 40}ms` : "0ms",
-                }}
-              >
-                <span>{l.label}</span>
-                <ChevronRight className="h-4 w-4 text-white/40" />
-              </a>
-            ))}
+            {links.map((l, i) => {
+              const isInternal = l.href.startsWith("/");
+              const cls = `flex items-center justify-between rounded-xl px-4 py-3.5 text-[15px] font-medium text-white/80 transition-all duration-300 hover:bg-white/[0.05] hover:text-white ${
+                open ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+              }`;
+              const style = {
+                fontFamily: "Inter, sans-serif",
+                transitionDelay: open ? `${i * 40}ms` : "0ms",
+              };
+              const inner = (
+                <>
+                  <span>{l.label}</span>
+                  <ChevronRight className="h-4 w-4 text-white/40" />
+                </>
+              );
+              return isInternal ? (
+                <Link
+                  key={l.label}
+                  to={l.href}
+                  onClick={() => setOpen(false)}
+                  className={cls}
+                  style={style}
+                >
+                  {inner}
+                </Link>
+              ) : (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={cls}
+                  style={style}
+                >
+                  {inner}
+                </a>
+              );
+            })}
             <div className="mt-2 px-2 pb-1">
               <CtaButton className="w-full justify-center">Start a Project</CtaButton>
             </div>
@@ -606,12 +644,13 @@ function Hero() {
                   }}
                 />
               </button>
-              <button
+              <Link
+                to="/solutions"
                 className="group inline-flex h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/12 bg-white/[0.03] px-6 text-[15px] font-medium text-white/85 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.06]"
               >
                 Explore solutions
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
+              </Link>
             </div>
 
             {/* Metric cards */}
