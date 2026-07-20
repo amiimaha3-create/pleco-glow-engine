@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "sdk_version": "0.23.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://trrglmmaqwtmouliuahz.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "pleco-lab-mcp",
+      "version": "0.1.0",
+      "title": "Pleco Lab"
+    },
+    "tools": [
+      {
+        "name": "pleco_services_overview",
+        "title": "Pleco Lab services overview",
+        "description": "Returns a summary of what Pleco Lab builds (CRMs, websites, AI agents, automation, WhatsApp), industries served, and how engagements work. Useful before creating a contact request.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_contact_request",
+        "title": "Submit a project inquiry to Pleco Lab",
+        "description": "Send Pleco Lab a project inquiry (CRM, website, AI agent, automation, WhatsApp solution) on behalf of the signed-in user. Returns the created request id.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Full name of the person making the request."
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Contact email address."
+            },
+            "company": {
+              "type": "string",
+              "description": "Company or organization name."
+            },
+            "budget": {
+              "type": "string",
+              "description": "Rough budget (e.g. '$5k-$15k', '$25k+'). Optional."
+            },
+            "message": {
+              "type": "string",
+              "minLength": 10,
+              "description": "What the user wants to build. Include goals, scope, timeline."
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "message"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_contact_requests",
+        "title": "List my project inquiries",
+        "description": "List the signed-in user's own project inquiries submitted to Pleco Lab, most recent first.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "description": "Max rows to return. Default 20."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
