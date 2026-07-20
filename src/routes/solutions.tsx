@@ -618,102 +618,45 @@ function CRMMockup() {
   );
 }
 
-/* ----------------------------- More solutions ---------------------------- */
+/* ----------------------------- Our Ecosystem ---------------------------- */
 
-const MORE_SOLUTIONS = [
-  {
-    title: "AI Agents",
-    desc: "LLM-powered agents for sales, support, and internal operations.",
-    Icon: Bot,
-  },
-  {
-    title: "Business Automation",
-    desc: "Automate workflows across tools, teams, and processes.",
-    Icon: Workflow,
-  },
-  {
-    title: "Mobile App Development",
-    desc: "Native-quality iOS & Android apps built with React Native.",
-    Icon: Smartphone,
-  },
-  {
-    title: "WhatsApp Automation",
-    desc: "Conversational engagement, notifications, and chat commerce.",
-    Icon: MessageCircle,
-  },
-  {
-    title: "API Integrations",
-    desc: "Connect your SaaS stack with reliable, observable pipelines.",
-    Icon: Plug,
-  },
-  {
-    title: "UI/UX Design",
-    desc: "Product design systems built for clarity and conversion.",
-    Icon: Palette,
-  },
-  {
-    title: "Cloud Solutions",
-    desc: "Scalable infrastructure on AWS, GCP, and Cloudflare edge.",
-    Icon: Cloud,
-  },
-  {
-    title: "Analytics & Dashboards",
-    desc: "Business intelligence and real-time operational visibility.",
-    Icon: LineChart,
-  },
-];
+import { EcosystemCard } from "@/components/solutions/EcosystemCard";
+import { SOLUTIONS, ECOSYSTEM_ORDER } from "@/lib/solutions/data";
 
 function MoreSolutions() {
   return (
     <section
       className="mx-auto max-w-7xl px-4 py-16 md:py-24"
-      aria-labelledby="more-heading"
+      aria-labelledby="ecosystem-heading"
     >
-      <div className="mb-12 max-w-2xl">
-        <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/50">
-          More Solutions
+      <div className="mx-auto mb-14 max-w-3xl text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/70">
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-300" />
+          Our Ecosystem
         </span>
         <h2
-          id="more-heading"
-          className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl md:text-[42px]"
+          id="ecosystem-heading"
+          className="mt-4 text-[32px] font-semibold tracking-[-0.02em] text-white sm:text-[40px] md:text-[46px]"
           style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
         >
-          More ways we help businesses innovate.
+          Technology that grows with your business.
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-[1.7] text-white/60 sm:text-[16px]">
+          Every solution is designed to solve real business challenges. Whether you're
+          building your digital presence, automating operations, or developing enterprise
+          software, Pleco Labs delivers technology that scales with your ambitions.
+        </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {MORE_SOLUTIONS.map(({ title, desc, Icon }) => (
-          <article
-            key={title}
-            className="group relative overflow-hidden rounded-2xl border border-white/8 bg-white/[0.025] p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/15 hover:bg-white/[0.045]"
-          >
-            <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-400/15 to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-            <div className="relative">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white/85">
-                <Icon className="h-4.5 w-4.5" />
-              </div>
-              <h3
-                className="mt-5 text-[16.5px] font-semibold tracking-[-0.01em] text-white"
-                style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-              >
-                {title}
-              </h3>
-              <p className="mt-2 text-[13px] leading-[1.65] text-white/60">{desc}</p>
-              <a
-                href="/#contact"
-                className="mt-5 inline-flex items-center gap-1 text-[12.5px] font-medium text-white/75 transition hover:text-white"
-              >
-                Learn More
-                <ArrowRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
-          </article>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {ECOSYSTEM_ORDER.map((slug) => (
+          <EcosystemCard key={slug} config={SOLUTIONS[slug]} />
         ))}
       </div>
     </section>
   );
 }
+
 
 /* ------------------------------ Why Pleco -------------------------------- */
 

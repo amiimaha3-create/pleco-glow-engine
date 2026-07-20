@@ -14,6 +14,14 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SolutionsWhatsappAutomationRouteImport } from './routes/solutions.whatsapp-automation'
+import { Route as SolutionsUiUxDesignRouteImport } from './routes/solutions.ui-ux-design'
+import { Route as SolutionsMobileAppDevelopmentRouteImport } from './routes/solutions.mobile-app-development'
+import { Route as SolutionsCloudSolutionsRouteImport } from './routes/solutions.cloud-solutions'
+import { Route as SolutionsBusinessAutomationRouteImport } from './routes/solutions.business-automation'
+import { Route as SolutionsApiIntegrationsRouteImport } from './routes/solutions.api-integrations'
+import { Route as SolutionsAnalyticsDashboardsRouteImport } from './routes/solutions.analytics-dashboards'
+import { Route as SolutionsAiAgentsRouteImport } from './routes/solutions.ai-agents'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -44,6 +52,51 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsWhatsappAutomationRoute =
+  SolutionsWhatsappAutomationRouteImport.update({
+    id: '/whatsapp-automation',
+    path: '/whatsapp-automation',
+    getParentRoute: () => SolutionsRoute,
+  } as any)
+const SolutionsUiUxDesignRoute = SolutionsUiUxDesignRouteImport.update({
+  id: '/ui-ux-design',
+  path: '/ui-ux-design',
+  getParentRoute: () => SolutionsRoute,
+} as any)
+const SolutionsMobileAppDevelopmentRoute =
+  SolutionsMobileAppDevelopmentRouteImport.update({
+    id: '/mobile-app-development',
+    path: '/mobile-app-development',
+    getParentRoute: () => SolutionsRoute,
+  } as any)
+const SolutionsCloudSolutionsRoute = SolutionsCloudSolutionsRouteImport.update({
+  id: '/cloud-solutions',
+  path: '/cloud-solutions',
+  getParentRoute: () => SolutionsRoute,
+} as any)
+const SolutionsBusinessAutomationRoute =
+  SolutionsBusinessAutomationRouteImport.update({
+    id: '/business-automation',
+    path: '/business-automation',
+    getParentRoute: () => SolutionsRoute,
+  } as any)
+const SolutionsApiIntegrationsRoute =
+  SolutionsApiIntegrationsRouteImport.update({
+    id: '/api-integrations',
+    path: '/api-integrations',
+    getParentRoute: () => SolutionsRoute,
+  } as any)
+const SolutionsAnalyticsDashboardsRoute =
+  SolutionsAnalyticsDashboardsRouteImport.update({
+    id: '/analytics-dashboards',
+    path: '/analytics-dashboards',
+    getParentRoute: () => SolutionsRoute,
+  } as any)
+const SolutionsAiAgentsRoute = SolutionsAiAgentsRouteImport.update({
+  id: '/ai-agents',
+  path: '/ai-agents',
+  getParentRoute: () => SolutionsRoute,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
@@ -79,10 +132,18 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/mcp': typeof McpRoute
-  '/solutions': typeof SolutionsRoute
+  '/solutions': typeof SolutionsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/solutions/ai-agents': typeof SolutionsAiAgentsRoute
+  '/solutions/analytics-dashboards': typeof SolutionsAnalyticsDashboardsRoute
+  '/solutions/api-integrations': typeof SolutionsApiIntegrationsRoute
+  '/solutions/business-automation': typeof SolutionsBusinessAutomationRoute
+  '/solutions/cloud-solutions': typeof SolutionsCloudSolutionsRoute
+  '/solutions/mobile-app-development': typeof SolutionsMobileAppDevelopmentRoute
+  '/solutions/ui-ux-design': typeof SolutionsUiUxDesignRoute
+  '/solutions/whatsapp-automation': typeof SolutionsWhatsappAutomationRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -91,10 +152,18 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/mcp': typeof McpRoute
-  '/solutions': typeof SolutionsRoute
+  '/solutions': typeof SolutionsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/solutions/ai-agents': typeof SolutionsAiAgentsRoute
+  '/solutions/analytics-dashboards': typeof SolutionsAnalyticsDashboardsRoute
+  '/solutions/api-integrations': typeof SolutionsApiIntegrationsRoute
+  '/solutions/business-automation': typeof SolutionsBusinessAutomationRoute
+  '/solutions/cloud-solutions': typeof SolutionsCloudSolutionsRoute
+  '/solutions/mobile-app-development': typeof SolutionsMobileAppDevelopmentRoute
+  '/solutions/ui-ux-design': typeof SolutionsUiUxDesignRoute
+  '/solutions/whatsapp-automation': typeof SolutionsWhatsappAutomationRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -104,10 +173,18 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/mcp': typeof McpRoute
-  '/solutions': typeof SolutionsRoute
+  '/solutions': typeof SolutionsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/api/chat': typeof ApiChatRoute
+  '/solutions/ai-agents': typeof SolutionsAiAgentsRoute
+  '/solutions/analytics-dashboards': typeof SolutionsAnalyticsDashboardsRoute
+  '/solutions/api-integrations': typeof SolutionsApiIntegrationsRoute
+  '/solutions/business-automation': typeof SolutionsBusinessAutomationRoute
+  '/solutions/cloud-solutions': typeof SolutionsCloudSolutionsRoute
+  '/solutions/mobile-app-development': typeof SolutionsMobileAppDevelopmentRoute
+  '/solutions/ui-ux-design': typeof SolutionsUiUxDesignRoute
+  '/solutions/whatsapp-automation': typeof SolutionsWhatsappAutomationRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -122,6 +199,14 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/solutions/ai-agents'
+    | '/solutions/analytics-dashboards'
+    | '/solutions/api-integrations'
+    | '/solutions/business-automation'
+    | '/solutions/cloud-solutions'
+    | '/solutions/mobile-app-development'
+    | '/solutions/ui-ux-design'
+    | '/solutions/whatsapp-automation'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
@@ -134,6 +219,14 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/solutions/ai-agents'
+    | '/solutions/analytics-dashboards'
+    | '/solutions/api-integrations'
+    | '/solutions/business-automation'
+    | '/solutions/cloud-solutions'
+    | '/solutions/mobile-app-development'
+    | '/solutions/ui-ux-design'
+    | '/solutions/whatsapp-automation'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   id:
@@ -146,6 +239,14 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/api/chat'
+    | '/solutions/ai-agents'
+    | '/solutions/analytics-dashboards'
+    | '/solutions/api-integrations'
+    | '/solutions/business-automation'
+    | '/solutions/cloud-solutions'
+    | '/solutions/mobile-app-development'
+    | '/solutions/ui-ux-design'
+    | '/solutions/whatsapp-automation'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
@@ -155,7 +256,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ChatRoute: typeof ChatRoute
   McpRoute: typeof McpRoute
-  SolutionsRoute: typeof SolutionsRoute
+  SolutionsRoute: typeof SolutionsRouteWithChildren
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -200,6 +301,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/solutions/whatsapp-automation': {
+      id: '/solutions/whatsapp-automation'
+      path: '/whatsapp-automation'
+      fullPath: '/solutions/whatsapp-automation'
+      preLoaderRoute: typeof SolutionsWhatsappAutomationRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/solutions/ui-ux-design': {
+      id: '/solutions/ui-ux-design'
+      path: '/ui-ux-design'
+      fullPath: '/solutions/ui-ux-design'
+      preLoaderRoute: typeof SolutionsUiUxDesignRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/solutions/mobile-app-development': {
+      id: '/solutions/mobile-app-development'
+      path: '/mobile-app-development'
+      fullPath: '/solutions/mobile-app-development'
+      preLoaderRoute: typeof SolutionsMobileAppDevelopmentRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/solutions/cloud-solutions': {
+      id: '/solutions/cloud-solutions'
+      path: '/cloud-solutions'
+      fullPath: '/solutions/cloud-solutions'
+      preLoaderRoute: typeof SolutionsCloudSolutionsRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/solutions/business-automation': {
+      id: '/solutions/business-automation'
+      path: '/business-automation'
+      fullPath: '/solutions/business-automation'
+      preLoaderRoute: typeof SolutionsBusinessAutomationRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/solutions/api-integrations': {
+      id: '/solutions/api-integrations'
+      path: '/api-integrations'
+      fullPath: '/solutions/api-integrations'
+      preLoaderRoute: typeof SolutionsApiIntegrationsRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/solutions/analytics-dashboards': {
+      id: '/solutions/analytics-dashboards'
+      path: '/analytics-dashboards'
+      fullPath: '/solutions/analytics-dashboards'
+      preLoaderRoute: typeof SolutionsAnalyticsDashboardsRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/solutions/ai-agents': {
+      id: '/solutions/ai-agents'
+      path: '/ai-agents'
+      fullPath: '/solutions/ai-agents'
+      preLoaderRoute: typeof SolutionsAiAgentsRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -238,12 +395,38 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface SolutionsRouteChildren {
+  SolutionsAiAgentsRoute: typeof SolutionsAiAgentsRoute
+  SolutionsAnalyticsDashboardsRoute: typeof SolutionsAnalyticsDashboardsRoute
+  SolutionsApiIntegrationsRoute: typeof SolutionsApiIntegrationsRoute
+  SolutionsBusinessAutomationRoute: typeof SolutionsBusinessAutomationRoute
+  SolutionsCloudSolutionsRoute: typeof SolutionsCloudSolutionsRoute
+  SolutionsMobileAppDevelopmentRoute: typeof SolutionsMobileAppDevelopmentRoute
+  SolutionsUiUxDesignRoute: typeof SolutionsUiUxDesignRoute
+  SolutionsWhatsappAutomationRoute: typeof SolutionsWhatsappAutomationRoute
+}
+
+const SolutionsRouteChildren: SolutionsRouteChildren = {
+  SolutionsAiAgentsRoute: SolutionsAiAgentsRoute,
+  SolutionsAnalyticsDashboardsRoute: SolutionsAnalyticsDashboardsRoute,
+  SolutionsApiIntegrationsRoute: SolutionsApiIntegrationsRoute,
+  SolutionsBusinessAutomationRoute: SolutionsBusinessAutomationRoute,
+  SolutionsCloudSolutionsRoute: SolutionsCloudSolutionsRoute,
+  SolutionsMobileAppDevelopmentRoute: SolutionsMobileAppDevelopmentRoute,
+  SolutionsUiUxDesignRoute: SolutionsUiUxDesignRoute,
+  SolutionsWhatsappAutomationRoute: SolutionsWhatsappAutomationRoute,
+}
+
+const SolutionsRouteWithChildren = SolutionsRoute._addFileChildren(
+  SolutionsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ChatRoute: ChatRoute,
   McpRoute: McpRoute,
-  SolutionsRoute: SolutionsRoute,
+  SolutionsRoute: SolutionsRouteWithChildren,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
