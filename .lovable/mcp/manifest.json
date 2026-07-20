@@ -42,6 +42,7 @@
           "openWorldHint": false
         },
         "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
           "type": "object",
           "properties": {
             "name": {
@@ -52,15 +53,16 @@
             "email": {
               "type": "string",
               "format": "email",
+              "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
               "description": "Contact email address."
             },
             "company": {
-              "type": "string",
-              "description": "Company or organization name."
+              "description": "Company or organization name.",
+              "type": "string"
             },
             "budget": {
-              "type": "string",
-              "description": "Rough budget (e.g. '$5k-$15k', '$25k+'). Optional."
+              "description": "Rough budget (e.g. '$5k-$15k', '$25k+'). Optional.",
+              "type": "string"
             },
             "message": {
               "type": "string",
@@ -72,9 +74,7 @@
             "name",
             "email",
             "message"
-          ],
-          "additionalProperties": false,
-          "$schema": "http://json-schema.org/draft-07/schema#"
+          ]
         },
         "outputSchema": null
       },
@@ -88,15 +88,16 @@
           "openWorldHint": false
         },
         "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
           "type": "object",
           "properties": {
             "limit": {
+              "description": "Max rows to return. Default 20.",
               "type": "integer",
-              "description": "Max rows to return. Default 20."
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
             }
-          },
-          "additionalProperties": false,
-          "$schema": "http://json-schema.org/draft-07/schema#"
+          }
         },
         "outputSchema": null
       }
