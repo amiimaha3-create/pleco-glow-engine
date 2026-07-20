@@ -251,17 +251,35 @@ function Nav() {
         >
           <Logo />
           <nav className="hidden items-center gap-8 md:flex">
-            {links.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className="group relative text-[13.5px] font-medium tracking-[-0.005em] text-white/65 transition-colors duration-200 hover:text-white"
-                style={{ fontFamily: "Inter, sans-serif" }}
-              >
-                {l.label}
+            {links.map((l) => {
+              const isInternal = l.href.startsWith("/");
+              const cls =
+                "group relative text-[13.5px] font-medium tracking-[-0.005em] text-white/65 transition-colors duration-200 hover:text-white";
+              const underline = (
                 <span className="pointer-events-none absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-white/0 via-white/70 to-white/0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
-              </a>
-            ))}
+              );
+              return isInternal ? (
+                <Link
+                  key={l.label}
+                  to={l.href}
+                  className={cls}
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                >
+                  {l.label}
+                  {underline}
+                </Link>
+              ) : (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  className={cls}
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                >
+                  {l.label}
+                  {underline}
+                </a>
+              );
+            })}
           </nav>
           <div className="flex items-center gap-2">
             <CtaButton className="hidden sm:inline-flex">Start a Project</CtaButton>
