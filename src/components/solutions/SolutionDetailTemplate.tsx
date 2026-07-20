@@ -799,5 +799,3 @@ export function buildSolutionHead(config: SolutionConfig) {
   };
 }
 
-// Unused re-export shielding
-void (PropsWithChildren as unknown);
