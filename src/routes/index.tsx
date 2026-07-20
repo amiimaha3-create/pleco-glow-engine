@@ -644,12 +644,13 @@ function Hero() {
                   }}
                 />
               </button>
-              <button
+              <Link
+                to="/solutions"
                 className="group inline-flex h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/12 bg-white/[0.03] px-6 text-[15px] font-medium text-white/85 backdrop-blur-xl transition-all hover:border-white/20 hover:bg-white/[0.06]"
               >
                 Explore solutions
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
+              </Link>
             </div>
 
             {/* Metric cards */}
