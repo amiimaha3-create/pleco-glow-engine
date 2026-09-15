@@ -44,6 +44,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { BrandLogo } from "@/components/site/BrandLogo";
 
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
@@ -185,25 +186,6 @@ function BackgroundFX() {
 
 /* ----------------------------------- Nav ---------------------------------- */
 
-function Logo({ className = "" }: { className?: string }) {
-  return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      <div className="relative h-8 w-8">
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-indigo-400 via-violet-500 to-fuchsia-500 opacity-90" />
-        <div className="absolute inset-[2px] rounded-[7px] bg-[#0a1024] flex items-center justify-center">
-          <div className="h-2.5 w-2.5 rounded-sm bg-gradient-to-br from-indigo-300 to-violet-400" />
-        </div>
-      </div>
-      <span
-        className="text-[17px] font-semibold tracking-tight text-white"
-        style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-      >
-        Pleco<span className="text-indigo-300">Lab</span>
-      </span>
-    </div>
-  );
-}
-
 function Nav() {
   const links = [
     { label: "Solutions", href: "/solutions" },
@@ -249,7 +231,9 @@ function Nav() {
             scrolled ? "shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)]" : ""
           }`}
         >
-          <Logo />
+          <Link to="/" aria-label="PlecoLab home">
+            <BrandLogo />
+          </Link>
           <nav className="hidden items-center gap-8 md:flex">
             {links.map((l) => {
               const isInternal = l.href.startsWith("/");
@@ -3964,7 +3948,9 @@ function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_2.7fr]">
           {/* Brand */}
           <div>
-            <Logo />
+            <Link to="/" aria-label="PlecoLab home">
+              <BrandLogo />
+            </Link>
             <p className="mt-5 max-w-sm text-[13.5px] leading-[1.65] text-white/55">
               Premium product engineering &amp; automation partner. We build the
               systems that scale revenue, ops, and growth.

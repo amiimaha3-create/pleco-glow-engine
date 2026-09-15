@@ -26,6 +26,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
+import { BrandLogo } from "@/components/site/BrandLogo";
 
 const SITE_URL = "https://pleco-glow-engine.lovable.app";
 
@@ -174,16 +175,8 @@ function SolutionsNav() {
             scrolled ? "shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)]" : ""
           }`}
         >
-          <Link to="/" className="flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-white/95 to-white/70 text-[13px] font-bold text-[#060B1A]">
-              P
-            </span>
-            <span
-              className="text-[15px] font-semibold tracking-[-0.01em] text-white"
-              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-            >
-              Pleco Lab
-            </span>
+          <Link to="/" aria-label="PlecoLab home">
+            <BrandLogo />
           </Link>
           <nav className="hidden items-center gap-8 md:flex">
             {links.map((l) => (
@@ -842,16 +835,8 @@ function Footer() {
     <footer className="border-t border-white/8 bg-black/30">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-4">
         <div className="md:col-span-2">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-white/95 to-white/70 text-[13px] font-bold text-[#060B1A]">
-              P
-            </span>
-            <span
-              className="text-[15px] font-semibold text-white"
-              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-            >
-              Pleco Lab
-            </span>
+          <Link to="/" aria-label="PlecoLab home">
+            <BrandLogo />
           </Link>
           <p className="mt-4 max-w-sm text-[13px] leading-[1.7] text-white/55">
             A premium product engineering studio building websites, CRMs, AI agents, and
