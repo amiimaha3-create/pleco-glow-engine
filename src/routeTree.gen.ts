@@ -13,6 +13,7 @@ import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as HowWeWorkRouteImport } from './routes/how-we-work'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SolutionsWhatsappAutomationRouteImport } from './routes/solutions.whatsapp-automation'
@@ -47,6 +48,11 @@ const HowWeWorkRoute = HowWeWorkRouteImport.update({
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesRoute = CaseStudiesRouteImport.update({
+  id: '/case-studies',
+  path: '/case-studies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -136,6 +142,7 @@ const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/case-studies': typeof CaseStudiesRoute
   '/chat': typeof ChatRoute
   '/how-we-work': typeof HowWeWorkRoute
   '/mcp': typeof McpRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/case-studies': typeof CaseStudiesRoute
   '/chat': typeof ChatRoute
   '/how-we-work': typeof HowWeWorkRoute
   '/mcp': typeof McpRoute
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/case-studies': typeof CaseStudiesRoute
   '/chat': typeof ChatRoute
   '/how-we-work': typeof HowWeWorkRoute
   '/mcp': typeof McpRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/case-studies'
     | '/chat'
     | '/how-we-work'
     | '/mcp'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/case-studies'
     | '/chat'
     | '/how-we-work'
     | '/mcp'
@@ -244,6 +255,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/case-studies'
     | '/chat'
     | '/how-we-work'
     | '/mcp'
@@ -266,6 +278,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  CaseStudiesRoute: typeof CaseStudiesRoute
   ChatRoute: typeof ChatRoute
   HowWeWorkRoute: typeof HowWeWorkRoute
   McpRoute: typeof McpRoute
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       path: '/chat'
       fullPath: '/chat'
       preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies': {
+      id: '/case-studies'
+      path: '/case-studies'
+      fullPath: '/case-studies'
+      preLoaderRoute: typeof CaseStudiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -444,6 +464,7 @@ const SolutionsRouteWithChildren = SolutionsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  CaseStudiesRoute: CaseStudiesRoute,
   ChatRoute: ChatRoute,
   HowWeWorkRoute: HowWeWorkRoute,
   McpRoute: McpRoute,
