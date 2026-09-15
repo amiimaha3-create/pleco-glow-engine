@@ -4,6 +4,7 @@ import { DefaultChatTransport, type UIMessage } from "ai";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { ArrowLeft, Send, Sparkles } from "lucide-react";
+import { BrandLogo } from "@/components/site/BrandLogo";
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
@@ -54,12 +55,9 @@ function ChatPage() {
             <ArrowLeft className="h-4 w-4" />
             Back
           </Link>
-          <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-indigo-500 to-purple-500">
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <span className="text-sm font-semibold tracking-tight">Pleco Lab AI</span>
-          </div>
+          <Link to="/" aria-label="PlecoLab home">
+            <BrandLogo />
+          </Link>
           <div className="w-12" />
         </div>
       </header>

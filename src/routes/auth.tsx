@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Sparkles } from "lucide-react";
+import { BrandLogo } from "@/components/site/BrandLogo";
 
 function isSameOriginPath(value: string | undefined | null): value is string {
   return !!value && value.startsWith("/") && !value.startsWith("//");
@@ -121,11 +122,8 @@ function AuthPage() {
         <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-purple-500/10 blur-3xl" />
       </div>
       <div className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-white/[0.03] p-8 shadow-2xl backdrop-blur-xl">
-        <Link to="/" className="mb-6 flex items-center gap-2 text-sm text-white/60 hover:text-white">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500">
-            <Sparkles className="h-4 w-4" />
-          </div>
-          <span className="font-semibold tracking-tight text-white">Pleco Lab</span>
+        <Link to="/" className="mb-6 inline-flex" aria-label="PlecoLab home">
+          <BrandLogo />
         </Link>
 
         <h1 className="text-2xl font-semibold tracking-tight">

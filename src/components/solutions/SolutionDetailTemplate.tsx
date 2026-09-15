@@ -5,6 +5,7 @@ import type { SolutionConfig } from "@/lib/solutions/types";
 import { EcosystemCard } from "./EcosystemCard";
 import { FadeUp, FloatY, Stagger, StaggerItem } from "./motion";
 import { SOLUTIONS } from "@/lib/solutions/data";
+import { BrandLogo } from "@/components/site/BrandLogo";
 import {
   BadgeCheck,
   CheckCircle2,
@@ -83,13 +84,8 @@ function DetailNav() {
             scrolled ? "shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)]" : ""
           }`}
         >
-          <Link to="/" className="flex items-center gap-2">
-            <span
-              className="text-[15px] font-semibold tracking-[-0.02em] text-white"
-              style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-            >
-              Pleco Labs
-            </span>
+          <Link to="/" aria-label="PlecoLab home">
+            <BrandLogo />
           </Link>
           <nav className="hidden items-center gap-8 md:flex">
             {links.map((l) =>
@@ -162,12 +158,9 @@ function DetailFooter() {
   return (
     <footer className="mt-24 border-t border-white/[0.06] py-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 md:flex-row">
-        <span
-          className="text-[13px] font-semibold tracking-[-0.01em] text-white/80"
-          style={{ fontFamily: "Space Grotesk, Inter, sans-serif" }}
-        >
-          Pleco Labs
-        </span>
+        <Link to="/" aria-label="PlecoLab home">
+          <BrandLogo />
+        </Link>
         <p className="text-[12px] text-white/45">
           © {new Date().getFullYear()} Pleco Labs. Technology that helps businesses scale.
         </p>
