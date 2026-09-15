@@ -205,37 +205,29 @@ function HeroOrbit() {
           { left: "72%", top: "82%" },
         ][i]!;
         return (
-          <FloatY
-            key={s.label}
-            className="absolute"
-            amplitude={5 + (i % 3) * 2}
-            duration={6 + i * 0.7}
-            delay={i * 0.25}
-          >
-            <div
-              className="glass-strong flex w-[124px] items-center gap-2.5 rounded-xl border border-white/10 px-3 py-2.5 shadow-[0_18px_40px_-22px_rgba(0,0,0,0.8)] sm:w-[138px]"
-              style={{ position: "relative" }}
+          <div key={s.label} className="absolute" style={pos}>
+            <FloatY
+              amplitude={5 + (i % 3) * 2}
+              duration={6 + i * 0.7}
+              delay={i * 0.25}
             >
-              <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#60a5fa]/25 bg-[#60a5fa]/10">
-                <s.Icon className="h-3.5 w-3.5 text-[#93c5fd]" />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-[9.5px] font-medium tracking-[0.14em] text-white/40">
-                  {s.n}
+              <div className="glass-strong flex w-[112px] items-center gap-2.5 rounded-xl border border-white/10 px-2.5 py-2.5 shadow-[0_18px_40px_-22px_rgba(0,0,0,0.8)] sm:w-[138px] sm:px-3">
+                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#60a5fa]/25 bg-[#60a5fa]/10">
+                  <s.Icon className="h-3.5 w-3.5 text-[#93c5fd]" />
                 </span>
-                <span className="block truncate text-[12.5px] font-medium text-white/85">
-                  {s.label}
+                <span className="min-w-0">
+                  <span className="block text-[9.5px] font-medium tracking-[0.14em] text-white/40">
+                    {s.n}
+                  </span>
+                  <span className="block truncate text-[12.5px] font-medium text-white/85">
+                    {s.label}
+                  </span>
                 </span>
-              </span>
-            </div>
-          </FloatY>
+              </div>
+            </FloatY>
+          </div>
         );
       })}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{ position: "absolute" }}
-      />
       <style>{`
         .hww-orbit-dash { animation: hwwDash 22s linear infinite; }
         @keyframes hwwDash { to { stroke-dashoffset: -320; } }
@@ -243,10 +235,7 @@ function HeroOrbit() {
           .hww-orbit-dash { animation: none; }
         }
       `}</style>
-      {/* absolute wrapper positioning for panels */}
-      <style>{`
-        .hww-orbit-panel { position: absolute; }
-      `}</style>
+
     </div>
   );
 }
