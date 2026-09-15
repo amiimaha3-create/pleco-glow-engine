@@ -424,7 +424,7 @@ function StepVisual({ kind }: { kind: StepData["visual"] }) {
   const stroke = "rgba(147,197,253,0.55)";
   const faint = "rgba(147,197,253,0.2)";
   return (
-    <div className="relative h-[92px] w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#0a1density]">
+    <div className="relative h-[92px] w-full overflow-hidden rounded-xl border border-white/[0.06] bg-[#0a1226]">
       <div
         aria-hidden
         className="absolute inset-0"
