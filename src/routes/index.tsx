@@ -44,6 +44,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { BrandLogo } from "@/components/site/BrandLogo";
 
 
 /* ----------------------------- Hooks / Utilities ---------------------------- */
@@ -230,7 +231,9 @@ function Nav() {
             scrolled ? "shadow-[0_10px_40px_-12px_rgba(0,0,0,0.6)]" : ""
           }`}
         >
-          <Logo />
+          <Link to="/" aria-label="PlecoLab home">
+            <BrandLogo />
+          </Link>
           <nav className="hidden items-center gap-8 md:flex">
             {links.map((l) => {
               const isInternal = l.href.startsWith("/");
@@ -3945,7 +3948,9 @@ function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_2.7fr]">
           {/* Brand */}
           <div>
-            <Logo />
+            <Link to="/" aria-label="PlecoLab home">
+              <BrandLogo />
+            </Link>
             <p className="mt-5 max-w-sm text-[13.5px] leading-[1.65] text-white/55">
               Premium product engineering &amp; automation partner. We build the
               systems that scale revenue, ops, and growth.
