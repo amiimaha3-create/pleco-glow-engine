@@ -254,10 +254,10 @@ function HeroOrbit() {
         const pos = [
           { left: "2%", top: "70%" },
           { left: "13%", top: "38%" },
-          { left: "34%", top: "14%" },
-          { left: "58%", top: "60%" },
-          { left: "66%", top: "26%" },
-          { left: "72%", top: "82%" },
+          { left: "32%", top: "14%" },
+          { left: "54%", top: "60%" },
+          { left: "60%", top: "26%" },
+          { left: "62%", top: "82%" },
         ][i]!;
         return (
           <div key={s.label} className="absolute" style={pos}>
