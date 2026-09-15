@@ -133,7 +133,7 @@ function BackgroundFX() {
 function SolutionsNav() {
   const links = [
     { label: "Solutions", href: "/solutions" },
-    { label: "How We Work", href: "/#process" },
+    { label: "How We Work", href: "/how-we-work" },
     { label: "Case Studies", href: "/#case-studies" },
     { label: "Contact", href: "/#contact" },
   ];
@@ -876,7 +876,7 @@ function Footer() {
           <ul className="mt-4 space-y-2 text-[13.5px] text-white/70">
             <li><Link to="/" className="hover:text-white">Home</Link></li>
             <li><a href="/#case-studies" className="hover:text-white">Case Studies</a></li>
-            <li><a href="/#process" className="hover:text-white">How We Work</a></li>
+            <li><a href="/how-we-work" className="hover:text-white">How We Work</a></li>
             <li><a href="/#contact" className="hover:text-white">Contact</a></li>
           </ul>
         </div>
