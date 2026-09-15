@@ -266,7 +266,7 @@ function HeroOrbit() {
               duration={6 + i * 0.7}
               delay={i * 0.25}
             >
-              <div className="glass-strong flex w-[112px] items-center gap-2.5 rounded-xl border border-white/10 px-2.5 py-2.5 shadow-[0_18px_40px_-22px_rgba(0,0,0,0.8)] sm:w-[138px] sm:px-3">
+              <div className="glass-strong flex w-[126px] items-center gap-2.5 rounded-xl border border-white/10 px-2.5 py-2.5 shadow-[0_18px_40px_-22px_rgba(0,0,0,0.8)] sm:w-[138px] sm:px-3">
                 <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#60a5fa]/25 bg-[#60a5fa]/10">
                   <s.Icon className="h-3.5 w-3.5 text-[#93c5fd]" />
                 </span>
