@@ -5,7 +5,7 @@ import { ArrowRight, ChevronRight, Menu, X } from "lucide-react";
 const NAV_LINKS = [
   { label: "Solutions", href: "/solutions" },
   { label: "How We Work", href: "/how-we-work" },
-  { label: "Case Studies", href: "/#case-studies" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Contact", href: "/#contact" },
 ];
 
@@ -216,7 +216,7 @@ export function SiteFooter() {
           </div>
           <ul className="mt-4 space-y-2 text-[13.5px] text-white/70">
             <li><Link to="/" className="hover:text-white">Home</Link></li>
-            <li><a href="/#case-studies" className="hover:text-white">Case Studies</a></li>
+            <li><a href="/case-studies" className="hover:text-white">Case Studies</a></li>
             <li><Link to="/how-we-work" className="hover:text-white">How We Work</Link></li>
             <li><a href="/#contact" className="hover:text-white">Contact</a></li>
           </ul>

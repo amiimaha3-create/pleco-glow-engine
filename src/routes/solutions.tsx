@@ -134,7 +134,7 @@ function SolutionsNav() {
   const links = [
     { label: "Solutions", href: "/solutions" },
     { label: "How We Work", href: "/how-we-work" },
-    { label: "Case Studies", href: "/#case-studies" },
+    { label: "Case Studies", href: "/case-studies" },
     { label: "Contact", href: "/#contact" },
   ];
   const [open, setOpen] = useState(false);
@@ -312,7 +312,7 @@ function Hero() {
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
             </a>
             <a
-              href="/#case-studies"
+              href="/case-studies"
               className="inline-flex h-11 items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 text-[14px] font-medium text-white/85 transition hover:bg-white/[0.08]"
             >
               View Our Work
@@ -875,7 +875,7 @@ function Footer() {
           </div>
           <ul className="mt-4 space-y-2 text-[13.5px] text-white/70">
             <li><Link to="/" className="hover:text-white">Home</Link></li>
-            <li><a href="/#case-studies" className="hover:text-white">Case Studies</a></li>
+            <li><a href="/case-studies" className="hover:text-white">Case Studies</a></li>
             <li><a href="/how-we-work" className="hover:text-white">How We Work</a></li>
             <li><a href="/#contact" className="hover:text-white">Contact</a></li>
           </ul>

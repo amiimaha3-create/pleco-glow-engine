@@ -71,7 +71,7 @@ function DetailNav() {
   const links: { label: string; href: string; internal?: boolean }[] = [
     { label: "Solutions", href: "/solutions", internal: true },
     { label: "How We Work", href: "/how-we-work" },
-    { label: "Case Studies", href: "/#case-studies" },
+    { label: "Case Studies", href: "/case-studies" },
     { label: "Contact", href: "/#contact" },
   ];
 

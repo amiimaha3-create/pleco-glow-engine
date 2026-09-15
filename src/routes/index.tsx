@@ -208,7 +208,7 @@ function Nav() {
   const links = [
     { label: "Solutions", href: "/solutions" },
     { label: "How We Work", href: "/how-we-work" },
-    { label: "Case Studies", href: "#case-studies" },
+    { label: "Case Studies", href: "/case-studies" },
     { label: "Contact", href: "#contact" },
   ];
   const [open, setOpen] = useState(false);
