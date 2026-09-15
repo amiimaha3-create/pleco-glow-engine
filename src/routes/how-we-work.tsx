@@ -14,7 +14,62 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { BackgroundFX, SiteFooter, SiteNav } from "@/components/site/SiteChrome";
-import { FadeUp, FloatY } from "@/components/solutions/motion";
+import { useEffect, useRef, useState } from "react";
+import type { PropsWithChildren } from "react";
+
+/* --------------------- lightweight reveal / float utils -------------------- */
+
+function FadeUp({
+  children,
+  delay = 0,
+  className,
+  as: Tag = "div",
+}: PropsWithChildren<{ delay?: number; className?: string; as?: "div" | "h1" }>) {
+  const ref = useRef<HTMLElement | null>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setShown(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -5% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <Tag
+      ref={ref as never}
+      className={`hww-reveal ${shown ? "is-in" : ""} ${className ?? ""}`}
+      style={{ transitionDelay: `${delay}s` }}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+function FloatY({
+  children,
+  duration = 7,
+  delay = 0,
+}: PropsWithChildren<{ amplitude?: number; duration?: number; delay?: number }>) {
+  return (
+    <div className="hww-float" style={{ animationDuration: `${duration}s`, animationDelay: `${delay}s` }}>
+      {children}
+    </div>
+  );
+}
 
 const SITE_URL = "https://pleco-glow-engine.lovable.app";
 
