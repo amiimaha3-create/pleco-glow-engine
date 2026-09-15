@@ -1111,3 +1111,27 @@
   initial-value: 0deg;
   inherits: false;
 }
+
+/* How We Work — lightweight scroll reveal */
+.hww-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+.hww-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.hww-float {
+  animation: hwwFloat 7s ease-in-out infinite;
+}
+@keyframes hwwFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hww-reveal { opacity: 1; transform: none; transition: none; }
+  .hww-float { animation: none; }
+}
